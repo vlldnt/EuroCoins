@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { asset } from '../data'
 import type { PreviewContent } from './useCoinPreview'
+import { Flag } from './Flag'
 
 export interface PreviewState extends PreviewContent {
   anchor: DOMRect
@@ -40,7 +41,10 @@ export function PreviewCard({ preview }: { preview: PreviewState }) {
       <div className="coin-preview-image">
         <img key={preview.image} src={asset(preview.image)} alt="" />
       </div>
-      <strong className="coin-preview-title">{preview.title}</strong>
+      <strong className="coin-preview-title">
+        {preview.iso && <Flag id={preview.iso} />}
+        <span>{preview.title}</span>
+      </strong>
       {preview.text &&
         preview.text.split('\n').map((p, i) => (
           <p key={i} className="coin-preview-text">

@@ -21,8 +21,6 @@ function skipTo(e: React.MouseEvent, id: string) {
   document.getElementById(id)?.focus()
 }
 
-// Côté de la fenêtre pays : à l'opposé du point cliqué, pour garder le pays visible.
-type Side = 'left' | 'right'
 
 export default function App() {
   const { t, textsLang } = useI18n()
@@ -30,7 +28,6 @@ export default function App() {
   const [selected, setSelected] = useState<string | null>(readHash)
   // Élément qui avait le focus avant l'ouverture de la fenêtre : il le retrouve à la fermeture.
   const returnFocus = useRef<HTMLElement | SVGElement | null>(null)
-  const [side, setSide] = useState<Side>('right')
   const [zoom, setZoom] = useState<{ items: ZoomItem[]; index: number } | null>(null)
 
   useEffect(() => {
@@ -39,8 +36,7 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
-  const select = useCallback((iso: string | null, clientX?: number) => {
-    if (iso && clientX !== undefined) setSide(clientX > window.innerWidth * 0.55 ? 'left' : 'right')
+  const select = useCallback((iso: string | null) => {
     if (iso && !returnFocus.current) returnFocus.current = document.activeElement as HTMLElement | null
     if (!iso) {
       const target = returnFocus.current
@@ -117,7 +113,6 @@ export default function App() {
           <CountryPanel
             key={country.iso}
             country={country}
-            side={side}
             onClose={close}
             onZoom={(items, index) => setZoom({ items, index })}
           />

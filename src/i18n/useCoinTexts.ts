@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { denominationValue, type CommemorativeCoin, type Country, type DenominationId } from '../data'
 import { useI18n } from '.'
+import { LOCALES } from './languages'
 
 // Accès aux textes traduits des pièces, avec repli sur le français de coins.json.
 export function useCoinTexts() {
@@ -45,5 +46,24 @@ export function useCoinTexts() {
 
   const nameOf = useCallback((country: Country) => countryName(country.iso, country.name), [countryName])
 
-  return { denominationLabel, commTitle, commDescription, commDesign, regularDescription, countryDescription, nameOf }
+  /** Nom du pays dans sa propre langue (« Deutschland », « België », « Ελλάδα »…). */
+  const nativeNameOf = useCallback(
+    (country: Country) => {
+      const locale = LOCALES.find((l) => l.id === country.iso)
+      if (!locale) return country.name
+      return locale.country ?? countryName(country.iso, country.name, locale.lang)
+    },
+    [countryName],
+  )
+
+  return {
+    denominationLabel,
+    commTitle,
+    commDescription,
+    commDesign,
+    regularDescription,
+    countryDescription,
+    nameOf,
+    nativeNameOf,
+  }
 }

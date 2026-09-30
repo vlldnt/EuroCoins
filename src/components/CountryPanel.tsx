@@ -13,6 +13,7 @@ import { useI18n } from '../i18n'
 import { useCoinTexts } from '../i18n/useCoinTexts'
 import type { ZoomItem } from './Lightbox'
 import { useCoinPreview, type PreviewContent } from './useCoinPreview'
+import { CountryHeading } from './CountryHeading'
 
 type Tab = 'regular' | 'commemorative'
 
@@ -20,16 +21,13 @@ type Bind = (content: PreviewContent) => Record<string, unknown>
 
 interface Props {
   country: Country
-  /** Côté de la carte où s'ouvre la fenêtre (ordinateur, tablette). */
-  side: 'left' | 'right'
   onClose: () => void
   // Ouvre le carrousel sur items[index] ; les flèches permettent ensuite de parcourir items.
   onZoom: (items: ZoomItem[], index: number) => void
 }
 
-export function CountryPanel({ country, side, onClose, onZoom }: Props) {
+export function CountryPanel({ country, onClose, onZoom }: Props) {
   const { t, plural, lang, textsLang, languageName } = useI18n()
-  const { nameOf } = useCoinTexts()
   const [tab, setTab] = useState<Tab>('regular')
   const commemorative = useMemo(() => commemorativeFor(country.iso), [country.iso])
   const preview = useCoinPreview()
@@ -64,20 +62,15 @@ export function CountryPanel({ country, side, onClose, onZoom }: Props) {
 
   return (
     <section
-      className={`panel is-${side}`}
+      className="panel"
       role="dialog"
       aria-labelledby="panel-title"
       data-keep-panel
       onScroll={preview.hide}
     >
       <header className="panel-header">
-        <div>
-          <h2 id="panel-title" ref={titleRef} tabIndex={-1}>
-            {nameOf(country)}
-          </h2>
-          <p className="panel-sub">{t('euroSince', { year: country.euroSince })}</p>
-        </div>
-        <button className="icon-button" onClick={onClose} aria-label={t('close')}>
+        <CountryHeading country={country} variant="panel" titleId="panel-title" titleRef={titleRef} />
+        <button className="icon-button panel-close" onClick={onClose} aria-label={t('close')}>
           ×
         </button>
       </header>
@@ -206,7 +199,14 @@ function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoo
     data.denominations.flatMap((d) => {
       const image = s.coins[d.id]
       return image
-        ? [{ image, caption: caption(denominationLabel(d.id), s.index), text: regularDescription(image) }]
+        ? [
+            {
+              image,
+              caption: caption(denominationLabel(d.id), s.index),
+              text: regularDescription(image),
+              iso: country.iso,
+            },
+          ]
         : []
     }),
   )
@@ -266,7 +266,7 @@ function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoo
                 >
                   <button
                     className="coin"
-                    {...bind({ image, title: text, text: regularDescription(image) })}
+                    {...bind({ image, title: text, text: regularDescription(image), iso: country.iso })}
                     onClick={() => onZoom(items, items.findIndex((it) => it.caption === text))}
                   >
                     <img src={asset(image)} alt={text} loading="lazy" />
@@ -317,6 +317,7 @@ function Commemoratives({
   const items = zoomable.map((c) => ({
     image: c.image!,
     caption: `${nameOf(country)} ${c.year} — ${commTitle(c)}`,
+    iso: country.iso,
     text: commDesign(c),
   }))
 
@@ -347,7 +348,7 @@ function Commemoratives({
                   <button
                     className="coin"
                     aria-label={heading}
-                    {...bind({ image: c.image, title: heading, text: commDesign(c) })}
+                    {...bind({ image: c.image, title: heading, text: commDesign(c), iso: country.iso })}
                     onClick={() => onZoom(items, zoomable.indexOf(c))}
                   >
                     <img src={asset(c.image)} alt="" loading="lazy" />

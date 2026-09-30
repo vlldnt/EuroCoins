@@ -422,13 +422,6 @@ body,
   }
 }
 
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-32px);
-  }
-}
-
 @keyframes sheet-in {
   from {
     transform: translateY(100%);
@@ -822,7 +815,7 @@ body,
   min-height: 0;
 }
 
-.map svg {
+.map > svg {
   position: absolute;
   inset: 0;
   display: block;
@@ -834,11 +827,11 @@ body,
   animation: fade-in 0.6s var(--ease);
 }
 
-.map.is-zoomed svg {
+.map.is-zoomed > svg {
   cursor: grab;
 }
 
-.map.is-zoomed svg:active {
+.map.is-zoomed > svg:active {
   cursor: grabbing;
 }
 
@@ -997,11 +990,6 @@ body,
   animation: rise-in 0.15s var(--ease);
 }
 
-.hover-card-name {
-  font-size: 1.25rem;
-  color: var(--text);
-}
-
 /* Les 8 pièces de la série actuelle, bien visibles (4 par ligne). */
 .hover-card-coins {
   display: grid;
@@ -1137,21 +1125,23 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   box-shadow: var(--shadow);
 }
 
-.panel.is-right {
+.panel {
   right: 14px;
   animation: slide-in 0.35s var(--ease);
 }
 
-.panel.is-left {
-  left: 14px;
-  animation: slide-in-left 0.35s var(--ease);
+.panel-header {
+  position: relative;
 }
 
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  gap: 12px;
+/* Bouton fermer posé sur le bandeau. */
+.panel-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  background: var(--surface);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
 }
 
 
@@ -1163,11 +1153,140 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
 .panel-header h2 {
   margin: 0;
   font-size: 1.6rem;
+  line-height: 1.15;
 }
 
-.panel-sub {
-  margin: 2px 0 0;
+/* ---------- en-tête pays (fenêtre et fiche de survol) ---------- */
+
+.country-heading {
+  position: relative;
+}
+
+/* Bandeau de la fenêtre : déborde jusqu'aux bords, drapeau flouté en fond. */
+.country-heading.is-panel {
+  margin: -14px -18px 0;
+  padding: 18px 18px 14px;
+  overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.country-heading-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.country-heading-backdrop .flag {
+  position: absolute;
+  inset: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  border-radius: 0;
+  box-shadow: none;
+  filter: blur(22px) saturate(1.3);
+  opacity: 0.6;
+}
+
+/* Fondu vers la couleur de la fenêtre, pour garder le texte lisible. */
+.country-heading-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 15%, transparent) 0%, color-mix(in srgb, var(--surface) 55%, transparent) 55%, var(--surface) 100%);
+}
+
+.country-heading-main {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-right: 44px;
+}
+
+.country-heading-flag .flag {
+  display: block;
+  width: 60px;
+  height: 40px;
+  border-radius: 6px;
+  box-shadow:
+    0 4px 12px rgb(0 0 0 / 0.25),
+    0 0 0 1px rgb(0 0 0 / 0.1);
+}
+
+.country-heading-names {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.country-heading-native {
   color: var(--muted);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+.country-facts {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.country-facts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tag-bg) 85%, transparent);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.country-facts svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: var(--euro-hover);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Variante fiche de survol : plus compacte. */
+.country-heading.is-card .country-heading-main {
+  padding-right: 0;
+  gap: 10px;
+}
+
+.country-heading.is-card .country-heading-flag .flag {
+  width: 42px;
+  height: 28px;
+  border-radius: 4px;
+}
+
+.country-heading.is-card strong {
+  font-size: 1.2rem;
+  color: var(--text);
+  line-height: 1.15;
+}
+
+.country-heading.is-card .country-facts {
+  margin-top: 10px;
+  gap: 4px;
+}
+
+.country-heading.is-card .country-facts li {
+  padding: 2px 8px;
+  font-size: 0.72rem;
 }
 
 .icon-button {
@@ -1549,7 +1668,9 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
 }
 
 .coin-preview-title {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 1rem;
   margin-bottom: 4px;
 }
@@ -1617,6 +1738,17 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   text-align: left;
   opacity: 0.85;
   white-space: pre-line;
+}
+
+.lightbox-caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lightbox-caption .flag {
+  width: 30px;
+  height: 20px;
 }
 
 .lightbox-position {
@@ -1755,9 +1887,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
 
 /* Tablette en portrait : la fiche monte du bas et laisse la carte visible au-dessus. */
 @media (min-width: 700px) and (max-width: 1199px) and (orientation: portrait) {
-  .panel,
-  .panel.is-left,
-  .panel.is-right {
+  .panel {
     position: fixed;
     top: auto;
     left: 12px;
@@ -1865,9 +1995,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   }
 
   /* Fenêtre pays : panneau qui monte du bas, la carte reste visible au-dessus. */
-  .panel,
-  .panel.is-left,
-  .panel.is-right {
+  .panel {
     position: fixed;
     top: auto;
     left: 0;
@@ -1904,6 +2032,18 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
 
   .panel-header h2 {
     font-size: 1.3rem;
+  }
+
+  /* Sous la poignée du panneau : le bandeau ne remonte pas jusqu'au bord. */
+  .country-heading.is-panel {
+    margin: 0 -14px;
+    padding: 10px 14px 12px;
+    border-radius: 0;
+  }
+
+  .country-heading-flag .flag {
+    width: 48px;
+    height: 32px;
   }
 
   .tabs button {

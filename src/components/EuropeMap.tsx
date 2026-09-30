@@ -1,9 +1,10 @@
 import { useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import map from '../data/europe-map.json'
-import { asset, commemorativeFor, countriesByIso, latestSeries, type Country, type DenominationId } from '../data'
+import { asset, countriesByIso, latestSeries, type Country, type DenominationId } from '../data'
 import { useI18n } from '../i18n'
 import { useCoinTexts } from '../i18n/useCoinTexts'
 import { useMapZoom, type Rect } from './useMapZoom'
+import { CountryHeading } from './CountryHeading'
 
 // Tracés précalculés par scripts/build-map.mjs. `focus` = zone euro à montrer en entier,
 // `bounds` = zone dessinée autour, utilisée pour remplir l'écran quel que soit son format.
@@ -41,7 +42,7 @@ interface Hover {
 
 interface Props {
   selected: string | null
-  onSelect: (iso: string, clientX?: number) => void
+  onSelect: (iso: string) => void
 }
 
 const KEY_PAN = 80 // px par appui sur une flèche
@@ -85,12 +86,11 @@ export function EuropeMap({ selected, onSelect }: Props) {
     'aria-label': `${nameOf(country)}, ${t('euroSince', { year: country.euroSince })}`,
     'aria-pressed': selected === country.iso,
     'data-keep-panel': true,
-    onClick: (e: React.MouseEvent) => onSelect(country.iso, e.clientX),
+    onClick: () => onSelect(country.iso),
     onKeyDown: (e: React.KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault()
-        const r = e.currentTarget.getBoundingClientRect()
-        onSelect(country.iso, r.left + r.width / 2)
+        onSelect(country.iso)
       }
     },
     onPointerMove: (e: React.PointerEvent) => {
@@ -200,13 +200,12 @@ const EDGE = 8
 // Fiche du pays survolé, près du curseur (ou du pays focalisé au clavier). Elle mesure sa taille
 // réelle et passe de l'autre côté si elle sortirait de la carte ou recouvrirait la fenêtre pays.
 function HoverCard({ hover, mapRef }: { hover: Hover; mapRef: React.RefObject<HTMLDivElement | null> }) {
-  const { t, plural } = useI18n()
-  const { nameOf, denominationLabel } = useCoinTexts()
+  const { t } = useI18n()
+  const { denominationLabel } = useCoinTexts()
   const ref = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState<{ left: number; top: number } | null>(null)
   const { country } = hover
   const series = latestSeries(country)
-  const commCount = commemorativeFor(country.iso).length
 
   useLayoutEffect(() => {
     const el = ref.current
@@ -238,11 +237,7 @@ function HoverCard({ hover, mapRef }: { hover: Hover; mapRef: React.RefObject<HT
       style={pos ? { left: pos.left, top: pos.top } : { visibility: 'hidden' }}
       aria-hidden="true"
     >
-      <strong className="hover-card-name">{nameOf(country)}</strong>
-      <span>{t('euroSince', { year: country.euroSince })}</span>
-      <span>
-        {plural('seriesOne', 'seriesMany', country.series.length)} · {plural('commOne', 'commMany', commCount)}
-      </span>
+      <CountryHeading country={country} variant="card" />
       <div className="hover-card-coins" key={country.iso}>
         {Object.entries(series?.coins ?? {}).map(([id, image]) => (
           <img key={id} src={asset(image!)} alt="" title={denominationLabel(id as DenominationId)} />

@@ -6,6 +6,8 @@ export interface PreviewContent {
   image: string
   title: string
   text?: string
+  /** Pays de la pièce : son drapeau accompagne le titre. */
+  iso?: string
 }
 
 // Aperçu au survol d'une pièce : grande image + description du graphisme (textes BCE).

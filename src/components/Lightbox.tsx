@@ -1,12 +1,15 @@
 import { useEffect, useRef } from 'react'
 import { asset } from '../data'
 import { useI18n } from '../i18n'
+import { Flag } from './Flag'
 
 export interface ZoomItem {
   image: string
   caption: string
   /** Ce que représente la pièce (texte BCE). */
   text?: string
+  /** Pays de la pièce : drapeau dans la légende. */
+  iso?: string
 }
 
 interface Props {
@@ -102,7 +105,10 @@ export function Lightbox({ items, index, onIndex, onClose }: Props) {
           {/* key : relance l'animation de fondu à chaque changement de pièce */}
           <img key={item.image} src={asset(item.image)} alt={item.caption} />
           <figcaption>
-            {item.caption}
+            <span className="lightbox-caption">
+              {item.iso && <Flag id={item.iso} />}
+              {item.caption}
+            </span>
             {item.text && <span className="lightbox-text">{item.text}</span>}
             {canNavigate && (
               <span className="lightbox-position" aria-hidden="true">
