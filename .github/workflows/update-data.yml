@@ -1,0 +1,58 @@
+# Mise à jour hebdomadaire des données BCE (nouvelles pièces, textes corrigés…).
+#
+# Chaque lundi, relance fetch-coins et fetch-texts. S'il y a du nouveau, commite sur main
+# puis redéploie le site. Lançable aussi à la main depuis l'onglet Actions.
+
+name: Mise à jour des données BCE
+
+on:
+  schedule:
+    - cron: '0 5 * * 1' # lundi 5 h UTC
+  workflow_dispatch:
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+      - run: npm run fetch-coins
+      - run: npm run fetch-texts
+
+      # Le champ generatedAt change à chaque passage : on ne commite que si le reste a changé.
+      - name: Commit si les données ont changé
+        id: commit
+        run: |
+          git add -A public/coins public/i18n src/data
+          if git diff --cached --quiet -- . ':(exclude)src/data/coins.json' \
+             && [ -z "$(git diff --cached -U0 src/data/coins.json | grep -E '^[+-] ' | grep -v generatedAt)" ]; then
+            echo "Aucune nouveauté côté BCE."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(données): mise à jour BCE du $(date +%Y-%m-%d)"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  # Un push fait avec GITHUB_TOKEN ne déclenche pas deploy.yml : on l'appelle explicitement.
+  deploy:
+    needs: update
+    if: needs.update.outputs.changed == 'true'
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit

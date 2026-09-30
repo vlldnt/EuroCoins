@@ -1,0 +1,1337 @@
+:root {
+  --bg: #f3f5f9;
+  --surface: #ffffff;
+  --text: #16203a;
+  --muted: #56607a;
+  --border: #d9dee8;
+  --sea: #bfd6ee;
+  --land: #f1f3f7;
+  --land-stroke: #c3ccda;
+  --euro: #2455c9;
+  --euro-hover: #3d6fe6;
+  --euro-stroke: #ffffff;
+  --link: #2f55b5;
+  --gold: #e0a800;
+  --selected: #f2b705;
+  --tag-bg: #eaeff8;
+  --shadow: 0 12px 32px rgb(10 20 50 / 0.16);
+  /* Les photos BCE sont très claires : une ombre douce (sans contour) les détache du fond clair. */
+  --coin-shadow: 0 3px 10px rgb(20 35 70 / 0.28), 0 1px 2px rgb(20 35 70 / 0.18);
+  --coin-filter: none;
+  --radius: 12px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  color-scheme: light;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Mode sombre : automatique (réglage du système) sauf si l'utilisateur a forcé le clair,
+   ou forcé via data-theme="dark" (voir ThemeToggle). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0e1424;
+    --surface: #161e33;
+    --text: #e8ecf6;
+    --muted: #a0aac4;
+    --border: #283352;
+    --sea: #0b1a33;
+    --land: #283149;
+    --land-stroke: #0e1424;
+    --euro: #3f67c9;
+    --euro-hover: #5a82e0;
+    --link: #8fb0ff;
+    --gold: #f2b705;
+    --tag-bg: #22305a;
+    --shadow: 0 12px 32px rgb(0 0 0 / 0.45);
+    --coin-shadow: 0 3px 10px rgb(0 0 0 / 0.55);
+    --euro-stroke: #0e1424;
+    --coin-filter: brightness(0.9) contrast(1.05);
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0e1424;
+  --surface: #161e33;
+  --text: #e8ecf6;
+  --muted: #a0aac4;
+  --border: #283352;
+  --sea: #0b1a33;
+  --land: #283149;
+  --land-stroke: #0e1424;
+  --euro: #3f67c9;
+  --euro-hover: #5a82e0;
+  --link: #8fb0ff;
+  --gold: #f2b705;
+  --tag-bg: #22305a;
+  --shadow: 0 12px 32px rgb(0 0 0 / 0.45);
+  --coin-shadow: 0 3px 10px rgb(0 0 0 / 0.55);
+  --euro-stroke: #0e1424;
+  --coin-filter: brightness(0.9) contrast(1.05);
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+button,
+select {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: var(--link);
+}
+
+body,
+.panel,
+.map,
+.country-chips button,
+.year-filter button,
+.language-trigger,
+.theme-toggle {
+  transition:
+    background-color 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- animations ---------- */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes coin-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- mise en page ---------- */
+
+.app {
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.site-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 1.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.01em;
+}
+
+.logo {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--euro);
+  color: var(--gold);
+  font-weight: 700;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 35%, transparent);
+}
+
+.site-header p {
+  margin: 2px 0 0;
+  color: var(--muted);
+}
+
+.header-tools {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  display: flex;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 999px;
+}
+
+.theme-toggle button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.theme-toggle button:hover {
+  color: var(--text);
+}
+
+.theme-toggle button[aria-pressed='true'] {
+  background: var(--euro);
+  color: #fff;
+}
+
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.language-select {
+  position: relative;
+  text-align: left;
+}
+
+.language-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 6px 12px 6px 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+
+.language-trigger:hover,
+.language-trigger[aria-expanded='true'] {
+  border-color: var(--euro-hover);
+}
+
+.chevron {
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s var(--ease);
+}
+
+.language-trigger[aria-expanded='true'] .chevron {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+.flag {
+  width: 24px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+
+.language-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 290px;
+  max-height: min(70dvh, 560px);
+  overflow-y: auto;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transform-origin: top right;
+  animation: rise-in 0.18s var(--ease);
+}
+
+.language-menu [role='option'] {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.language-menu [role='option']:hover,
+.language-menu [role='option']:focus-visible {
+  background: var(--tag-bg);
+  outline: none;
+}
+
+.language-menu [role='option'][aria-selected='true'] {
+  background: var(--euro);
+  color: #fff;
+}
+
+.language-menu [role='option'][aria-selected='true'] .language-country {
+  color: rgb(255 255 255 / 0.75);
+}
+
+.language-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.language-country {
+  font-size: 0.78rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.language-separator {
+  height: 1px;
+  margin: 6px 4px;
+  background: var(--border);
+}
+
+.layout {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.bottom-bar {
+  margin-top: 10px;
+}
+
+.site-footer {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ---------- carte ---------- */
+
+.map {
+  position: relative;
+  background: var(--sea);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.map svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Le pincement et le glisser sont gérés par useMapZoom, pas par le navigateur. */
+  touch-action: none;
+  user-select: none;
+  animation: fade-in 0.6s var(--ease);
+}
+
+.map.is-zoomed svg {
+  cursor: grab;
+}
+
+.map.is-zoomed svg:active {
+  cursor: grabbing;
+}
+
+/* Bordures fines quel que soit le zoom. */
+.map-country,
+.map-marker {
+  vector-effect: non-scaling-stroke;
+}
+
+.map-controls {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 3;
+}
+
+.map-controls button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.3rem;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+  transition:
+    background-color 0.2s,
+    opacity 0.2s,
+    transform 0.2s var(--ease);
+}
+
+.map-controls button:hover:not(:disabled) {
+  transform: scale(1.06);
+  border-color: var(--euro-hover);
+}
+
+.map-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.map-controls svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.map-sea {
+  fill: var(--sea);
+}
+
+.map-country {
+  fill: var(--land);
+  stroke: var(--land-stroke);
+  stroke-width: 0.6;
+}
+
+.map-country.is-euro {
+  fill: var(--euro);
+  stroke: var(--euro-stroke);
+  cursor: pointer;
+  transition: fill 0.25s var(--ease);
+}
+
+.map-country.is-euro.is-hovered,
+.map-country.is-euro:focus-visible {
+  fill: var(--euro-hover);
+  stroke: var(--gold);
+  stroke-width: 1.5;
+}
+
+.map-country.is-selected,
+.map-country.is-selected.is-hovered {
+  fill: var(--selected);
+}
+
+.map-country:focus,
+.map-marker:focus {
+  outline: none;
+}
+
+.map-marker {
+  fill: var(--euro);
+  stroke: var(--gold);
+  stroke-width: 2;
+  cursor: pointer;
+  transition:
+    r 0.2s var(--ease),
+    fill 0.2s var(--ease);
+}
+
+.map-marker:hover,
+.map-marker:focus-visible {
+  fill: var(--euro-hover);
+  r: 10;
+}
+
+.map-marker.is-selected {
+  fill: var(--selected);
+  stroke: var(--euro);
+}
+
+.map-hint {
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  transform: translateX(-50%);
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+  font-weight: 600;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: fade-in 0.4s var(--ease);
+}
+
+.hover-card {
+  position: absolute;
+  top: 14px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  font-size: 0.85rem;
+  color: var(--muted);
+  pointer-events: none;
+  animation: rise-in 0.2s var(--ease);
+  z-index: 2;
+}
+
+.hover-card.is-left {
+  left: 14px;
+}
+
+.hover-card.is-right {
+  right: 14px;
+}
+
+.hover-card-coins {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.hover-card-coins img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  clip-path: circle(49.5%);
+  filter: var(--coin-filter) drop-shadow(0 2px 4px rgb(0 0 0 / 0.2));
+  animation: coin-in 0.3s var(--ease);
+}
+
+.hover-card-name {
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.hover-card-cta {
+  margin-top: 6px;
+  color: var(--link);
+  font-weight: 600;
+}
+
+.country-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.country-select {
+  display: none;
+}
+
+.country-select select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: 1rem;
+}
+
+.country-chips button,
+.year-filter button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.country-chips button:hover,
+.year-filter button:hover {
+  border-color: var(--euro-hover);
+}
+
+.country-chips button[aria-pressed='true'],
+.year-filter button[aria-pressed='true'] {
+  background: var(--euro);
+  border-color: var(--euro);
+  color: #fff;
+}
+
+/* ---------- panneau pays ---------- */
+
+/* Fenêtre flottante par-dessus la carte, du côté opposé au pays cliqué. */
+.panel {
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  z-index: 5;
+  width: min(640px, 48%);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 20px 24px;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.panel.is-right {
+  right: 14px;
+  animation: slide-in 0.35s var(--ease);
+}
+
+.panel.is-left {
+  left: 14px;
+  animation: slide-in-left 0.35s var(--ease);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.panel-sub {
+  margin: 2px 0 0;
+  color: var(--muted);
+}
+
+.icon-button {
+  border: 1px solid var(--border);
+  background: transparent;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.icon-button:hover {
+  background: var(--tag-bg);
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabs button {
+  border: none;
+  background: none;
+  padding: 10px 14px;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  font-weight: 600;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.tabs button[aria-selected='true'] {
+  color: var(--text);
+  border-bottom-color: var(--gold);
+}
+
+.texts-note {
+  margin: -6px 0 14px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.tab-body {
+  animation: fade-in 0.3s var(--ease);
+}
+
+.count,
+.tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--tag-bg);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.tag {
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.series + .series {
+  margin-top: 24px;
+}
+
+.series h3 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+}
+
+.coin-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  /* 4 colonnes : centimes sur une ligne, euros sur l'autre — identique dans les trois formats. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 520px;
+  gap: 14px;
+}
+
+.coin-grid li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.coin {
+  position: relative;
+  display: block;
+  border: none;
+  padding: 0;
+  background: none;
+  box-shadow: var(--coin-shadow);
+  border-radius: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  cursor: zoom-in;
+  transition:
+    transform 0.25s var(--ease),
+    filter 0.25s var(--ease),
+    opacity 0.25s;
+}
+
+/* Survol : légère mise en avant ; l'aperçu (CoinPreview) montre la pièce en grand avec sa description. */
+.coin:hover,
+.coin:focus-visible {
+  transform: scale(1.12);
+  z-index: 3;
+  outline: none;
+}
+
+.coin:focus-visible {
+  box-shadow:
+    var(--coin-shadow),
+    0 0 0 3px var(--gold);
+}
+
+.coin img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  /* Les visuels BCE ont un fond blanc carré : on recadre sur la pièce. */
+  clip-path: circle(49.5%);
+  filter: var(--coin-filter);
+  transition: filter 0.25s var(--ease);
+  animation: coin-in 0.35s var(--ease);
+}
+
+.coin:hover img,
+.coin:focus-visible img {
+  filter: none;
+}
+
+.coin-grid li.is-unchanged .coin {
+  opacity: 0.45;
+}
+
+.coin-grid li.is-unchanged .coin:hover {
+  opacity: 1;
+}
+
+.coin-label {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.coin-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.about {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.about summary {
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ---------- commémoratives ---------- */
+
+.year-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.comm-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 16px 12px;
+}
+
+.comm-grid li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.coin-placeholder {
+  display: grid;
+  place-items: center;
+  background: none;
+  box-shadow: none;
+  border: 2px dashed var(--border);
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-align: center;
+  cursor: default;
+}
+
+.empty {
+  color: var(--muted);
+}
+
+/* ---------- aperçu au survol d'une pièce ---------- */
+
+.coin-preview {
+  position: fixed;
+  z-index: 30;
+  width: 320px;
+  max-height: calc(100dvh - 24px);
+  overflow: hidden;
+  padding: 18px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+  animation: rise-in 0.2s var(--ease);
+}
+
+.coin-preview-image {
+  width: 270px;
+  height: 270px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  box-shadow: var(--coin-shadow);
+}
+
+.coin-preview-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  clip-path: circle(49.5%);
+  animation: coin-in 0.25s var(--ease);
+}
+
+.coin-preview-title {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.coin-preview-text {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* ---------- carrousel ---------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 16px;
+  background: rgb(5 10 25 / 0.88);
+  backdrop-filter: blur(4px);
+  cursor: zoom-out;
+  animation: fade-in 0.25s var(--ease);
+}
+
+.lightbox-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 4vw, 48px);
+}
+
+.lightbox figure {
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  cursor: default;
+}
+
+.lightbox figure img {
+  width: min(540px, 70vw, 62dvh);
+  height: auto;
+  clip-path: circle(49.5%);
+  animation: coin-in 0.3s var(--ease);
+}
+
+.lightbox figcaption {
+  margin: 12px auto 0;
+  font-weight: 600;
+  max-width: 540px;
+}
+
+.lightbox-text {
+  display: block;
+  max-height: 22dvh;
+  overflow-y: auto;
+  margin-top: 8px;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: left;
+  opacity: 0.85;
+  white-space: pre-line;
+}
+
+.lightbox-position {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.lightbox-nav,
+.lightbox-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  background: rgb(255 255 255 / 0.08);
+  color: #fff;
+  border-radius: 50%;
+  line-height: 1;
+  transition:
+    background 0.2s,
+    transform 0.2s var(--ease);
+}
+
+.lightbox-nav:hover,
+.lightbox-close:hover,
+.lightbox-nav:focus-visible,
+.lightbox-close:focus-visible {
+  background: rgb(255 255 255 / 0.2);
+  transform: scale(1.08);
+}
+
+.lightbox-nav {
+  width: 56px;
+  height: 56px;
+  font-size: 2.2rem;
+  padding-bottom: 4px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  font-size: 1.6rem;
+}
+
+.lightbox-thumbs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px;
+  margin: 0 auto;
+  max-width: min(100%, 900px);
+  cursor: default;
+  scrollbar-width: thin;
+}
+
+.lightbox-thumbs button {
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background: none;
+  opacity: 0.5;
+  transition:
+    opacity 0.2s,
+    border-color 0.2s,
+    transform 0.2s var(--ease);
+}
+
+.lightbox-thumbs button:hover {
+  opacity: 0.9;
+  transform: scale(1.08);
+}
+
+.lightbox-thumbs button[aria-current='true'] {
+  opacity: 1;
+  border-color: var(--gold);
+}
+
+.lightbox-thumbs img {
+  width: 100%;
+  height: 100%;
+  clip-path: circle(49.5%);
+}
+
+/* ---------- trois formats : ordinateur (≥ 1200 px), tablette (700–1199 px), mobile (< 700 px) ---------- */
+
+/* Commun : l'application occupe tout l'écran et la carte prend toute la place disponible. */
+.app {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px 10px;
+}
+
+.site-footer {
+  margin-top: 8px;
+}
+
+/* Ordinateur : pas plus large qu'un 16:9, fiches au survol, pastilles des pays sur plusieurs lignes. */
+@media (min-width: 1200px) {
+  .app {
+    max-width: calc(100dvh * 16 / 9);
+  }
+}
+
+/* Tablette : carte plein cadre, fenêtre pays plus large, pastilles sur une ligne défilante. */
+@media (min-width: 700px) and (max-width: 1199px) {
+  .app {
+    padding: 14px 16px 8px;
+  }
+
+  .panel {
+    width: min(560px, 64%);
+  }
+
+  .country-chips {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+
+  .country-chips button {
+    flex: 0 0 auto;
+  }
+}
+
+/* Tablette en portrait : la fiche monte du bas et laisse la carte visible au-dessus. */
+@media (min-width: 700px) and (max-width: 1199px) and (orientation: portrait) {
+  .panel,
+  .panel.is-left,
+  .panel.is-right {
+    position: fixed;
+    top: auto;
+    left: 12px;
+    right: 12px;
+    bottom: 0;
+    width: auto;
+    height: 58dvh;
+    border-radius: 18px 18px 0 0;
+    border-bottom: none;
+    animation: sheet-in 0.35s var(--ease);
+  }
+
+  /* La carte se réduit à la partie visible au-dessus du panneau et se recadre dessus. */
+  .has-panel .layout {
+    margin-bottom: calc(58dvh - 8px);
+    transition: margin-bottom 0.35s var(--ease);
+  }
+
+  .has-panel .bottom-bar,
+  .has-panel .site-footer {
+    display: none;
+  }
+
+  .panel::before {
+    content: '';
+    display: block;
+    width: 44px;
+    height: 4px;
+    margin: -6px auto 12px;
+    border-radius: 2px;
+    background: var(--border);
+  }
+}
+
+/* Mobile (dès 360 px) : en-tête compact, liste déroulante des pays, fenêtre en bas d'écran. */
+@media (max-width: 699px) {
+  .app {
+    padding: 10px 10px 6px;
+  }
+
+  .site-header {
+    text-align: left;
+    margin-bottom: 8px;
+    min-height: 40px;
+  }
+
+  .site-header h1 {
+    font-size: 1.3rem;
+    gap: 8px;
+  }
+
+  .logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .site-header p {
+    display: none;
+  }
+
+  .header-tools {
+    top: 2px;
+    gap: 6px;
+  }
+
+  .theme-toggle button {
+    width: 28px;
+    height: 28px;
+  }
+
+  .language-trigger {
+    padding: 6px 10px 6px 8px;
+  }
+
+  .language-trigger-label {
+    display: none;
+  }
+
+  .language-menu {
+    width: min(290px, calc(100vw - 20px));
+  }
+
+  .map-hint {
+    display: none;
+  }
+
+  .bottom-bar {
+    margin-top: 8px;
+  }
+
+  .country-chips {
+    display: none;
+  }
+
+  .country-select {
+    display: block;
+  }
+
+  .site-footer {
+    font-size: 0.72rem;
+    margin-top: 4px;
+  }
+
+  /* Fenêtre pays : panneau qui monte du bas, la carte reste visible au-dessus. */
+  .panel,
+  .panel.is-left,
+  .panel.is-right {
+    position: fixed;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: 64dvh;
+    padding: 16px 14px 20px;
+    border-radius: 18px 18px 0 0;
+    border-bottom: none;
+    animation: sheet-in 0.35s var(--ease);
+  }
+
+  /* La carte se réduit à la partie visible au-dessus du panneau et se recadre dessus. */
+  .has-panel .layout {
+    margin-bottom: calc(64dvh - 8px);
+    transition: margin-bottom 0.35s var(--ease);
+  }
+
+  .has-panel .bottom-bar,
+  .has-panel .site-footer {
+    display: none;
+  }
+
+  .panel::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    margin: -6px auto 10px;
+    border-radius: 2px;
+    background: var(--border);
+  }
+
+  .panel-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .tabs button {
+    padding: 8px 10px;
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+
+  .tabs .count {
+    display: none;
+  }
+
+  .coin-grid {
+    gap: 12px 10px;
+  }
+
+  .coin-label {
+    font-size: 0.75rem;
+  }
+
+  .comm-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px 10px;
+  }
+
+  .lightbox figure img {
+    width: min(86vw, 52dvh);
+  }
+
+  .lightbox-nav {
+    display: none;
+  }
+
+  .lightbox-thumbs button {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Écrans tactiles : pas de survol, donc ni fiche de pays ni aperçu de pièce. */
+@media (hover: none) {
+  .hover-card,
+  .coin-preview {
+    display: none;
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "eurocoins",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "fetch-coins": "node scripts/fetch-coins.mjs",
+    "fetch-texts": "node scripts/fetch-texts.mjs",
+    "build-map": "node scripts/build-map.mjs"
+  },
+  "dependencies": {
+    "country-flag-icons": "^1.6.20",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "d3-geo": "^3.1.1",
+    "oxlint": "^1.81.0",
+    "sharp": "^0.35.5",
+    "topojson-client": "^3.1.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0",
+    "world-atlas": "^2.0.2"
+  }
+}

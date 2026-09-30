@@ -1,0 +1,80 @@
+# Build + déploiement sur le VPS (https://eurocoins.vieilledent.eu).
+#
+# Déclenché à chaque push sur main, à la main (onglet Actions), ou par update-data.yml
+# après une mise à jour des données BCE.
+#
+# Déploiement atomique : chaque version est envoyée dans releases/<commit>/, puis le lien
+# symbolique « current » (servi par nginx) bascule d'un coup. On garde les 5 dernières
+# versions pour un retour arrière instantané (voir README).
+#
+# Secrets requis : VPS_HOST, VPS_USER, VPS_SSH_KEY, VPS_KNOWN_HOSTS.
+
+name: Déploiement
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://eurocoins.vieilledent.eu
+    env:
+      RELEASES: /var/www/eurocoins/releases
+    steps:
+      # Branche plutôt que commit : après update-data.yml, on déploie le commit de données.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+
+      - name: Clé SSH
+        run: |
+          install -m 700 -d ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          echo "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Envoi de la version
+        run: |
+          RELEASE="$RELEASES/$(git rev-parse --short HEAD)-$(date +%Y%m%d%H%M%S)"
+          echo "RELEASE=$RELEASE" >> "$GITHUB_ENV"
+          SSH="ssh -i ~/.ssh/deploy"
+          # Les images inchangées sont recopiées depuis la version en ligne au lieu d'être renvoyées.
+          rsync -az --delete -e "$SSH" \
+            --link-dest=/var/www/eurocoins/current/ \
+            dist/ "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:$RELEASE/"
+
+      - name: Bascule et nettoyage
+        run: |
+          ssh -i ~/.ssh/deploy "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" "
+            set -e
+            ln -sfn '$RELEASE' /var/www/eurocoins/current.tmp
+            mv -T /var/www/eurocoins/current.tmp /var/www/eurocoins/current
+            cd '$RELEASES' && ls -1t | tail -n +6 | xargs -r rm -rf
+          "
+
+      - name: Vérification
+        run: |
+          sleep 2
+          curl -fsS -o /dev/null -w "HTTP %{http_code}\n" https://eurocoins.vieilledent.eu/ \
+            || curl -fsS -o /dev/null -w "HTTP %{http_code} (sans HTTPS)\n" http://eurocoins.vieilledent.eu/
