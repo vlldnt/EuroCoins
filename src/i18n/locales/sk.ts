@@ -44,7 +44,7 @@ const sk: Messages = {
   unchanged: 'nezmenená',
   coinLayout: 'Rozloženie mincí',
   layoutCircle: 'Kruh',
-  layoutArc: 'Oblúk',
+  layoutRow: 'Rad',
   layoutGrid: 'Mriežka',
   aboutDesigns: 'O motívoch',
   allYears: 'Všetky',

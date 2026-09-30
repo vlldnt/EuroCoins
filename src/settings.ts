@@ -17,9 +17,9 @@ const KEYS = {
   coinLayout: 'eurocoins.coinLayout',
 }
 
-// Disposition des 8 pièces courantes : couronne autour de la 2 €, arc de cercle, ou grille.
-export type CoinLayout = 'circle' | 'arc' | 'grid'
-export const COIN_LAYOUTS: CoinLayout[] = ['circle', 'arc', 'grid']
+// Disposition des 8 pièces courantes : couronne autour de la 2 €, ligne (1 cent → 2 €), ou grille.
+export type CoinLayout = 'circle' | 'row' | 'grid'
+export const COIN_LAYOUTS: CoinLayout[] = ['circle', 'row', 'grid']
 
 function read(key: string): string | null {
   try {

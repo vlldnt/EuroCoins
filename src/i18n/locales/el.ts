@@ -44,7 +44,7 @@ const el: Messages = {
   unchanged: 'αμετάβλητη',
   coinLayout: 'Διάταξη κερμάτων',
   layoutCircle: 'Κύκλος',
-  layoutArc: 'Τόξο',
+  layoutRow: 'Σειρά',
   layoutGrid: 'Πλέγμα',
   aboutDesigns: 'Σχετικά με τα σχέδια',
   allYears: 'Όλα',

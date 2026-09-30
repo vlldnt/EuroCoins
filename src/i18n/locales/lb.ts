@@ -44,7 +44,7 @@ const lb: Messages = {
   unchanged: 'onverännert',
   coinLayout: 'Uerdnung vun de Mënzen',
   layoutCircle: 'Krees',
-  layoutArc: 'Bou',
+  layoutRow: 'Rei',
   layoutGrid: 'Gitter',
   aboutDesigns: 'Iwwer d’Motiver',
   allYears: 'All',

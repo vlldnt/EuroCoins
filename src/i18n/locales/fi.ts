@@ -44,7 +44,7 @@ const fi: Messages = {
   unchanged: 'ennallaan',
   coinLayout: 'Kolikoiden asettelu',
   layoutCircle: 'Ympyrä',
-  layoutArc: 'Kaari',
+  layoutRow: 'Rivi',
   layoutGrid: 'Ruudukko',
   aboutDesigns: 'Tietoa kuva-aiheista',
   allYears: 'Kaikki',

@@ -44,7 +44,7 @@ const pt: Messages = {
   unchanged: 'inalterada',
   coinLayout: 'Disposição das moedas',
   layoutCircle: 'Círculo',
-  layoutArc: 'Arco',
+  layoutRow: 'Linha',
   layoutGrid: 'Grelha',
   aboutDesigns: 'Sobre os desenhos',
   allYears: 'Todos',

@@ -44,7 +44,7 @@ const ca: Messages = {
   unchanged: 'sense canvis',
   coinLayout: 'Disposició de les monedes',
   layoutCircle: 'Cercle',
-  layoutArc: 'Arc',
+  layoutRow: 'Fila',
   layoutGrid: 'Quadrícula',
   aboutDesigns: 'Sobre els dissenys',
   allYears: 'Tots',

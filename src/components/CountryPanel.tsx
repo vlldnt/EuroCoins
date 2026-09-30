@@ -119,30 +119,23 @@ export function CountryPanel({ country, onClose, onZoom }: Props) {
   )
 }
 
-// Position (centre, en fraction du cadre carré) et taille de chaque pièce pour les dispositions
-// « cercle » (2 € au centre, les 7 autres en couronne) et « arc » (8 pièces en arc, année au centre).
-// La taille suit le diamètre réel de chaque pièce.
+// Disposition « cercle » : la 2 € au centre, les 7 autres en couronne. Position (centre, en fraction
+// du cadre carré) et taille de chaque pièce, qui suit son diamètre réel.
 type Placement = { x: number; y: number; size: number }
 
-function placements(layout: 'circle' | 'arc'): Record<DenominationId, Placement> {
-  const ids = data.denominations.map((d) => d.id)
+function circlePlacements(): Record<DenominationId, Placement> {
   const at = (angleDeg: number, radius: number) => ({
     x: 0.5 + radius * Math.cos((angleDeg * Math.PI) / 180),
     y: 0.5 + radius * Math.sin((angleDeg * Math.PI) / 180),
   })
   const out = {} as Record<DenominationId, Placement>
-  if (layout === 'circle') {
-    const ring = ids.filter((id) => id !== '2e')
-    ring.forEach((id, i) => (out[id] = { ...at(-90 + (i * 360) / ring.length, 0.335), size: 0.3 * relativeDiameter(id) }))
-    out['2e'] = { x: 0.5, y: 0.5, size: 0.3 }
-  } else {
-    // De bas-gauche à bas en passant par le haut (sens horaire), comme un coffret.
-    ids.forEach((id, i) => (out[id] = { ...at(135 + i * 45, 0.37), size: 0.235 * relativeDiameter(id) }))
-  }
+  const ring = data.denominations.map((d) => d.id).filter((id) => id !== '2e')
+  ring.forEach((id, i) => (out[id] = { ...at(-90 + (i * 360) / ring.length, 0.335), size: 0.3 * relativeDiameter(id) }))
+  out['2e'] = { x: 0.5, y: 0.5, size: 0.3 }
   return out
 }
 
-const LAYOUT_LABELS = { circle: 'layoutCircle', arc: 'layoutArc', grid: 'layoutGrid' } as const
+const LAYOUT_LABELS = { circle: 'layoutCircle', row: 'layoutRow', grid: 'layoutGrid' } as const
 
 const LAYOUT_ICONS: Record<CoinLayout, React.ReactNode> = {
   circle: (
@@ -155,15 +148,13 @@ const LAYOUT_ICONS: Record<CoinLayout, React.ReactNode> = {
       <circle cx="5" cy="9" r="2" />
     </svg>
   ),
-  arc: (
+  row: (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="5" cy="17" r="2" />
-      <circle cx="4" cy="10" r="2" />
-      <circle cx="8" cy="5" r="2" />
-      <circle cx="15" cy="4.5" r="2" />
-      <circle cx="20" cy="9" r="2" />
-      <circle cx="19" cy="16" r="2" />
-      <circle cx="12" cy="20" r="2" />
+      <circle cx="2.6" cy="12" r="1.4" />
+      <circle cx="6.2" cy="12" r="1.7" />
+      <circle cx="10.4" cy="12" r="2" />
+      <circle cx="15" cy="12" r="2.2" />
+      <circle cx="20.2" cy="12" r="2.6" />
     </svg>
   ),
   grid: (
@@ -185,7 +176,7 @@ function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoo
   const { denominationLabel, countryDescription, regularDescription, nameOf } = useCoinTexts()
   const [layout, setLayout] = useState<CoinLayout>(readCoinLayout)
   const layoutName = useId()
-  const place = layout === 'grid' ? null : placements(layout)
+  const place = layout === 'circle' ? circlePlacements() : null
 
   const chooseLayout = (value: CoinLayout) => {
     setLayout(value)
@@ -241,12 +232,7 @@ function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoo
               s.since && <span className="tag">{t('sinceYear', { year: s.since })}</span>
             )}
           </h3>
-          <ul className={place ? `coin-ring is-${layout}` : 'coin-grid'}>
-            {layout === 'arc' && (
-              <li className="coin-ring-year" aria-hidden="true">
-                {s.note ?? s.since}
-              </li>
-            )}
+          <ul className={layout === 'circle' ? 'coin-ring' : layout === 'row' ? 'coin-row' : 'coin-grid'}>
             {data.denominations.map((d) => {
               const image = s.coins[d.id]
               if (!image) return null

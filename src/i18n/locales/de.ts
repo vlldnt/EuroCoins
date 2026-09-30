@@ -44,7 +44,7 @@ const de: Messages = {
   unchanged: 'unverändert',
   coinLayout: 'Anordnung der Münzen',
   layoutCircle: 'Kreis',
-  layoutArc: 'Bogen',
+  layoutRow: 'Reihe',
   layoutGrid: 'Raster',
   aboutDesigns: 'Über die Motive',
   allYears: 'Alle',

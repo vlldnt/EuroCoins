@@ -44,7 +44,7 @@ const hr: Messages = {
   unchanged: 'nepromijenjena',
   coinLayout: 'Raspored kovanica',
   layoutCircle: 'Krug',
-  layoutArc: 'Luk',
+  layoutRow: 'Red',
   layoutGrid: 'Rešetka',
   aboutDesigns: 'O motivima',
   allYears: 'Sve',

@@ -1020,37 +1020,43 @@ body,
   font-weight: 600;
 }
 
-/* Liste des pays posée sur la gauche de la carte, par année d'entrée dans l'euro. */
+/* Liste des pays sur la gauche de la carte, par année d'entrée dans l'euro : colonne de drapeaux
+   sur fond transparent. La zone réservée laisse passer les clics vers la carte (pointer-events). */
 .country-list {
   position: absolute;
   top: 14px;
   left: 14px;
   z-index: 4;
-  width: 13.5rem;
+  width: 17rem;
   max-height: calc(100% - 28px);
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 8px;
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  scrollbar-width: thin;
-  animation: fade-in 0.4s var(--ease);
+  scrollbar-width: none;
+  pointer-events: none;
+}
+
+.country-list-group {
+  display: grid;
+  grid-template-columns: 2.4rem auto;
+  align-items: start;
 }
 
 .country-list-group + .country-list-group {
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
+/* Année en face du premier drapeau du groupe, avec un halo pour rester lisible sur la carte. */
 .country-list-year {
   margin: 0;
-  padding: 2px 8px;
-  font-size: 0.72rem;
+  padding-top: 5px;
+  font-size: 0.7rem;
   font-weight: 800;
-  letter-spacing: 0.06em;
-  color: var(--muted);
+  letter-spacing: 0.04em;
+  color: var(--text);
+  text-shadow:
+    0 0 3px var(--bg),
+    0 0 3px var(--bg),
+    0 0 6px var(--bg);
 }
 
 .country-list ul {
@@ -1059,38 +1065,84 @@ body,
   list-style: none;
 }
 
+/* Entrée en cascade (façon AOS) : chaque drapeau glisse et apparaît après le précédent. */
+.country-list li {
+  animation: fade-right 0.45s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 30ms);
+}
+
+@keyframes fade-right {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+}
+
 .country-list button {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 9px;
-  width: 100%;
-  padding: 4px 8px;
+  padding: 3px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   background: none;
-  font-size: 0.86rem;
-  text-align: left;
-  transition:
-    background-color 0.2s,
-    color 0.2s,
-    transform 0.2s var(--ease);
-}
-
-.country-list button:hover {
-  background: var(--tag-bg);
-  transform: translateX(3px);
-}
-
-.country-list button[aria-pressed='true'] {
-  background: var(--euro);
-  color: #fff;
-  font-weight: 600;
+  pointer-events: auto;
 }
 
 .country-list .flag {
-  width: 24px;
-  height: 16px;
+  width: 28px;
+  height: 19px;
   flex-shrink: 0;
+  border-radius: 3px;
+  box-shadow:
+    0 2px 6px rgb(0 0 0 / 0.25),
+    0 0 0 1px rgb(0 0 0 / 0.1);
+  transition: transform 0.25s var(--ease);
+}
+
+.country-list button:hover .flag,
+.country-list button:focus-visible .flag {
+  transform: scale(1.15);
+}
+
+.country-list button[aria-pressed='true'] .flag {
+  transform: scale(1.15);
+  box-shadow:
+    0 2px 6px rgb(0 0 0 / 0.25),
+    0 0 0 2px var(--map-selected);
+}
+
+/* Nom en bulle à droite du drapeau : fondu + glissement au survol / focus, fixe pour le pays ouvert. */
+.country-list-name {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.18);
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-8px, -50%);
+  pointer-events: none;
+  transition:
+    opacity 0.25s var(--ease),
+    transform 0.3s var(--ease);
+}
+
+.country-list button:hover .country-list-name,
+.country-list button:focus-visible .country-list-name,
+.country-list button[aria-pressed='true'] .country-list-name {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.country-list button[aria-pressed='true'] .country-list-name {
+  background: var(--euro);
+  color: #fff;
 }
 
 .country-select {
@@ -1425,7 +1477,7 @@ body,
   width: calc(var(--diameter, 1) * 94%);
 }
 
-/* ---------- dispositions « cercle » et « arc » (pièces courantes) ---------- */
+/* ---------- dispositions « cercle » et « ligne » (pièces courantes) ---------- */
 
 .layout-picker {
   display: flex;
@@ -1490,12 +1542,37 @@ body,
 }
 
 /* Le cadre carré laisse du vide en haut et en bas (la pièce du haut est petite) : on le rogne. */
-.coin-ring.is-circle {
+.coin-ring {
   margin-block: -5% -5%;
 }
 
-.coin-ring.is-arc {
-  margin-block: -2% -1%;
+/* Ligne : de 1 cent à 2 €, chaque pièce prend une largeur proportionnelle à son diamètre réel. */
+.coin-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 10px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+
+.coin-row > li {
+  position: relative;
+  flex: var(--diameter, 1) 1 0;
+  min-width: 0;
+}
+
+.coin-row .coin {
+  width: 100%;
+}
+
+.coin-row .coin-note {
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  transform: translateX(-50%);
+  font-size: 0.62rem;
+  white-space: nowrap;
 }
 
 .coin-ring > li {
@@ -1525,17 +1602,6 @@ body,
   pointer-events: none;
 }
 
-.coin-ring > li.coin-ring-year {
-  left: 50%;
-  top: 50%;
-  width: auto;
-  font-size: clamp(1.8rem, 9vw, 3.4rem);
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  color: var(--text);
-  opacity: 0.85;
-  white-space: nowrap;
-}
 
 .coin {
   position: relative;
@@ -1894,9 +1960,6 @@ body,
     width: min(560px, 64%);
   }
 
-  .country-list {
-    width: 12rem;
-  }
 }
 
 /* Tablette en portrait : la fiche monte du bas et laisse la carte visible au-dessus. */

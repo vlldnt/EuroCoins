@@ -44,7 +44,7 @@ const ja: Messages = {
   unchanged: '変更なし',
   coinLayout: '硬貨の配置',
   layoutCircle: '円形',
-  layoutArc: '弧形',
+  layoutRow: '横一列',
   layoutGrid: 'グリッド',
   aboutDesigns: 'デザインについて',
   allYears: 'すべて',

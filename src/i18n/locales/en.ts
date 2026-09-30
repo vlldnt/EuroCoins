@@ -44,7 +44,7 @@ const en: Messages = {
   unchanged: 'unchanged',
   coinLayout: 'Coin layout',
   layoutCircle: 'Circle',
-  layoutArc: 'Arc',
+  layoutRow: 'Row',
   layoutGrid: 'Grid',
   aboutDesigns: 'About the designs',
   allYears: 'All',

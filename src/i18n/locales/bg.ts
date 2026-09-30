@@ -44,7 +44,7 @@ const bg: Messages = {
   unchanged: 'непроменена',
   coinLayout: 'Подредба на монетите',
   layoutCircle: 'Кръг',
-  layoutArc: 'Дъга',
+  layoutRow: 'Ред',
   layoutGrid: 'Мрежа',
   aboutDesigns: 'За дизайна',
   allYears: 'Всички',

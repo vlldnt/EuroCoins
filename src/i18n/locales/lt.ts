@@ -44,7 +44,7 @@ const lt: Messages = {
   unchanged: 'nepakitusi',
   coinLayout: 'Monetų išdėstymas',
   layoutCircle: 'Apskritimas',
-  layoutArc: 'Lankas',
+  layoutRow: 'Eilė',
   layoutGrid: 'Tinklelis',
   aboutDesigns: 'Apie dizainą',
   allYears: 'Visi',

@@ -22,11 +22,13 @@ function useCountriesByYear() {
   return [...groups.entries()]
 }
 
-// Liste des pays posée sur la gauche de la carte (ordinateur, tablette).
+// Liste des pays posée sur la gauche de la carte (ordinateur, tablette) : une colonne de drapeaux sur
+// fond transparent ; le nom apparaît en fondu au survol / focus et reste affiché pour le pays ouvert.
 export function CountryList({ selected, onSelect }: Props) {
   const { t } = useI18n()
   const { nameOf } = useCoinTexts()
   const groups = useCountriesByYear()
+  let index = 0 // rang d'apparition, pour l'entrée en cascade
 
   return (
     <nav id="countries-list" className="country-list" aria-label={t('countries')} tabIndex={-1} data-keep-panel>
@@ -37,10 +39,10 @@ export function CountryList({ selected, onSelect }: Props) {
           </h2>
           <ul>
             {countries.map((c) => (
-              <li key={c.iso}>
+              <li key={c.iso} style={{ '--i': index++ } as React.CSSProperties}>
                 <button aria-pressed={selected === c.iso} onClick={() => onSelect(c.iso)}>
                   <Flag id={c.iso} />
-                  <span>{nameOf(c)}</span>
+                  <span className="country-list-name">{nameOf(c)}</span>
                 </button>
               </li>
             ))}

@@ -44,7 +44,7 @@ const it: Messages = {
   unchanged: 'invariata',
   coinLayout: 'Disposizione delle monete',
   layoutCircle: 'Cerchio',
-  layoutArc: 'Arco',
+  layoutRow: 'Riga',
   layoutGrid: 'Griglia',
   aboutDesigns: 'Informazioni sui disegni',
   allYears: 'Tutti',

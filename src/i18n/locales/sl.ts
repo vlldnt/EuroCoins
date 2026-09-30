@@ -44,7 +44,7 @@ const sl: Messages = {
   unchanged: 'nespremenjena',
   coinLayout: 'Razporeditev kovancev',
   layoutCircle: 'Krog',
-  layoutArc: 'Lok',
+  layoutRow: 'Vrsta',
   layoutGrid: 'Mreža',
   aboutDesigns: 'O motivih',
   allYears: 'Vse',

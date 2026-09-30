@@ -44,7 +44,7 @@ const nl: Messages = {
   unchanged: 'ongewijzigd',
   coinLayout: 'Indeling van de munten',
   layoutCircle: 'Cirkel',
-  layoutArc: 'Boog',
+  layoutRow: 'Rij',
   layoutGrid: 'Raster',
   aboutDesigns: 'Over de ontwerpen',
   allYears: 'Alle',

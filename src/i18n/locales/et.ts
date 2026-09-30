@@ -44,7 +44,7 @@ const et: Messages = {
   unchanged: 'muutmata',
   coinLayout: 'Müntide paigutus',
   layoutCircle: 'Ring',
-  layoutArc: 'Kaar',
+  layoutRow: 'Rida',
   layoutGrid: 'Ruudustik',
   aboutDesigns: 'Kujundusest',
   allYears: 'Kõik',

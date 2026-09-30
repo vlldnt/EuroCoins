@@ -122,7 +122,14 @@ export function EuropeMap({ selected, onSelect, panelOpen }: Props) {
   useLayoutEffect(() => {
     const list = document.getElementById('countries-list')
     if (!list) return
-    const observer = new ResizeObserver(() => setListWidth(list.offsetParent ? list.offsetWidth : 0))
+    // Seule la colonne de drapeaux compte (les noms s'affichent en bulle par-dessus la carte).
+    const measure = () => {
+      if (!list.offsetParent) return setListWidth(0)
+      const left = list.getBoundingClientRect().left
+      const flags = [...list.querySelectorAll('.flag')].map((f) => f.getBoundingClientRect().right)
+      setListWidth(flags.length ? Math.max(...flags) - left : 0)
+    }
+    const observer = new ResizeObserver(measure)
     observer.observe(list)
     return () => observer.disconnect()
   }, [])

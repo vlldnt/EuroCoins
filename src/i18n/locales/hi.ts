@@ -44,7 +44,7 @@ const hi: Messages = {
   unchanged: 'अपरिवर्तित',
   coinLayout: 'सिक्कों का विन्यास',
   layoutCircle: 'वृत्त',
-  layoutArc: 'चाप',
+  layoutRow: 'पंक्ति',
   layoutGrid: 'ग्रिड',
   aboutDesigns: 'डिज़ाइन के बारे में',
   allYears: 'सभी',

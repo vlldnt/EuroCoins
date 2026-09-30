@@ -44,7 +44,7 @@ const mt: Messages = {
   unchanged: 'mhux mibdula',
   coinLayout: 'Tqassim tal-muniti',
   layoutCircle: 'Ċirku',
-  layoutArc: 'Arkata',
+  layoutRow: 'Ringiela',
   layoutGrid: 'Grilja',
   aboutDesigns: 'Dwar id-disinji',
   allYears: 'Kollha',

@@ -44,7 +44,7 @@ const lv: Messages = {
   unchanged: 'nemainīta',
   coinLayout: 'Monētu izkārtojums',
   layoutCircle: 'Aplis',
-  layoutArc: 'Loks',
+  layoutRow: 'Rinda',
   layoutGrid: 'Režģis',
   aboutDesigns: 'Par dizainu',
   allYears: 'Visi',

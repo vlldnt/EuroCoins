@@ -44,7 +44,7 @@ const fr = {
   unchanged: 'inchangée',
   coinLayout: 'Disposition des pièces',
   layoutCircle: 'Cercle',
-  layoutArc: 'Arc',
+  layoutRow: 'Ligne',
   layoutGrid: 'Grille',
   aboutDesigns: 'À propos des graphismes',
   allYears: 'Toutes',

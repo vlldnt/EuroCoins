@@ -44,7 +44,7 @@ const zh: Messages = {
   unchanged: '未变更',
   coinLayout: '硬币排列',
   layoutCircle: '圆形',
-  layoutArc: '弧形',
+  layoutRow: '横排',
   layoutGrid: '网格',
   aboutDesigns: '关于图案设计',
   allYears: '全部',
