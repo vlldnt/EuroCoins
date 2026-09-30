@@ -10,6 +10,10 @@ Site qui présente les **faces nationales des pièces en euros** des 25 pays ém
 
 Source des images et des textes : [Banque centrale européenne](https://www.ecb.europa.eu/euro/coins/html/index.fr.html).
 
+## Application (PWA)
+
+Le site est une application installable : bouton **« Installer l'application »** dans l'en-tête (Chrome, Edge, Android), ou sur iPhone **Partager → « Sur l'écran d'accueil »**. Installée, elle s'ouvre en plein écran, **sans barre d'adresse**, et fonctionne hors ligne (service worker généré par `vite-plugin-pwa` : l'application est gardée d'avance, les photos et textes au fil de la consultation). Icônes : `npm run build-icons` (source : `scripts/assets/logo-source.png`).
+
 ## Démarrer
 
 ```bash
