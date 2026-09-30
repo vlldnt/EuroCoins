@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "fetch-coins": "node scripts/fetch-coins.mjs",
     "fetch-texts": "node scripts/fetch-texts.mjs",
-    "build-map": "node scripts/build-map.mjs"
+    "build-map": "node scripts/build-map.mjs",
+    "build-icons": "node scripts/build-icons.mjs"
   },
   "dependencies": {
     "country-flag-icons": "^1.6.20",

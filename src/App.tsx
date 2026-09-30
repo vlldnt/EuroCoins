@@ -74,6 +74,17 @@ export default function App() {
     }
   }, [selected, zoom, close])
 
+  // Hauteur réelle de l'en-tête (posé sur la carte) : la liste des pays et la fenêtre se placent dessous.
+  useEffect(() => {
+    const header = document.querySelector<HTMLElement>('.site-header')
+    if (!header) return
+    const observer = new ResizeObserver(() =>
+      document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`),
+    )
+    observer.observe(header)
+    return () => observer.disconnect()
+  }, [])
+
   const setZoomIndex = useCallback((index: number) => setZoom((z) => z && { ...z, index }), [])
   const closeZoom = useCallback(() => setZoom(null), [])
 
@@ -97,9 +108,7 @@ export default function App() {
 
       <header className="site-header">
         <h1>
-          <span className="logo" aria-hidden="true">
-            €
-          </span>
+          <img className="logo" src={`${import.meta.env.BASE_URL}icons/logo.webp`} alt="" width="42" height="42" />
           EuroCoins
         </h1>
         <p>{t('subtitle', { count: data.countries.length })}</p>
@@ -122,16 +131,19 @@ export default function App() {
         )}
       </main>
 
-      <div className="bottom-bar" id="countries" tabIndex={-1} data-keep-panel>
-        <CountrySelect selected={selected} onSelect={select} />
-      </div>
+      {/* Mobile : posé par-dessus le bas de la carte. */}
+      <div className="bottom-overlay">
+        <div className="bottom-bar" id="countries" tabIndex={-1} data-keep-panel>
+          <CountrySelect selected={selected} onSelect={select} />
+        </div>
 
-      <footer className="site-footer">
-        {t('sourceLabel')}{' '}
-        <a href={`https://www.ecb.europa.eu/euro/coins/html/index.${textsLang}.html`} target="_blank" rel="noreferrer">
-          {t('ecb')}
-        </a>
-      </footer>
+        <footer className="site-footer">
+          {t('sourceLabel')}{' '}
+          <a href={`https://www.ecb.europa.eu/euro/coins/html/index.${textsLang}.html`} target="_blank" rel="noreferrer">
+            {t('ecb')}
+          </a>
+        </footer>
+      </div>
 
       {zoom && <Lightbox items={zoom.items} index={zoom.index} onIndex={setZoomIndex} onClose={closeZoom} />}
     </div>

@@ -465,15 +465,9 @@ body,
 }
 
 .logo {
-  display: inline-grid;
-  place-items: center;
   width: 42px;
   height: 42px;
-  border-radius: 50%;
-  background: var(--euro);
-  color: var(--gold);
-  font-weight: 700;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 35%, transparent);
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.25));
 }
 
 .site-header p {
@@ -1926,36 +1920,88 @@ body,
 
 /* ---------- trois formats : ordinateur (≥ 1200 px), tablette (700–1199 px), mobile (< 700 px) ---------- */
 
-/* Commun : l'application occupe tout l'écran et la carte prend toute la place disponible. */
+/* Commun : la carte occupe tout l'écran (100 vw × 100 vh) ; en-tête, liste des pays, fenêtre pays,
+   zoom et crédit sont posés par-dessus. env(safe-area-inset-*) : encoche et barre d'accueil.
+   --header-h (hauteur réelle de l'en-tête) est mesurée par App. */
 .app {
+  position: relative;
   width: 100%;
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding: 16px 24px 10px;
+  padding: 0;
+}
+
+.layout {
+  flex: 1;
+  min-height: 0;
+}
+
+.map {
+  border: none;
+  border-radius: 0;
+}
+
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  margin: 0;
+  padding: calc(10px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) 10px
+    calc(20px + env(safe-area-inset-left));
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.header-tools {
+  top: calc(12px + env(safe-area-inset-top));
+  right: calc(20px + env(safe-area-inset-right));
+}
+
+.country-list {
+  top: calc(var(--header-h, 5.5rem) + 12px);
+  left: calc(14px + env(safe-area-inset-left));
+  max-height: calc(100% - var(--header-h, 5.5rem) - 70px);
+}
+
+/* Fenêtre pays sous l'en-tête ; elle s'arrête au-dessus du crédit BCE en bas à droite. */
+.panel {
+  top: calc(var(--header-h, 5.5rem) + 12px);
+  right: calc(14px + env(safe-area-inset-right));
+  bottom: calc(46px + env(safe-area-inset-bottom));
+}
+
+.map-controls {
+  bottom: calc(14px + env(safe-area-inset-bottom));
+}
+
+/* Crédit BCE en bas à droite, dans une pastille translucide. */
+.bottom-overlay {
+  position: absolute;
+  right: calc(14px + env(safe-area-inset-right));
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 10;
 }
 
 .site-footer {
-  margin-top: 8px;
+  margin: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+  font-size: 0.78rem;
 }
 
-/* Ordinateur : pas plus large qu'un 16:9, fiches au survol, pastilles des pays sur plusieurs lignes. */
-@media (min-width: 1200px) {
-  .app {
-    max-width: calc(100dvh * 16 / 9);
-  }
-}
-
-/* Tablette : carte plein cadre, fenêtre pays plus large, pastilles sur une ligne défilante. */
+/* Tablette : fenêtre pays plus large. */
 @media (min-width: 700px) and (max-width: 1199px) {
-  .app {
-    padding: 14px 16px 8px;
-  }
-
   .panel {
     width: min(560px, 64%);
   }
-
 }
 
 /* Tablette en portrait : la fiche monte du bas et laisse la carte visible au-dessus. */
@@ -1997,14 +2043,9 @@ body,
 
 /* Mobile (dès 360 px) : en-tête compact, liste déroulante des pays, fenêtre en bas d'écran. */
 @media (max-width: 699px) {
-  .app {
-    padding: 10px 10px 6px;
-  }
-
   .site-header {
     text-align: left;
-    margin-bottom: 8px;
-    min-height: 40px;
+    min-height: 0;
   }
 
   .site-header h1 {
@@ -2013,8 +2054,8 @@ body,
   }
 
   .logo {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
   }
 
   .site-header p {
@@ -2076,7 +2117,7 @@ body,
     bottom: 0;
     width: auto;
     height: 64dvh;
-    padding: 16px 14px 20px;
+    padding: 16px 14px calc(20px + env(safe-area-inset-bottom));
     border-radius: 18px 18px 0 0;
     border-bottom: none;
     animation: sheet-in 0.35s var(--ease);
@@ -2221,5 +2262,57 @@ body,
   .hover-card,
   .coin-preview {
     display: none;
+  }
+}
+
+/* Mobile : en-tête compact ; en bas, une bande translucide pleine largeur avec la liste
+   déroulante des pays et le crédit BCE. */
+@media (max-width: 699px) {
+  .site-header {
+    padding: calc(8px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right)) 8px
+      calc(10px + env(safe-area-inset-left));
+  }
+
+  .header-tools {
+    top: calc(8px + env(safe-area-inset-top));
+    right: calc(10px + env(safe-area-inset-right));
+  }
+
+  .bottom-overlay {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 8px calc(10px + env(safe-area-inset-right)) calc(4px + env(safe-area-inset-bottom))
+      calc(10px + env(safe-area-inset-left));
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .site-footer {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    text-align: center;
+  }
+
+  .bottom-bar {
+    margin: 0 0 4px;
+  }
+
+  .has-panel .bottom-overlay {
+    display: none;
+  }
+
+  /* Zoom : sur le côté droit, à mi-hauteur (le bas est occupé par la liste des pays). */
+  .map-controls {
+    left: auto;
+    right: calc(10px + env(safe-area-inset-right));
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    flex-direction: column;
   }
 }

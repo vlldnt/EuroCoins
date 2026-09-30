@@ -2,8 +2,22 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
+    <!-- viewport-fit=cover : plein écran jusque sous l'encoche ; les marges de sécurité sont gérées en CSS. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Carte d'Europe interactive des faces nationales des pièces en euros : séries courantes et commémoratives de 2 €, en 22 langues." />
+
+    <!-- Installable comme une application (écran d'accueil) : s'ouvre en plein écran, sans barre d'adresse. -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="EuroCoins" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- Barre du navigateur aux couleurs du site (clair / sombre). -->
+    <meta name="theme-color" content="#f3f5f9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e1424" media="(prefers-color-scheme: dark)" />
     <script>
       // Applique les réglages d'affichage avant le premier rendu (évite un flash).
       // Mêmes règles que src/settings.ts.

@@ -118,6 +118,29 @@ export function EuropeMap({ selected, onSelect, panelOpen }: Props) {
   const [hover, setHover] = useState<Hover | null>(null)
   // Largeur de la liste des pays posée sur la gauche de la carte (0 quand elle est masquée).
   const [listWidth, setListWidth] = useState(0)
+  // Barres posées par-dessus la carte : en-tête en haut (partout), liste des pays en bas (mobile).
+  const [overlays, setOverlays] = useState({ top: 0, bottom: 0 })
+
+  useLayoutEffect(() => {
+    const mobile = window.matchMedia('(max-width: 699px)')
+    const header = document.querySelector<HTMLElement>('.site-header')
+    const bottom = document.querySelector<HTMLElement>('.bottom-overlay')
+    const map = containerRef.current
+    const measure = () => {
+      if (!map) return
+      const box = map.getBoundingClientRect()
+      const top = header ? Math.max(0, header.getBoundingClientRect().bottom - box.top) : 0
+      const bottomBox = mobile.matches && bottom?.offsetParent ? bottom.getBoundingClientRect() : null
+      setOverlays({ top, bottom: bottomBox ? Math.max(0, box.bottom - bottomBox.top) : 0 })
+    }
+    const observer = new ResizeObserver(measure)
+    for (const el of [header, bottom, map]) if (el) observer.observe(el)
+    mobile.addEventListener('change', measure)
+    return () => {
+      observer.disconnect()
+      mobile.removeEventListener('change', measure)
+    }
+  }, [])
 
   useLayoutEffect(() => {
     const list = document.getElementById('countries-list')
@@ -150,11 +173,18 @@ export function EuropeMap({ selected, onSelect, panelOpen }: Props) {
   const target = useMemo(() => {
     const left = listWidth ? listWidth + 14 : 0
     const right = panelOpen ? panelOcclusion(size.width) : 0
-    const visible = Math.max(1, size.width - left - right)
-    const rect = baseViewFor(visible / size.height)
-    const scale = rect.width / visible
-    return { ...rect, x: rect.x - left * scale, width: rect.width + (left + right) * scale }
-  }, [size, panelOpen, listWidth])
+    const { top, bottom } = overlays
+    const visibleW = Math.max(1, size.width - left - right)
+    const visibleH = Math.max(1, size.height - top - bottom)
+    const rect = baseViewFor(visibleW / visibleH)
+    const scale = rect.width / visibleW
+    return {
+      x: rect.x - left * scale,
+      y: rect.y - top * scale,
+      width: rect.width + (left + right) * scale,
+      height: rect.height + (top + bottom) * scale,
+    }
+  }, [size, panelOpen, listWidth, overlays])
   const base = useTweenedRect(target)
   const zoom = useMapZoom(containerRef, base, bounds)
 
