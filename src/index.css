@@ -1350,6 +1350,10 @@ body,
   gap: 4px;
 }
 
+.fact-short {
+  display: none;
+}
+
 .country-heading.is-card .country-facts li {
   padding: 2px 8px;
   font-size: 0.72rem;
@@ -2100,19 +2104,79 @@ body,
   }
 
   .panel-header h2 {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
   }
 
-  /* Sous la poignée du panneau : le bandeau ne remonte pas jusqu'au bord. */
+  /* En-tête compact : drapeau seul (pas de fond), nom et nom d'origine sur une ligne, infos sur une ligne. */
   .country-heading.is-panel {
-    margin: 0 -14px;
-    padding: 10px 14px 12px;
+    margin: 0;
+    padding: 0;
     border-radius: 0;
+    overflow: visible;
+  }
+
+  .country-heading-backdrop {
+    display: none;
+  }
+
+  .country-heading-main {
+    gap: 10px;
+    padding-right: 40px;
   }
 
   .country-heading-flag .flag {
-    width: 48px;
+    width: 32px;
+    height: 22px;
+    border-radius: 4px;
+  }
+
+  .country-heading-names {
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: 8px;
+  }
+
+  .country-heading-native {
+    font-size: 0.82rem;
+  }
+
+  .country-facts {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .country-facts li {
+    padding: 2px 7px;
+    gap: 4px;
+    font-size: 0.7rem;
+  }
+
+  .country-facts svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .fact-long {
+    display: none;
+  }
+
+  .fact-short {
+    display: inline;
+  }
+
+  .panel-close {
+    top: -2px;
+    width: 32px;
     height: 32px;
+    font-size: 1.2rem;
+  }
+
+  .panel .tabs {
+    margin: 8px 0 4px;
   }
 
   .tabs button {

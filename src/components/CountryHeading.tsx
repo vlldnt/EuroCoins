@@ -79,9 +79,13 @@ export function CountryHeading({ country, variant, titleId, titleRef }: Props) {
           {ICONS.layers}
           {plural('seriesOne', 'seriesMany', country.series.length)}
         </li>
-        <li>
+        <li title={plural('commOne', 'commMany', comm.length)}>
           {ICONS.star}
-          {plural('commOne', 'commMany', comm.length)}
+          {/* Mobile : libellé court (le nombre seul) ; le libellé complet reste lu par les lecteurs d'écran. */}
+          <span className="fact-long">{plural('commOne', 'commMany', comm.length)}</span>
+          <span className="fact-short" aria-hidden="true">
+            {comm.length}
+          </span>
         </li>
         {range && (
           <li title={t('commTab')}>
