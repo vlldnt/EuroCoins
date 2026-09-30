@@ -3,6 +3,8 @@
 const fr = {
   subtitle: 'Les faces nationales des pièces en euros des {count} pays émetteurs',
   language: 'Langue',
+  installApp: 'Installer l’application',
+  installIosHint: 'Pour installer EuroCoins : touchez Partager, puis « Sur l’écran d’accueil ».',
   theme: 'Thème',
   themeSystem: 'Automatique',
   themeLight: 'Clair',

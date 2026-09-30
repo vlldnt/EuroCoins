@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const mt: Messages = {
   subtitle: 'In-naħat nazzjonali tal-muniti tal-euro ta’ {count} pajjiż emittenti',
   language: 'Lingwa',
+  installApp: 'Installa l-app',
+  installIosHint: 'Biex tinstalla EuroCoins: agħfas Aqsam, imbagħad “Żid mal-Iskrin Ewlieni”.',
   theme: 'Tema',
   themeSystem: 'Awtomatiku',
   themeLight: 'Ċar',

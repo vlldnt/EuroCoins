@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const hr: Messages = {
   subtitle: 'Nacionalne strane eurokovanica iz {count} država izdavateljica',
   language: 'Jezik',
+  installApp: 'Instaliraj aplikaciju',
+  installIosHint: 'Za instalaciju EuroCoinsa: dodirnite Dijeli, zatim „Dodaj na početni zaslon”.',
   theme: 'Tema',
   themeSystem: 'Automatski',
   themeLight: 'Svijetla',

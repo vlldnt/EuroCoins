@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const el: Messages = {
   subtitle: 'Οι εθνικές όψεις των κερμάτων ευρώ των {count} χωρών έκδοσης',
   language: 'Γλώσσα',
+  installApp: 'Εγκατάσταση εφαρμογής',
+  installIosHint: 'Για να εγκαταστήσετε το EuroCoins: πατήστε Κοινοποίηση και μετά «Προσθήκη στην οθόνη Αφετηρίας».',
   theme: 'Θέμα',
   themeSystem: 'Αυτόματο',
   themeLight: 'Φωτεινό',

@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const et: Messages = {
   subtitle: 'Euro {count} emiteeriva riigi müntide rahvuslikud küljed',
   language: 'Keel',
+  installApp: 'Paigalda rakendus',
+  installIosHint: 'EuroCoinsi paigaldamiseks puuduta Jaga ja seejärel „Lisa avakuvale”.',
   theme: 'Teema',
   themeSystem: 'Automaatne',
   themeLight: 'Hele',

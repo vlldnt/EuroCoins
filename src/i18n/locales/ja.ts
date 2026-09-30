@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const ja: Messages = {
   subtitle: 'ユーロ硬貨の各国デザイン面（発行国 {count} か国）',
   language: '言語',
+  installApp: 'アプリをインストール',
+  installIosHint: 'EuroCoins をインストールするには、共有をタップし、「ホーム画面に追加」を選択します。',
   theme: 'テーマ',
   themeSystem: '自動',
   themeLight: 'ライト',

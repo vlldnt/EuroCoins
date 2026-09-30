@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const lb: Messages = {
   subtitle: 'Déi national Säite vun den Euromënzen aus den {count} Ausgabelänner',
   language: 'Sprooch',
+  installApp: 'App installéieren',
+  installIosHint: 'Fir EuroCoins z’installéieren: tippt op „Deelen“ an dann op „Op den Homescreen“.',
   theme: 'Design',
   themeSystem: 'Automatesch',
   themeLight: 'Hell',

@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const de: Messages = {
   subtitle: 'Die nationalen Seiten der Euro-Münzen der {count} Ausgabeländer',
   language: 'Sprache',
+  installApp: 'App installieren',
+  installIosHint: 'So installieren Sie EuroCoins: Tippen Sie auf „Teilen“ und dann auf „Zum Home-Bildschirm“.',
   theme: 'Design',
   themeSystem: 'Automatisch',
   themeLight: 'Hell',

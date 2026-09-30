@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const en: Messages = {
   subtitle: 'National sides of euro coins from the {count} issuing countries',
   language: 'Language',
+  installApp: 'Install the app',
+  installIosHint: 'To install EuroCoins: tap Share, then “Add to Home Screen”.',
   theme: 'Theme',
   themeSystem: 'Automatic',
   themeLight: 'Light',

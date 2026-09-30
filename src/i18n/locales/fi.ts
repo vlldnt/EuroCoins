@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const fi: Messages = {
   subtitle: 'Euron {count} liikkeeseenlaskijamaan kolikoiden kansalliset puolet',
   language: 'Kieli',
+  installApp: 'Asenna sovellus',
+  installIosHint: 'EuroCoinsin asentaminen: napauta Jaa ja sitten ”Lisää Koti-valikkoon”.',
   theme: 'Teema',
   themeSystem: 'Automaattinen',
   themeLight: 'Vaalea',

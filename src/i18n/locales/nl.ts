@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const nl: Messages = {
   subtitle: 'De nationale zijden van de euromunten van de {count} uitgevende landen',
   language: 'Taal',
+  installApp: 'App installeren',
+  installIosHint: 'EuroCoins installeren: tik op Deel en daarna op ‘Zet op beginscherm’.',
   theme: 'Thema',
   themeSystem: 'Automatisch',
   themeLight: 'Licht',

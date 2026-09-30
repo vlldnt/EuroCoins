@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const es: Messages = {
   subtitle: 'Las caras nacionales de las monedas en euros de los {count} países emisores',
   language: 'Idioma',
+  installApp: 'Instalar la aplicación',
+  installIosHint: 'Para instalar EuroCoins: toca Compartir y luego «Añadir a pantalla de inicio».',
   theme: 'Tema',
   themeSystem: 'Automático',
   themeLight: 'Claro',

@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const hi: Messages = {
   subtitle: '{count} जारीकर्ता देशों के यूरो सिक्कों के राष्ट्रीय पक्ष',
   language: 'भाषा',
+  installApp: 'ऐप इंस्टॉल करें',
+  installIosHint: 'EuroCoins इंस्टॉल करने के लिए: शेयर पर टैप करें, फिर “होम स्क्रीन में जोड़ें” चुनें।',
   theme: 'थीम',
   themeSystem: 'स्वचालित',
   themeLight: 'हल्का',

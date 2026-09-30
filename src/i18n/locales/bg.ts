@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const bg: Messages = {
   subtitle: 'Националните страни на евромонетите от {count} държави емитенти',
   language: 'Език',
+  installApp: 'Инсталиране на приложението',
+  installIosHint: 'За да инсталирате EuroCoins: докоснете „Сподели“, после „Добави към началния екран“.',
   theme: 'Тема',
   themeSystem: 'Автоматично',
   themeLight: 'Светла',

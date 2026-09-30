@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const zh: Messages = {
   subtitle: '{count} 个发行国的欧元硬币国家面',
   language: '语言',
+  installApp: '安装应用',
+  installIosHint: '安装 EuroCoins：点按“共享”，然后选择“添加到主屏幕”。',
   theme: '主题',
   themeSystem: '自动',
   themeLight: '浅色',

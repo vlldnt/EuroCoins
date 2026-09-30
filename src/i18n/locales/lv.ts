@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const lv: Messages = {
   subtitle: 'Eiro monētu nacionālās puses – emitentvalstis: {count}',
   language: 'Valoda',
+  installApp: 'Instalēt lietotni',
+  installIosHint: 'Lai instalētu EuroCoins: pieskarieties Kopīgot un pēc tam “Pievienot sākuma ekrānam”.',
   theme: 'Motīvs',
   themeSystem: 'Automātiski',
   themeLight: 'Gaišs',

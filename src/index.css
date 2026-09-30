@@ -486,6 +486,56 @@ body,
   gap: 8px;
 }
 
+/* Bouton « Installer l'application » (PWA). */
+.install {
+  position: relative;
+}
+
+.install-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--euro);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+  transition: background-color 0.2s;
+}
+
+.install-button:hover {
+  background: var(--euro-hover);
+}
+
+.install-button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.install-hint {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(260px, calc(100vw - 20px));
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  font-size: 0.85rem;
+  text-shadow: none;
+  animation: rise-in 0.18s var(--ease);
+}
+
 .display-settings {
   position: relative;
   text-align: left;
@@ -2072,6 +2122,14 @@ body,
   }
 
   .display-trigger-label {
+    display: none;
+  }
+
+  .install-button {
+    padding: 7px 9px;
+  }
+
+  .install-label {
     display: none;
   }
 

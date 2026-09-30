@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const ca: Messages = {
   subtitle: 'Les cares nacionals de les monedes d’euro dels {count} països emissors',
   language: 'Idioma',
+  installApp: 'Instal·la l’aplicació',
+  installIosHint: 'Per instal·lar EuroCoins: toca Comparteix i després «Afegeix a la pantalla d’inici».',
   theme: 'Tema',
   themeSystem: 'Automàtic',
   themeLight: 'Clar',

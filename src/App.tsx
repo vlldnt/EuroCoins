@@ -4,6 +4,7 @@ import { CountryPanel } from './components/CountryPanel'
 import { Lightbox, type ZoomItem } from './components/Lightbox'
 import { LanguageSelect } from './components/LanguageSelect'
 import { DisplaySettings } from './components/DisplaySettings'
+import { InstallButton } from './components/InstallButton'
 import { CountryList } from './components/CountryPicker'
 import { countriesByIso, data } from './data'
 import { useI18n } from './i18n'
@@ -113,6 +114,7 @@ export default function App() {
         </h1>
         <p>{t('subtitle', { count: data.countries.length })}</p>
         <div className="header-tools" data-keep-panel>
+          <InstallButton />
           <DisplaySettings />
           <LanguageSelect />
         </div>

@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const sk: Messages = {
   subtitle: 'Národné strany euromincí z {count} vydávajúcich krajín',
   language: 'Jazyk',
+  installApp: 'Nainštalovať aplikáciu',
+  installIosHint: 'Inštalácia EuroCoins: klepnite na Zdieľať a potom na „Pridať na plochu“.',
   theme: 'Motív',
   themeSystem: 'Automaticky',
   themeLight: 'Svetlý',

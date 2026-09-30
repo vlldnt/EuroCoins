@@ -3,6 +3,8 @@ import type { Messages } from './fr'
 const lt: Messages = {
   subtitle: 'Eurų monetų nacionalinės pusės – šalių emitenčių: {count}',
   language: 'Kalba',
+  installApp: 'Įdiegti programėlę',
+  installIosHint: 'Kad įdiegtumėte EuroCoins: palieskite Bendrinti, tada „Įtraukti į pradžios ekraną“.',
   theme: 'Tema',
   themeSystem: 'Automatiškai',
   themeLight: 'Šviesi',
