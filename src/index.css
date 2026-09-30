@@ -981,7 +981,7 @@ body,
 .hover-card {
   position: absolute;
   z-index: 6;
-  width: 17rem;
+  width: 22rem;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -1129,7 +1129,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   width: min(640px, 48%);
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 20px 24px;
+  padding: 14px 18px;
   background: color-mix(in srgb, var(--surface) 96%, transparent);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border);
@@ -1189,7 +1189,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
 .tabs {
   display: flex;
   gap: 4px;
-  margin: 16px 0;
+  margin: 8px 0 6px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -1215,7 +1215,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
 }
 
 .texts-note {
-  margin: -6px 0 14px;
+  margin: 0 0 6px;
   font-size: 0.8rem;
   color: var(--muted);
 }
@@ -1240,11 +1240,11 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
 }
 
 .series + .series {
-  margin-top: 24px;
+  margin-top: 6px;
 }
 
 .series h3 {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 1.05rem;
 }
 
@@ -1258,7 +1258,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   align-items: end;
   gap: 6px 4px;
-  max-width: 420px;
+  max-width: 546px;
   margin-inline: auto;
   gap: 14px;
 }
@@ -1290,7 +1290,10 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   display: flex;
   justify-content: flex-end;
   gap: 2px;
-  margin: -6px 0 6px;
+  margin: 0 0 -30px auto;
+  width: fit-content;
+  position: relative;
+  z-index: 1;
   padding: 0;
   border: none;
 }
@@ -1341,8 +1344,17 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   margin: 0 auto;
   padding: 0;
   width: 100%;
-  max-width: 360px;
+  max-width: 468px;
   aspect-ratio: 1;
+}
+
+/* Le cadre carré laisse du vide en haut et en bas (la pièce du haut est petite) : on le rogne. */
+.coin-ring.is-circle {
+  margin-block: -5% -5%;
+}
+
+.coin-ring.is-arc {
+  margin-block: -2% -1%;
 }
 
 .coin-ring > li {
@@ -1367,7 +1379,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   border-radius: 999px;
   background: var(--surface);
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   white-space: nowrap;
   pointer-events: none;
 }
@@ -1376,7 +1388,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   left: 50%;
   top: 50%;
   width: auto;
-  font-size: clamp(1.4rem, 7vw, 2.6rem);
+  font-size: clamp(1.8rem, 9vw, 3.4rem);
   font-weight: 800;
   letter-spacing: 0.02em;
   color: var(--text);
@@ -1452,7 +1464,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
 }
 
 .about {
-  margin-top: 24px;
+  margin-top: 10px;
   color: var(--muted);
   font-size: 0.92rem;
 }
@@ -1477,7 +1489,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 16px 12px;
 }
 

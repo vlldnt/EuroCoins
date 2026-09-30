@@ -140,8 +140,8 @@ function placements(layout: 'circle' | 'arc'): Record<DenominationId, Placement>
   const out = {} as Record<DenominationId, Placement>
   if (layout === 'circle') {
     const ring = ids.filter((id) => id !== '2e')
-    ring.forEach((id, i) => (out[id] = { ...at(-90 + (i * 360) / ring.length, 0.31), size: 0.28 * relativeDiameter(id) }))
-    out['2e'] = { x: 0.5, y: 0.5, size: 0.28 }
+    ring.forEach((id, i) => (out[id] = { ...at(-90 + (i * 360) / ring.length, 0.335), size: 0.3 * relativeDiameter(id) }))
+    out['2e'] = { x: 0.5, y: 0.5, size: 0.3 }
   } else {
     // De bas-gauche à bas en passant par le haut (sens horaire), comme un coffret.
     ids.forEach((id, i) => (out[id] = { ...at(135 + i * 45, 0.37), size: 0.235 * relativeDiameter(id) }))
