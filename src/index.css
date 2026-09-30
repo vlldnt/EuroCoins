@@ -2311,9 +2311,12 @@ body,
   }
 }
 
-/* Mobile : en-tête compact ; rangée de drapeaux en bas (défilement horizontal), crédit BCE dessous,
-   zoom en bas à droite au-dessus des drapeaux. Tout est transparent, posé sur la carte. */
-@media (max-width: 699px) {
+/* Mobile, tablette en portrait et téléphone en paysage (même liste que FLAG_ROW, src/layoutModes.ts) :
+   rangée de drapeaux en bas (défilement horizontal), crédit BCE dessous, zoom en bas à droite au-dessus
+   des drapeaux. Tout est transparent, posé sur la carte. */
+@media (max-width: 699px),
+  (min-width: 700px) and (max-width: 1199px) and (orientation: portrait),
+  (orientation: landscape) and (max-height: 500px) {
   .site-header {
     padding: calc(8px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right)) 8px
       calc(10px + env(safe-area-inset-left));
@@ -2441,7 +2444,8 @@ body,
       0 0 6px var(--bg);
   }
 
-  .has-panel .bottom-overlay {
+  .has-panel .bottom-overlay,
+  .has-panel .country-list {
     display: none;
   }
 
@@ -2453,5 +2457,143 @@ body,
     bottom: calc(76px + env(safe-area-inset-bottom));
     transform: none;
     flex-direction: column;
+  }
+}
+
+/* Tablette en portrait : drapeaux un peu plus grands dans la rangée du bas. */
+@media (min-width: 700px) and (max-width: 1199px) and (orientation: portrait) {
+  .country-list .flag {
+    width: 38px;
+    height: 26px;
+  }
+
+  .map-controls {
+    bottom: calc(86px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Téléphone en paysage : très peu de hauteur. En-tête compact, fiche pays sur le côté droit
+   sur toute la hauteur, avec l'en-tête compact du mobile. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .site-header h1 {
+    font-size: 1.2rem;
+    gap: 8px;
+  }
+
+  .logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .site-header p,
+  .map-hint {
+    display: none;
+  }
+
+  .display-trigger-label,
+  .language-trigger-label,
+  .install-label {
+    display: none;
+  }
+
+  /* Sous l'en-tête (outils Affichage / Langue), jusqu'en bas de l'écran. Prend le pas sur le panneau
+     « qui monte du bas » du mobile portrait (petits téléphones de moins de 700 px de large). */
+  .panel {
+    position: absolute;
+    top: calc(var(--header-h, 3rem) + 2px);
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    left: auto;
+    right: calc(10px + env(safe-area-inset-right));
+    width: min(420px, 52%);
+    height: auto;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    border-bottom: 1px solid var(--border);
+    animation: slide-in 0.35s var(--ease);
+  }
+
+  .panel::before {
+    display: none;
+  }
+
+  .has-panel .layout {
+    margin-bottom: 0;
+  }
+
+  .country-heading.is-panel {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .country-heading-backdrop {
+    display: none;
+  }
+
+  .country-heading-main {
+    gap: 10px;
+    padding-right: 40px;
+  }
+
+  .country-heading-flag .flag {
+    width: 30px;
+    height: 20px;
+  }
+
+  .panel-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .country-heading-names {
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: 8px;
+  }
+
+  .country-facts {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .country-facts li {
+    padding: 2px 7px;
+    font-size: 0.7rem;
+  }
+
+  .fact-long {
+    display: none;
+  }
+
+  .fact-short {
+    display: inline;
+  }
+
+  .panel-close {
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
+  }
+
+  .panel .tabs {
+    margin: 6px 0 4px;
+  }
+
+  .tabs button {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .tabs .count {
+    display: none;
+  }
+
+  .map-controls {
+    bottom: calc(60px + env(safe-area-inset-bottom));
   }
 }

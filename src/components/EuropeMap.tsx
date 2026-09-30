@@ -5,6 +5,7 @@ import { useI18n } from '../i18n'
 import { useCoinTexts } from '../i18n/useCoinTexts'
 import { useMapZoom, type Rect } from './useMapZoom'
 import { CountryHeading } from './CountryHeading'
+import { FLAG_ROW, PHONE_LANDSCAPE } from '../layoutModes'
 
 // Tracés précalculés par scripts/build-map.mjs. `focus` = zone euro à montrer en entier,
 // `bounds` = zone dessinée autour, utilisée pour remplir l'écran quel que soit son format.
@@ -48,6 +49,7 @@ interface Hover {
 // ordinateur min(640px, 48 %), tablette paysage min(560px, 64 %), plus la marge de 14px.
 // En mobile et tablette portrait, la fenêtre s'ouvre en bas : rien n'est caché sur le côté.
 function panelOcclusion(mapWidth: number): number {
+  if (window.matchMedia(PHONE_LANDSCAPE).matches) return Math.min(420, mapWidth * 0.52) + 20
   const wide = window.matchMedia('(min-width: 1200px)').matches
   const tabletLandscape = window.matchMedia('(min-width: 700px) and (max-width: 1199px) and (orientation: landscape)').matches
   if (wide) return Math.min(640, mapWidth * 0.48) + 28
@@ -122,7 +124,7 @@ export function EuropeMap({ selected, onSelect, panelOpen }: Props) {
   const [overlays, setOverlays] = useState({ top: 0, bottom: 0 })
 
   useLayoutEffect(() => {
-    const mobile = window.matchMedia('(max-width: 699px)')
+    const mobile = window.matchMedia(FLAG_ROW)
     const header = document.querySelector<HTMLElement>('.site-header')
     const bottom = document.getElementById('countries-list')
     const map = containerRef.current
@@ -146,9 +148,9 @@ export function EuropeMap({ selected, onSelect, panelOpen }: Props) {
     const list = document.getElementById('countries-list')
     if (!list) return
     // Seule la colonne de drapeaux compte (les noms s'affichent en bulle par-dessus la carte).
-    const mobile = window.matchMedia('(max-width: 699px)')
+    const mobile = window.matchMedia(FLAG_ROW)
     const measure = () => {
-      // Mobile : la liste est une rangée en bas de la carte, elle ne cache rien sur la gauche.
+      // Rangée de drapeaux en bas de la carte : elle ne cache rien sur la gauche.
       if (!list.offsetParent || mobile.matches) return setListWidth(0)
       const left = list.getBoundingClientRect().left
       const flags = [...list.querySelectorAll('.flag')].map((f) => f.getBoundingClientRect().right)
