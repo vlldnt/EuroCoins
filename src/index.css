@@ -71,8 +71,7 @@
 
 /* Une palette par type de vision. Les règles s'appliquent à <html data-palette="…"> et à tout
    élément portant data-palette (pastilles d'aperçu du menu Affichage). Couleurs tirées des
-   jeux reconnus pour les daltoniens (Okabe-Ito, Paul Tol) ; le pays sélectionné a en plus un
-   contour épais, pour ne jamais dépendre de la couleur seule. */
+   jeux reconnus pour les daltoniens (Okabe-Ito, Paul Tol). */
 
 :root,
 [data-palette='standard'] {
@@ -913,19 +912,14 @@ body,
   transition: fill 0.25s var(--ease);
 }
 
-.map-country.is-euro.is-hovered,
-.map-country.is-euro:focus-visible {
+.map-country.is-euro.is-hovered {
   fill: var(--map-euro-hover);
-  stroke: var(--map-focus);
-  stroke-width: 2;
 }
 
-/* Sélection : couleur ET contour épais (repère visible sans distinguer les couleurs). */
+/* Sélection : seule la couleur change. */
 .map-country.is-selected,
 .map-country.is-selected.is-hovered {
   fill: var(--map-selected);
-  stroke: var(--map-selected-stroke);
-  stroke-width: 2.5;
 }
 
 .map-country:focus,
@@ -958,8 +952,6 @@ body,
 
 .map-marker.is-selected {
   fill: var(--map-selected);
-  stroke: var(--map-selected-stroke);
-  stroke-width: 3;
 }
 
 .map-hint {
