@@ -22,7 +22,32 @@ export function Lightbox({ items, index, onIndex, onClose }: Props) {
   const item = items[index]
   const canNavigate = items.length > 1
   const thumbsRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const closeRef = useRef<HTMLButtonElement>(null)
   const touchStart = useRef<number | null>(null)
+
+  // Focus : sur « Fermer » à l'ouverture, rendu à la pièce cliquée à la fermeture.
+  useEffect(() => {
+    const previous = document.activeElement as HTMLElement | null
+    closeRef.current?.focus()
+    return () => previous?.focus({ preventScroll: true })
+  }, [])
+
+  // Piège à focus : Tab et Maj+Tab restent dans le carrousel (fenêtre modale).
+  const onTrapKey = (e: React.KeyboardEvent) => {
+    if (e.key !== 'Tab') return
+    const focusables = [...(dialogRef.current?.querySelectorAll<HTMLElement>('button') ?? [])]
+    if (!focusables.length) return
+    const first = focusables[0]
+    const last = focusables[focusables.length - 1]
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault()
+      last.focus()
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault()
+      first.focus()
+    }
+  }
 
   const go = (delta: number) => onIndex((index + delta + items.length) % items.length)
 
@@ -51,8 +76,10 @@ export function Lightbox({ items, index, onIndex, onClose }: Props) {
 
   return (
     <div
+      ref={dialogRef}
       className="lightbox"
       data-keep-panel
+      onKeyDown={onTrapKey}
       role="dialog"
       aria-modal="true"
       aria-label={item.caption}
@@ -78,12 +105,17 @@ export function Lightbox({ items, index, onIndex, onClose }: Props) {
             {item.caption}
             {item.text && <span className="lightbox-text">{item.text}</span>}
             {canNavigate && (
-              <span className="lightbox-position">
+              <span className="lightbox-position" aria-hidden="true">
                 {index + 1} / {items.length}
               </span>
             )}
           </figcaption>
         </figure>
+        {/* Annonce vocale à chaque changement de pièce : « Pièce 3 sur 16 — France… ». */}
+        <p className="visually-hidden" aria-live="polite">
+          {canNavigate && `${t('coinPosition', { n: index + 1, total: items.length })} — `}
+          {item.caption}
+        </p>
         {canNavigate && (
           <button className="lightbox-nav" onClick={stop(() => go(1))} aria-label={t('nextCoin')}>
             ›
@@ -106,7 +138,7 @@ export function Lightbox({ items, index, onIndex, onClose }: Props) {
         </div>
       )}
 
-      <button className="lightbox-close" onClick={stop(onClose)} aria-label={t('close')}>
+      <button ref={closeRef} className="lightbox-close" onClick={stop(onClose)} aria-label={t('close')}>
         ×
       </button>
     </div>

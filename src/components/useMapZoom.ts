@@ -159,6 +159,7 @@ export function useMapZoom(containerRef: React.RefObject<HTMLElement | null>, ba
     viewBox: `${current.x} ${current.y} ${current.width} ${current.height}`,
     zoom: view.k,
     isDragging: () => gesture.current.dragging,
+    panBy,
     zoomIn: () => zoomAt(1.6),
     zoomOut: () => zoomAt(1 / 1.6),
     reset,

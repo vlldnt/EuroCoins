@@ -1,19 +1,6 @@
-import { useEffect, useId, useRef, useState, type ComponentType } from 'react'
-import {
-  AD, AT, BE, BG, CN, CY, DE, EE, ES, FI, FR, GR, HR, IE, IN, IT, JP, LT, LU, LV, MC, MT, NL, PT, SI, SK, SM, VA,
-} from 'country-flag-icons/react/3x2'
+import { useEffect, useId, useRef, useState } from 'react'
 import { LOCALES, useI18n, type Locale } from '../i18n'
-
-// Imports explicites : seuls ces drapeaux finissent dans le bundle.
-const FLAGS: Record<string, ComponentType<{ className?: string; title?: string }>> = {
-  ad: AD, at: AT, be: BE, bg: BG, cn: CN, cy: CY, de: DE, ee: EE, es: ES, fi: FI, fr: FR, gr: GR, hr: HR, ie: IE,
-  in: IN, it: IT, jp: JP, lt: LT, lu: LU, lv: LV, mc: MC, mt: MT, nl: NL, pt: PT, si: SI, sk: SK, sm: SM, va: VA,
-}
-
-function Flag({ id }: { id: string }) {
-  const Component = FLAGS[id]
-  return Component ? <Component className="flag" /> : null
-}
+import { Flag } from './Flag'
 
 export function LanguageSelect() {
   const { locale, setLocale, t, lang, languageName, countryName } = useI18n()
@@ -62,6 +49,8 @@ export function LanguageSelect() {
     else if (e.key === 'Home') move(0)
     else if (e.key === 'End') move(options.length - 1)
     else if (e.key === 'Escape') {
+      // Ne ferme que le menu, pas la fenêtre pays éventuellement ouverte.
+      e.stopPropagation()
       setOpen(false)
       triggerRef.current?.focus()
     } else if (e.key === 'Tab') setOpen(false)

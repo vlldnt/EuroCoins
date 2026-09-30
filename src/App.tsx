@@ -1,12 +1,13 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { EuropeMap } from './components/EuropeMap'
 import { CountryPanel } from './components/CountryPanel'
 import { Lightbox, type ZoomItem } from './components/Lightbox'
 import { LanguageSelect } from './components/LanguageSelect'
-import { ThemeToggle } from './components/ThemeToggle'
+import { DisplaySettings } from './components/DisplaySettings'
 import { CountryPicker } from './components/CountryPicker'
 import { countriesByIso, data } from './data'
 import { useI18n } from './i18n'
+import { useCoinTexts } from './i18n/useCoinTexts'
 
 // Le pays sélectionné est gardé dans l'URL (#fr, #de…) pour pouvoir partager un lien.
 function readHash() {
@@ -14,12 +15,21 @@ function readHash() {
   return countriesByIso.has(iso) ? iso : null
 }
 
+// Liens d'évitement : on déplace le focus sans changer l'URL (le hash sert au pays ouvert).
+function skipTo(e: React.MouseEvent, id: string) {
+  e.preventDefault()
+  document.getElementById(id)?.focus()
+}
+
 // Côté de la fenêtre pays : à l'opposé du point cliqué, pour garder le pays visible.
 type Side = 'left' | 'right'
 
 export default function App() {
   const { t, textsLang } = useI18n()
+  const { nameOf } = useCoinTexts()
   const [selected, setSelected] = useState<string | null>(readHash)
+  // Élément qui avait le focus avant l'ouverture de la fenêtre : il le retrouve à la fermeture.
+  const returnFocus = useRef<HTMLElement | SVGElement | null>(null)
   const [side, setSide] = useState<Side>('right')
   const [zoom, setZoom] = useState<{ items: ZoomItem[]; index: number } | null>(null)
 
@@ -31,6 +41,16 @@ export default function App() {
 
   const select = useCallback((iso: string | null, clientX?: number) => {
     if (iso && clientX !== undefined) setSide(clientX > window.innerWidth * 0.55 ? 'left' : 'right')
+    if (iso && !returnFocus.current) returnFocus.current = document.activeElement as HTMLElement | null
+    if (!iso) {
+      const target = returnFocus.current
+      returnFocus.current = null
+      // Après le rendu (la fenêtre a disparu), on rend le focus à son déclencheur, ou à la carte.
+      requestAnimationFrame(() => {
+        const el = target?.isConnected ? target : document.getElementById('map')
+        el?.focus({ preventScroll: true })
+      })
+    }
     // replaceState : fermer la fenêtre ne laisse pas un « # » vide dans l'URL.
     history.replaceState(null, '', iso ? `#${iso}` : location.pathname + location.search)
     setSelected(iso)
@@ -60,9 +80,23 @@ export default function App() {
   const closeZoom = useCallback(() => setZoom(null), [])
 
   const country = selected ? countriesByIso.get(selected) : undefined
+  // Message lu par les lecteurs d'écran (région aria-live) à l'ouverture d'un pays.
+  const announcement = country ? t('countryOpened', { country: nameOf(country) }) : ''
 
   return (
     <div className={`app${country ? ' has-panel' : ''}`}>
+      <nav className="skip-links" aria-label={t('display')}>
+        <a href="#map" onClick={(e) => skipTo(e, 'map')}>
+          {t('skipToMap')}
+        </a>
+        <a href="#countries" onClick={(e) => skipTo(e, 'countries')}>
+          {t('skipToCountries')}
+        </a>
+      </nav>
+      <div className="visually-hidden" aria-live="polite" role="status">
+        {announcement}
+      </div>
+
       <header className="site-header">
         <h1>
           <span className="logo" aria-hidden="true">
@@ -72,13 +106,13 @@ export default function App() {
         </h1>
         <p>{t('subtitle', { count: data.countries.length })}</p>
         <div className="header-tools" data-keep-panel>
-          <ThemeToggle />
+          <DisplaySettings />
           <LanguageSelect />
         </div>
       </header>
 
       <main className="layout">
-        <EuropeMap selected={selected} onSelect={select} panelSide={country ? side : null} />
+        <EuropeMap selected={selected} onSelect={select} />
         {country && (
           <CountryPanel
             key={country.iso}
@@ -90,7 +124,7 @@ export default function App() {
         )}
       </main>
 
-      <div className="bottom-bar" data-keep-panel>
+      <div className="bottom-bar" id="countries" tabIndex={-1} data-keep-panel>
         <CountryPicker selected={selected} onSelect={select} />
       </div>
 

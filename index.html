@@ -5,10 +5,16 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
-      // Applique le thème choisi avant le premier affichage (évite un flash de la mauvaise couleur).
+      // Applique les réglages d'affichage avant le premier rendu (évite un flash).
+      // Mêmes règles que src/settings.ts.
       try {
+        const root = document.documentElement
         const theme = localStorage.getItem('eurocoins.theme')
-        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme
+        if (theme === 'light' || theme === 'dark') root.dataset.theme = theme
+        const palette = localStorage.getItem('eurocoins.palette')
+        if (['protan', 'deutan', 'tritan', 'achroma', 'contrast'].includes(palette)) root.dataset.palette = palette
+        const size = Number(localStorage.getItem('eurocoins.textSize'))
+        if ([112, 125, 150].includes(size)) root.style.fontSize = size + '%'
       } catch {}
     </script>
     <title>EuroCoins — les pièces en euros par pays</title>

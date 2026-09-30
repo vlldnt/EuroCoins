@@ -1,14 +1,16 @@
 import { data } from '../data'
 import { useI18n } from '../i18n'
 import { useCoinTexts } from '../i18n/useCoinTexts'
+import { Flag } from './Flag'
 
 interface Props {
   selected: string | null
   onSelect: (iso: string | null) => void
 }
 
-// Accès aux pays sans passer par la carte : pastilles (ordinateur, tablette)
-// ou liste déroulante native (mobile) — la CSS affiche l'une ou l'autre.
+// Accès aux pays sans passer par la carte : rangée de drapeaux (ordinateur, tablette), dont le nom
+// apparaît au survol, au focus ou quand le pays est ouvert ; liste déroulante native sur mobile.
+// La CSS affiche l'une ou l'autre.
 export function CountryPicker({ selected, onSelect }: Props) {
   const { t, lang } = useI18n()
   const { nameOf } = useCoinTexts()
@@ -18,8 +20,10 @@ export function CountryPicker({ selected, onSelect }: Props) {
     <>
       <nav className="country-chips" aria-label={t('countries')}>
         {sorted.map((c) => (
-          <button key={c.iso} aria-pressed={selected === c.iso} onClick={() => onSelect(c.iso)}>
-            {nameOf(c)}
+          <button key={c.iso} aria-pressed={selected === c.iso} onClick={() => onSelect(c.iso)} title={nameOf(c)}>
+            <Flag id={c.iso} />
+            {/* Toujours présent pour les lecteurs d'écran ; visible seulement au survol/focus/sélection. */}
+            <span className="country-chip-name">{nameOf(c)}</span>
           </button>
         ))}
       </nav>

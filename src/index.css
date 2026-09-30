@@ -4,15 +4,11 @@
   --text: #16203a;
   --muted: #56607a;
   --border: #d9dee8;
-  --sea: #bfd6ee;
-  --land: #f1f3f7;
-  --land-stroke: #c3ccda;
   --euro: #2455c9;
   --euro-hover: #3d6fe6;
-  --euro-stroke: #ffffff;
   --link: #2f55b5;
   --gold: #e0a800;
-  --selected: #f2b705;
+  --focus-ring: #0b57d0;
   --tag-bg: #eaeff8;
   --shadow: 0 12px 32px rgb(10 20 50 / 0.16);
   /* Les photos BCE sont très claires : une ombre douce (sans contour) les détache du fond clair. */
@@ -38,17 +34,14 @@
     --text: #e8ecf6;
     --muted: #a0aac4;
     --border: #283352;
-    --sea: #0b1a33;
-    --land: #283149;
-    --land-stroke: #0e1424;
     --euro: #3f67c9;
     --euro-hover: #5a82e0;
     --link: #8fb0ff;
     --gold: #f2b705;
+    --focus-ring: #ffd23f;
     --tag-bg: #22305a;
     --shadow: 0 12px 32px rgb(0 0 0 / 0.45);
     --coin-shadow: 0 3px 10px rgb(0 0 0 / 0.55);
-    --euro-stroke: #0e1424;
     --coin-filter: brightness(0.9) contrast(1.05);
 
     color-scheme: dark;
@@ -61,20 +54,283 @@
   --text: #e8ecf6;
   --muted: #a0aac4;
   --border: #283352;
-  --sea: #0b1a33;
-  --land: #283149;
-  --land-stroke: #0e1424;
   --euro: #3f67c9;
   --euro-hover: #5a82e0;
   --link: #8fb0ff;
   --gold: #f2b705;
+  --focus-ring: #ffd23f;
   --tag-bg: #22305a;
   --shadow: 0 12px 32px rgb(0 0 0 / 0.45);
   --coin-shadow: 0 3px 10px rgb(0 0 0 / 0.55);
-  --euro-stroke: #0e1424;
   --coin-filter: brightness(0.9) contrast(1.05);
 
   color-scheme: dark;
+}
+
+/* ---------- palettes de la carte (générées : voir commentaire) ---------- */
+
+/* Une palette par type de vision. Les règles s'appliquent à <html data-palette="…"> et à tout
+   élément portant data-palette (pastilles d'aperçu du menu Affichage). Couleurs tirées des
+   jeux reconnus pour les daltoniens (Okabe-Ito, Paul Tol) ; le pays sélectionné a en plus un
+   contour épais, pour ne jamais dépendre de la couleur seule. */
+
+:root,
+[data-palette='standard'] {
+  --map-sea: #bfd6ee;
+  --map-land: #f1f3f7;
+  --map-land-stroke: #c3ccda;
+  --map-euro: #2455c9;
+  --map-euro-hover: #3d6fe6;
+  --map-euro-stroke: #ffffff;
+  --map-selected: #f2b705;
+  --map-selected-stroke: #6b4f00;
+  --map-focus: #e0a800;
+  --map-marker: #e0a800;
+}
+
+:root[data-theme='dark'],
+:root[data-theme='dark'] [data-palette='standard'] {
+  --map-sea: #0b1a33;
+  --map-land: #283149;
+  --map-land-stroke: #0e1424;
+  --map-euro: #3f67c9;
+  --map-euro-hover: #5a82e0;
+  --map-euro-stroke: #0e1424;
+  --map-selected: #f2b705;
+  --map-selected-stroke: #fff3c4;
+  --map-focus: #f2b705;
+  --map-marker: #f2b705;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']),
+  :root:not([data-theme='light']) [data-palette='standard'] {
+    --map-sea: #0b1a33;
+    --map-land: #283149;
+    --map-land-stroke: #0e1424;
+    --map-euro: #3f67c9;
+    --map-euro-hover: #5a82e0;
+    --map-euro-stroke: #0e1424;
+    --map-selected: #f2b705;
+    --map-selected-stroke: #fff3c4;
+    --map-focus: #f2b705;
+    --map-marker: #f2b705;
+  }
+}
+
+[data-palette='protan'] {
+  --map-sea: #d6e6f5;
+  --map-land: #f2f2f2;
+  --map-land-stroke: #c8c8c8;
+  --map-euro: #0072b2;
+  --map-euro-hover: #3a9ad6;
+  --map-euro-stroke: #ffffff;
+  --map-selected: #e69f00;
+  --map-selected-stroke: #000000;
+  --map-focus: #e69f00;
+  --map-marker: #e69f00;
+}
+
+:root[data-theme='dark'][data-palette='protan'],
+:root[data-theme='dark'] [data-palette='protan'] {
+  --map-sea: #0d1a2b;
+  --map-land: #2b2f36;
+  --map-land-stroke: #111111;
+  --map-euro: #2f8fd8;
+  --map-euro-hover: #56b4e9;
+  --map-euro-stroke: #111111;
+  --map-selected: #e69f00;
+  --map-selected-stroke: #ffffff;
+  --map-focus: #e69f00;
+  --map-marker: #e69f00;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light'])[data-palette='protan'],
+  :root:not([data-theme='light']) [data-palette='protan'] {
+    --map-sea: #0d1a2b;
+    --map-land: #2b2f36;
+    --map-land-stroke: #111111;
+    --map-euro: #2f8fd8;
+    --map-euro-hover: #56b4e9;
+    --map-euro-stroke: #111111;
+    --map-selected: #e69f00;
+    --map-selected-stroke: #ffffff;
+    --map-focus: #e69f00;
+    --map-marker: #e69f00;
+  }
+}
+
+[data-palette='deutan'] {
+  --map-sea: #d9e4f0;
+  --map-land: #f4f4f4;
+  --map-land-stroke: #c4c4c4;
+  --map-euro: #1d4f91;
+  --map-euro-hover: #3b77c4;
+  --map-euro-stroke: #ffffff;
+  --map-selected: #f0e442;
+  --map-selected-stroke: #000000;
+  --map-focus: #000000;
+  --map-marker: #f0e442;
+}
+
+:root[data-theme='dark'][data-palette='deutan'],
+:root[data-theme='dark'] [data-palette='deutan'] {
+  --map-sea: #0e1622;
+  --map-land: #2c2f35;
+  --map-land-stroke: #111111;
+  --map-euro: #3d8bd6;
+  --map-euro-hover: #7cc0f0;
+  --map-euro-stroke: #111111;
+  --map-selected: #f0e442;
+  --map-selected-stroke: #000000;
+  --map-focus: #f0e442;
+  --map-marker: #f0e442;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light'])[data-palette='deutan'],
+  :root:not([data-theme='light']) [data-palette='deutan'] {
+    --map-sea: #0e1622;
+    --map-land: #2c2f35;
+    --map-land-stroke: #111111;
+    --map-euro: #3d8bd6;
+    --map-euro-hover: #7cc0f0;
+    --map-euro-stroke: #111111;
+    --map-selected: #f0e442;
+    --map-selected-stroke: #000000;
+    --map-focus: #f0e442;
+    --map-marker: #f0e442;
+  }
+}
+
+[data-palette='tritan'] {
+  --map-sea: #dcdcdc;
+  --map-land: #fafafa;
+  --map-land-stroke: #bdbdbd;
+  --map-euro: #cc3311;
+  --map-euro-hover: #ee7733;
+  --map-euro-stroke: #ffffff;
+  --map-selected: #009988;
+  --map-selected-stroke: #000000;
+  --map-focus: #000000;
+  --map-marker: #000000;
+}
+
+:root[data-theme='dark'][data-palette='tritan'],
+:root[data-theme='dark'] [data-palette='tritan'] {
+  --map-sea: #1b1b1b;
+  --map-land: #333333;
+  --map-land-stroke: #111111;
+  --map-euro: #e0553a;
+  --map-euro-hover: #ff8a5c;
+  --map-euro-stroke: #111111;
+  --map-selected: #33bbaa;
+  --map-selected-stroke: #ffffff;
+  --map-focus: #ffffff;
+  --map-marker: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light'])[data-palette='tritan'],
+  :root:not([data-theme='light']) [data-palette='tritan'] {
+    --map-sea: #1b1b1b;
+    --map-land: #333333;
+    --map-land-stroke: #111111;
+    --map-euro: #e0553a;
+    --map-euro-hover: #ff8a5c;
+    --map-euro-stroke: #111111;
+    --map-selected: #33bbaa;
+    --map-selected-stroke: #ffffff;
+    --map-focus: #ffffff;
+    --map-marker: #ffffff;
+  }
+}
+
+[data-palette='achroma'] {
+  --map-sea: #e6e6e6;
+  --map-land: #ffffff;
+  --map-land-stroke: #bbbbbb;
+  --map-euro: #8a8a8a;
+  --map-euro-hover: #5f5f5f;
+  --map-euro-stroke: #ffffff;
+  --map-selected: #111111;
+  --map-selected-stroke: #ffffff;
+  --map-focus: #000000;
+  --map-marker: #000000;
+}
+
+:root[data-theme='dark'][data-palette='achroma'],
+:root[data-theme='dark'] [data-palette='achroma'] {
+  --map-sea: #121212;
+  --map-land: #2b2b2b;
+  --map-land-stroke: #000000;
+  --map-euro: #8c8c8c;
+  --map-euro-hover: #b5b5b5;
+  --map-euro-stroke: #000000;
+  --map-selected: #ffffff;
+  --map-selected-stroke: #000000;
+  --map-focus: #ffffff;
+  --map-marker: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light'])[data-palette='achroma'],
+  :root:not([data-theme='light']) [data-palette='achroma'] {
+    --map-sea: #121212;
+    --map-land: #2b2b2b;
+    --map-land-stroke: #000000;
+    --map-euro: #8c8c8c;
+    --map-euro-hover: #b5b5b5;
+    --map-euro-stroke: #000000;
+    --map-selected: #ffffff;
+    --map-selected-stroke: #000000;
+    --map-focus: #ffffff;
+    --map-marker: #ffffff;
+  }
+}
+
+[data-palette='contrast'] {
+  --map-sea: #ffffff;
+  --map-land: #ffffff;
+  --map-land-stroke: #000000;
+  --map-euro: #0033cc;
+  --map-euro-hover: #0000ff;
+  --map-euro-stroke: #000000;
+  --map-selected: #ffd400;
+  --map-selected-stroke: #000000;
+  --map-focus: #000000;
+  --map-marker: #000000;
+}
+
+:root[data-theme='dark'][data-palette='contrast'],
+:root[data-theme='dark'] [data-palette='contrast'] {
+  --map-sea: #000000;
+  --map-land: #000000;
+  --map-land-stroke: #ffffff;
+  --map-euro: #4d8dff;
+  --map-euro-hover: #80b0ff;
+  --map-euro-stroke: #ffffff;
+  --map-selected: #ffd400;
+  --map-selected-stroke: #ffffff;
+  --map-focus: #ffffff;
+  --map-marker: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light'])[data-palette='contrast'],
+  :root:not([data-theme='light']) [data-palette='contrast'] {
+    --map-sea: #000000;
+    --map-land: #000000;
+    --map-land-stroke: #ffffff;
+    --map-euro: #4d8dff;
+    --map-euro-hover: #80b0ff;
+    --map-euro-stroke: #ffffff;
+    --map-selected: #ffd400;
+    --map-selected-stroke: #ffffff;
+    --map-focus: #ffffff;
+    --map-marker: #ffffff;
+  }
 }
 
 * {
@@ -103,11 +359,36 @@ body,
 .country-chips button,
 .year-filter button,
 .language-trigger,
-.theme-toggle {
+.display-trigger {
   transition:
     background-color 0.3s var(--ease),
     border-color 0.3s var(--ease),
     color 0.3s var(--ease);
+}
+
+/* Focus clavier toujours visible, épais et contrasté (WCAG 2.4.7 / 2.4.11). */
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Liens d'évitement : invisibles jusqu'à ce qu'ils reçoivent le focus clavier. */
+.skip-links a {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  transform: translateY(-200%);
+}
+
+.skip-links a:focus {
+  transform: none;
 }
 
 .visually-hidden {
@@ -219,47 +500,185 @@ body,
   gap: 8px;
 }
 
-.theme-toggle {
+.display-settings {
+  position: relative;
+  text-align: left;
+}
+
+.display-trigger {
   display: flex;
-  padding: 3px;
-  gap: 2px;
+  align-items: center;
+  gap: 6px;
   border: 1px solid var(--border);
   background: var(--surface);
   border-radius: 999px;
+  padding: 6px 12px 6px 10px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
 }
 
-.theme-toggle button {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: none;
-  color: var(--muted);
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+.display-trigger:hover,
+.display-trigger[aria-expanded='true'] {
+  border-color: var(--euro-hover);
 }
 
-.theme-toggle button:hover {
-  color: var(--text);
-}
-
-.theme-toggle button[aria-pressed='true'] {
-  background: var(--euro);
-  color: #fff;
-}
-
-.theme-toggle svg {
-  width: 17px;
-  height: 17px;
+.display-trigger svg,
+.segmented svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.display-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: min(330px, calc(100vw - 20px));
+  max-height: min(80dvh, 640px);
+  overflow-y: auto;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transform-origin: top right;
+  animation: rise-in 0.18s var(--ease);
+}
+
+.display-menu fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.display-menu fieldset + fieldset {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.display-menu legend {
+  padding: 0;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+/* Boutons radio natifs, masqués visuellement mais toujours accessibles au clavier. */
+.display-menu input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.segmented label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: center;
+}
+
+.segmented label:has(input:checked) {
+  background: var(--euro);
+  color: #fff;
+}
+
+.palette-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.palette-list label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.palette-list label:hover {
+  background: var(--tag-bg);
+}
+
+.palette-list label:has(input:checked) {
+  background: var(--tag-bg);
+  box-shadow: inset 0 0 0 2px var(--euro);
+  font-weight: 600;
+}
+
+.segmented label:has(input:focus-visible),
+.palette-list label:has(input:focus-visible) {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.palette-swatch {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 6px;
+  background: var(--map-sea);
+  flex-shrink: 0;
+}
+
+.palette-swatch span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+.text-size {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.text-size button {
+  min-width: 48px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  font-weight: 700;
+}
+
+.text-size button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.text-size output {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 .language-select {
@@ -337,7 +756,11 @@ body,
 .language-menu [role='option']:hover,
 .language-menu [role='option']:focus-visible {
   background: var(--tag-bg);
-  outline: none;
+}
+
+.language-menu [role='option']:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: -3px;
 }
 
 .language-menu [role='option'][aria-selected='true'] {
@@ -390,7 +813,7 @@ body,
 
 .map {
   position: relative;
-  background: var(--sea);
+  background: var(--map-sea);
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
@@ -474,42 +897,52 @@ body,
 }
 
 .map-sea {
-  fill: var(--sea);
+  fill: var(--map-sea);
 }
 
 .map-country {
-  fill: var(--land);
-  stroke: var(--land-stroke);
+  fill: var(--map-land);
+  stroke: var(--map-land-stroke);
   stroke-width: 0.6;
 }
 
 .map-country.is-euro {
-  fill: var(--euro);
-  stroke: var(--euro-stroke);
+  fill: var(--map-euro);
+  stroke: var(--map-euro-stroke);
   cursor: pointer;
   transition: fill 0.25s var(--ease);
 }
 
 .map-country.is-euro.is-hovered,
 .map-country.is-euro:focus-visible {
-  fill: var(--euro-hover);
-  stroke: var(--gold);
-  stroke-width: 1.5;
+  fill: var(--map-euro-hover);
+  stroke: var(--map-focus);
+  stroke-width: 2;
 }
 
+/* Sélection : couleur ET contour épais (repère visible sans distinguer les couleurs). */
 .map-country.is-selected,
 .map-country.is-selected.is-hovered {
-  fill: var(--selected);
+  fill: var(--map-selected);
+  stroke: var(--map-selected-stroke);
+  stroke-width: 2.5;
 }
 
 .map-country:focus,
 .map-marker:focus {
+  /* Le cadre rectangulaire serait trompeur sur une forme : le contour épais du pays le remplace. */
   outline: none;
 }
 
+.map-country.is-euro:focus-visible,
+.map-marker:focus-visible {
+  stroke: var(--map-focus);
+  stroke-width: 4;
+}
+
 .map-marker {
-  fill: var(--euro);
-  stroke: var(--gold);
+  fill: var(--map-euro);
+  stroke: var(--map-marker);
   stroke-width: 2;
   cursor: pointer;
   transition:
@@ -519,13 +952,14 @@ body,
 
 .map-marker:hover,
 .map-marker:focus-visible {
-  fill: var(--euro-hover);
+  fill: var(--map-euro-hover);
   r: 10;
 }
 
 .map-marker.is-selected {
-  fill: var(--selected);
-  stroke: var(--euro);
+  fill: var(--map-selected);
+  stroke: var(--map-selected-stroke);
+  stroke-width: 3;
 }
 
 .map-hint {
@@ -546,72 +980,43 @@ body,
 
 .hover-card {
   position: absolute;
-  top: 14px;
-  width: 250px;
+  z-index: 6;
+  width: 17rem;
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border-radius: var(--radius);
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
   backdrop-filter: blur(6px);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--muted);
   pointer-events: none;
-  animation: rise-in 0.2s var(--ease);
-  z-index: 2;
-}
-
-.cursor-coins {
-  position: absolute;
-  z-index: 6;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-  padding: 5px;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 4px 14px rgb(0 0 0 / 0.25);
-  pointer-events: none;
-  animation: fade-in 0.15s var(--ease);
-}
-
-.cursor-coins img {
-  width: 100%;
-  aspect-ratio: 1;
-  clip-path: circle(49.5%);
-  filter: var(--coin-filter);
-}
-
-.hover-card.is-left {
-  left: 14px;
-}
-
-.hover-card.is-right {
-  right: 14px;
-}
-
-.hover-card-coins {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.hover-card-coins img {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  clip-path: circle(49.5%);
-  filter: var(--coin-filter) drop-shadow(0 2px 4px rgb(0 0 0 / 0.2));
-  animation: coin-in 0.3s var(--ease);
+  animation: rise-in 0.15s var(--ease);
 }
 
 .hover-card-name {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   color: var(--text);
+}
+
+/* Les 8 pièces de la série actuelle, bien visibles (4 par ligne). */
+.hover-card-coins {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 10px 0 4px;
+}
+
+.hover-card-coins img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  clip-path: circle(49.5%);
+  filter: var(--coin-filter) drop-shadow(0 2px 4px rgb(0 0 0 / 0.2));
+  animation: coin-in 0.25s var(--ease);
 }
 
 .hover-card-cta {
@@ -625,6 +1030,54 @@ body,
   flex-wrap: wrap;
   justify-content: center;
   gap: 6px;
+}
+
+/* Rangée de drapeaux : le nom du pays se déplie au survol, au focus clavier ou à la sélection. */
+nav.country-chips button {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 7px;
+  gap: 0;
+  transition:
+    gap 0.25s var(--ease),
+    padding 0.25s var(--ease),
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.2s var(--ease);
+}
+
+nav.country-chips .flag {
+  width: 26px;
+  height: 18px;
+}
+
+.country-chip-name {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition:
+    max-width 0.3s var(--ease),
+    opacity 0.2s var(--ease);
+}
+
+nav.country-chips button:hover,
+nav.country-chips button:focus-visible,
+nav.country-chips button[aria-pressed='true'] {
+  gap: 8px;
+  padding-inline: 10px 12px;
+}
+
+nav.country-chips button:hover {
+  transform: translateY(-2px);
+}
+
+nav.country-chips button:hover .country-chip-name,
+nav.country-chips button:focus-visible .country-chip-name,
+nav.country-chips button[aria-pressed='true'] .country-chip-name {
+  max-width: 14rem;
+  opacity: 1;
 }
 
 .country-select {
@@ -699,6 +1152,12 @@ body,
   justify-content: space-between;
   align-items: start;
   gap: 12px;
+}
+
+
+/* Le titre reçoit le focus à l'ouverture (annonce du lecteur d'écran) : pas de cadre visuel. */
+.panel-header h2:focus {
+  outline: none;
 }
 
 .panel-header h2 {
@@ -798,6 +1257,9 @@ body,
      Grille de 6 colonnes, chaque pièce en occupe 2. */
   grid-template-columns: repeat(6, minmax(0, 1fr));
   align-items: end;
+  gap: 6px 4px;
+  max-width: 420px;
+  margin-inline: auto;
   gap: 14px;
 }
 
@@ -817,9 +1279,109 @@ body,
   grid-column: 4 / span 2;
 }
 
-/* Taille à l'échelle du diamètre réel (2 € = 80 % de la cellule). */
+/* Taille à l'échelle du diamètre réel (2 € = 94 % de la cellule). */
 .coin-grid .coin {
-  width: calc(var(--diameter, 1) * 80%);
+  width: calc(var(--diameter, 1) * 94%);
+}
+
+/* ---------- dispositions « cercle » et « arc » (pièces courantes) ---------- */
+
+.layout-picker {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2px;
+  margin: -6px 0 6px;
+  padding: 0;
+  border: none;
+}
+
+.layout-picker label {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 30px;
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.layout-picker label:hover {
+  color: var(--text);
+}
+
+.layout-picker label:has(input:checked) {
+  background: var(--tag-bg);
+  color: var(--text);
+}
+
+.layout-picker label:has(input:focus-visible) {
+  outline: 3px solid var(--focus-ring);
+}
+
+.layout-picker input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.layout-picker svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Cadre carré ; chaque pièce est centrée sur (--x, --y) et mesure --size du cadre. */
+.coin-ring {
+  position: relative;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1;
+}
+
+.coin-ring > li {
+  position: absolute;
+  left: calc(var(--x) * 100%);
+  top: calc(var(--y) * 100%);
+  width: calc(var(--size) * 100%);
+  transform: translate(-50%, -50%);
+}
+
+.coin-ring .coin {
+  width: 100%;
+}
+
+/* « inchangée » posé sur le bas de la pièce, lisible sur toutes les couleurs. */
+.coin-ring .coin-note {
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  transform: translateX(-50%);
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+  font-size: 0.65rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.coin-ring > li.coin-ring-year {
+  left: 50%;
+  top: 50%;
+  width: auto;
+  font-size: clamp(1.4rem, 7vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  opacity: 0.85;
+  white-space: nowrap;
 }
 
 .coin {
@@ -850,7 +1412,7 @@ body,
 .coin:focus-visible {
   box-shadow:
     var(--coin-shadow),
-    0 0 0 3px var(--gold);
+    0 0 0 3px var(--focus-ring);
 }
 
 .coin img {
@@ -992,7 +1554,8 @@ body,
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 10;
+  /* Au-dessus de tout, y compris l'en-tête (20) ; seuls les liens d'évitement (100) passent devant. */
+  z-index: 60;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1248,9 +1811,12 @@ body,
     gap: 6px;
   }
 
-  .theme-toggle button {
-    width: 28px;
-    height: 28px;
+  .display-trigger {
+    padding: 7px 9px;
+  }
+
+  .display-trigger-label {
+    display: none;
   }
 
   .language-trigger {
@@ -1368,7 +1934,6 @@ body,
 /* Écrans tactiles : pas de survol, donc ni fiche de pays ni aperçu de pièce. */
 @media (hover: none) {
   .hover-card,
-  .cursor-coins,
   .coin-preview {
     display: none;
   }
