@@ -124,7 +124,7 @@ export function EuropeMap({ selected, onSelect, panelOpen }: Props) {
   useLayoutEffect(() => {
     const mobile = window.matchMedia('(max-width: 699px)')
     const header = document.querySelector<HTMLElement>('.site-header')
-    const bottom = document.querySelector<HTMLElement>('.bottom-overlay')
+    const bottom = document.getElementById('countries-list')
     const map = containerRef.current
     const measure = () => {
       if (!map) return
@@ -146,8 +146,10 @@ export function EuropeMap({ selected, onSelect, panelOpen }: Props) {
     const list = document.getElementById('countries-list')
     if (!list) return
     // Seule la colonne de drapeaux compte (les noms s'affichent en bulle par-dessus la carte).
+    const mobile = window.matchMedia('(max-width: 699px)')
     const measure = () => {
-      if (!list.offsetParent) return setListWidth(0)
+      // Mobile : la liste est une rangée en bas de la carte, elle ne cache rien sur la gauche.
+      if (!list.offsetParent || mobile.matches) return setListWidth(0)
       const left = list.getBoundingClientRect().left
       const flags = [...list.querySelectorAll('.flag')].map((f) => f.getBoundingClientRect().right)
       setListWidth(flags.length ? Math.max(...flags) - left : 0)

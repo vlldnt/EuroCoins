@@ -462,6 +462,7 @@ body,
   align-items: center;
   gap: 10px;
   letter-spacing: -0.01em;
+  background-color: transparent;
 }
 
 .logo {
@@ -781,17 +782,6 @@ body,
   display: flex;
   flex: 1;
   min-height: 0;
-}
-
-.bottom-bar {
-  margin-top: 10px;
-}
-
-/* La barre du bas ne sert qu'au mobile (liste déroulante des pays). */
-@media (min-width: 700px) {
-  .bottom-bar {
-    display: none;
-  }
 }
 
 .site-footer {
@@ -1129,19 +1119,6 @@ body,
 .country-list button[aria-pressed='true'] .country-list-name {
   background: var(--euro);
   color: #fff;
-}
-
-.country-select {
-  display: none;
-}
-
-.country-select select {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  font-size: 1rem;
 }
 
 .year-filter button {
@@ -1951,9 +1928,18 @@ body,
   margin: 0;
   padding: calc(10px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) 10px
     calc(20px + env(safe-area-inset-left));
-  background: color-mix(in srgb, var(--bg) 72%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* Transparent : le titre reste lisible grâce à un halo de la couleur du fond. */
+  background: none;
+  pointer-events: none;
+  text-shadow:
+    0 0 4px var(--bg),
+    0 0 8px var(--bg),
+    0 0 12px var(--bg);
+}
+
+.site-header h1,
+.header-tools {
+  pointer-events: auto;
 }
 
 .header-tools {
@@ -2025,7 +2011,7 @@ body,
     transition: margin-bottom 0.35s var(--ease);
   }
 
-  .has-panel .bottom-bar,
+  .has-panel .country-list,
   .has-panel .site-footer {
     display: none;
   }
@@ -2091,18 +2077,6 @@ body,
     display: none;
   }
 
-  .bottom-bar {
-    margin-top: 8px;
-  }
-
-  .country-list {
-    display: none;
-  }
-
-  .country-select {
-    display: block;
-  }
-
   .site-footer {
     font-size: 0.72rem;
     margin-top: 4px;
@@ -2129,7 +2103,7 @@ body,
     transition: margin-bottom 0.35s var(--ease);
   }
 
-  .has-panel .bottom-bar,
+  .has-panel .country-list,
   .has-panel .site-footer {
     display: none;
   }
@@ -2265,8 +2239,8 @@ body,
   }
 }
 
-/* Mobile : en-tête compact ; en bas, une bande translucide pleine largeur avec la liste
-   déroulante des pays et le crédit BCE. */
+/* Mobile : en-tête compact ; rangée de drapeaux en bas (défilement horizontal), crédit BCE dessous,
+   zoom en bas à droite au-dessus des drapeaux. Tout est transparent, posé sur la carte. */
 @media (max-width: 699px) {
   .site-header {
     padding: calc(8px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right)) 8px
@@ -2278,15 +2252,61 @@ body,
     right: calc(10px + env(safe-area-inset-right));
   }
 
+  .country-list {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: calc(22px + env(safe-area-inset-bottom));
+    width: auto;
+    max-height: none;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 8px calc(10px + env(safe-area-inset-right)) 8px calc(10px + env(safe-area-inset-left));
+    pointer-events: auto;
+    scroll-snap-type: x proximity;
+  }
+
+  .country-list-group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .country-list-group + .country-list-group {
+    margin: 0 0 0 6px;
+  }
+
+  .country-list-year {
+    display: none;
+  }
+
+  .country-list ul {
+    display: flex;
+    gap: 2px;
+  }
+
+  .country-list li {
+    scroll-snap-align: start;
+  }
+
+  .country-list .flag {
+    width: 32px;
+    height: 22px;
+  }
+
+  /* Pas de bulle de nom en mobile : la fenêtre pays affiche le nom. */
+  .country-list-name {
+    display: none;
+  }
+
   .bottom-overlay {
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 8px calc(10px + env(safe-area-inset-right)) calc(4px + env(safe-area-inset-bottom))
-      calc(10px + env(safe-area-inset-left));
-    background: color-mix(in srgb, var(--bg) 72%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    padding: 0 10px calc(4px + env(safe-area-inset-bottom));
   }
 
   .site-footer {
@@ -2296,23 +2316,23 @@ body,
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     text-align: center;
-  }
-
-  .bottom-bar {
-    margin: 0 0 4px;
+    font-size: 0.7rem;
+    text-shadow:
+      0 0 3px var(--bg),
+      0 0 6px var(--bg);
   }
 
   .has-panel .bottom-overlay {
     display: none;
   }
 
-  /* Zoom : sur le côté droit, à mi-hauteur (le bas est occupé par la liste des pays). */
+  /* Zoom en bas à droite, au-dessus de la rangée de drapeaux. */
   .map-controls {
     left: auto;
     right: calc(10px + env(safe-area-inset-right));
-    top: 50%;
-    bottom: auto;
-    transform: translateY(-50%);
+    top: auto;
+    bottom: calc(76px + env(safe-area-inset-bottom));
+    transform: none;
     flex-direction: column;
   }
 }

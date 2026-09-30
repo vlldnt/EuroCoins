@@ -4,7 +4,7 @@ import { CountryPanel } from './components/CountryPanel'
 import { Lightbox, type ZoomItem } from './components/Lightbox'
 import { LanguageSelect } from './components/LanguageSelect'
 import { DisplaySettings } from './components/DisplaySettings'
-import { CountryList, CountrySelect } from './components/CountryPicker'
+import { CountryList } from './components/CountryPicker'
 import { countriesByIso, data } from './data'
 import { useI18n } from './i18n'
 import { useCoinTexts } from './i18n/useCoinTexts'
@@ -98,7 +98,7 @@ export default function App() {
         <a href="#map" onClick={(e) => skipTo(e, 'map')}>
           {t('skipToMap')}
         </a>
-        <a href="#countries-list" onClick={(e) => skipTo(e, 'countries-list', 'countries')}>
+        <a href="#countries-list" onClick={(e) => skipTo(e, 'countries-list')}>
           {t('skipToCountries')}
         </a>
       </nav>
@@ -131,12 +131,8 @@ export default function App() {
         )}
       </main>
 
-      {/* Mobile : posé par-dessus le bas de la carte. */}
+      {/* Crédit BCE posé sur la carte, en bas à droite. */}
       <div className="bottom-overlay">
-        <div className="bottom-bar" id="countries" tabIndex={-1} data-keep-panel>
-          <CountrySelect selected={selected} onSelect={select} />
-        </div>
-
         <footer className="site-footer">
           {t('sourceLabel')}{' '}
           <a href={`https://www.ecb.europa.eu/euro/coins/html/index.${textsLang}.html`} target="_blank" rel="noreferrer">

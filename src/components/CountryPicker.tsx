@@ -22,8 +22,9 @@ function useCountriesByYear() {
   return [...groups.entries()]
 }
 
-// Liste des pays posée sur la gauche de la carte (ordinateur, tablette) : une colonne de drapeaux sur
-// fond transparent ; le nom apparaît en fondu au survol / focus et reste affiché pour le pays ouvert.
+// Liste des pays posée sur la carte : colonne de drapeaux à gauche (ordinateur, tablette) ou rangée
+// en bas (mobile), sur fond transparent ; le nom apparaît en fondu au survol / focus et reste affiché
+// pour le pays ouvert (sauf en mobile, où la fenêtre pays l'affiche déjà).
 export function CountryList({ selected, onSelect }: Props) {
   const { t } = useI18n()
   const { nameOf } = useCoinTexts()
@@ -50,30 +51,5 @@ export function CountryList({ selected, onSelect }: Props) {
         </section>
       ))}
     </nav>
-  )
-}
-
-// Mobile : liste déroulante native, dans le même ordre (année d'entrée dans l'euro).
-export function CountrySelect({ selected, onSelect }: Props) {
-  const { t } = useI18n()
-  const { nameOf } = useCoinTexts()
-  const groups = useCountriesByYear()
-
-  return (
-    <label className="country-select">
-      <span className="visually-hidden">{t('countries')}</span>
-      <select value={selected ?? ''} onChange={(e) => onSelect(e.target.value || null)}>
-        <option value="">{t('chooseCountry')}</option>
-        {groups.map(([year, countries]) => (
-          <optgroup key={year} label={String(year)}>
-            {countries.map((c) => (
-              <option key={c.iso} value={c.iso}>
-                {nameOf(c)}
-              </option>
-            ))}
-          </optgroup>
-        ))}
-      </select>
-    </label>
   )
 }
