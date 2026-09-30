@@ -564,6 +564,28 @@ body,
   z-index: 2;
 }
 
+.cursor-coins {
+  position: absolute;
+  z-index: 6;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 5px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.25);
+  pointer-events: none;
+  animation: fade-in 0.15s var(--ease);
+}
+
+.cursor-coins img {
+  width: 100%;
+  aspect-ratio: 1;
+  clip-path: circle(49.5%);
+  filter: var(--coin-filter);
+}
+
 .hover-card.is-left {
   left: 14px;
 }
@@ -772,17 +794,32 @@ body,
   padding: 0;
   margin: 0;
   display: grid;
-  /* 4 colonnes : centimes sur une ligne, euros sur l'autre — identique dans les trois formats. */
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  max-width: 520px;
+  /* 3 lignes sur toute la largeur : 1-2-5 centimes, 10-20-50 centimes, puis 1 et 2 euros centrées.
+     Grille de 6 colonnes, chaque pièce en occupe 2. */
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: end;
   gap: 14px;
 }
 
 .coin-grid li {
+  grid-column: span 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+.coin-grid li[data-denomination='1e'] {
+  grid-column: 2 / span 2;
+}
+
+.coin-grid li[data-denomination='2e'] {
+  grid-column: 4 / span 2;
+}
+
+/* Taille à l'échelle du diamètre réel (2 € = 80 % de la cellule). */
+.coin-grid .coin {
+  width: calc(var(--diameter, 1) * 80%);
 }
 
 .coin {
@@ -1331,6 +1368,7 @@ body,
 /* Écrans tactiles : pas de survol, donc ni fiche de pays ni aperçu de pièce. */
 @media (hover: none) {
   .hover-card,
+  .cursor-coins,
   .coin-preview {
     display: none;
   }

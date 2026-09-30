@@ -46,6 +46,7 @@ export function EuropeMap({ selected, onSelect, panelSide }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState({ width: focus.width, height: focus.height })
   const [hover, setHover] = useState<Hover | null>(null)
+  const [cursor, setCursor] = useState<{ left: number; top: number } | null>(null)
 
   useLayoutEffect(() => {
     const el = containerRef.current
@@ -64,6 +65,27 @@ export function EuropeMap({ selected, onSelect, panelSide }: Props) {
   // Fiche au survol : souris uniquement (au doigt, un appui ouvre directement le pays).
   const hoverOn = (country: Country) => setHover((h) => (h?.country === country ? h : { country }))
 
+  // Mini-pièces à côté du curseur : à droite/en bas par défaut, de l'autre côté s'il le faut
+  // pour ne pas déborder de la carte ni passer sur la fenêtre pays ouverte.
+  const followCursor = (clientX: number, clientY: number) => {
+    const map = containerRef.current?.getBoundingClientRect()
+    if (!map) return
+    const panel = document.querySelector('.panel')?.getBoundingClientRect()
+    const x = clientX - map.left
+    const y = clientY - map.top
+    let left = x + CURSOR_GAP
+    let top = y + CURSOR_GAP
+    const overlapsPanel = (l: number, t: number) =>
+      !!panel &&
+      map.left + l < panel.right &&
+      map.left + l + CURSOR_SIZE.width > panel.left &&
+      map.top + t < panel.bottom &&
+      map.top + t + CURSOR_SIZE.height > panel.top
+    if (left + CURSOR_SIZE.width > map.width || overlapsPanel(left, top)) left = x - CURSOR_GAP - CURSOR_SIZE.width
+    if (top + CURSOR_SIZE.height > map.height) top = y - CURSOR_GAP - CURSOR_SIZE.height
+    setCursor({ left, top })
+  }
+
   const countryProps = (country: Country) => ({
     role: 'button',
     tabIndex: 0,
@@ -79,10 +101,18 @@ export function EuropeMap({ selected, onSelect, panelSide }: Props) {
       }
     },
     onPointerMove: (e: React.PointerEvent) => {
-      if (e.pointerType === 'mouse' && !zoom.isDragging()) hoverOn(country)
-      else setHover(null)
+      if (e.pointerType === 'mouse' && !zoom.isDragging()) {
+        hoverOn(country)
+        followCursor(e.clientX, e.clientY)
+      } else {
+        setHover(null)
+        setCursor(null)
+      }
     },
-    onPointerLeave: () => setHover(null),
+    onPointerLeave: () => {
+      setHover(null)
+      setCursor(null)
+    },
     onFocus: (e: React.FocusEvent<SVGElement>) => {
       if (e.currentTarget.matches(':focus-visible')) hoverOn(country)
     },
@@ -126,6 +156,8 @@ export function EuropeMap({ selected, onSelect, panelSide }: Props) {
         })}
       </svg>
 
+      {hover && cursor && <CursorCoins country={hover.country} position={cursor} />}
+
       {hover ? (
         <HoverCard country={hover.country} side={panelSide === 'left' ? 'right' : 'left'} />
       ) : (
@@ -147,6 +179,26 @@ export function EuropeMap({ selected, onSelect, panelSide }: Props) {
           </button>
         )}
       </div>
+    </div>
+  )
+}
+
+const CURSOR_GAP = 14
+const CURSOR_SIZE = { width: 104, height: 54 }
+
+// Les pièces de la série actuelle en tout petit, au premier plan près du curseur.
+function CursorCoins({ country, position }: { country: Country; position: { left: number; top: number } }) {
+  const coins = Object.values(latestSeries(country)?.coins ?? {})
+  return (
+    <div
+      key={country.iso}
+      className="cursor-coins"
+      style={{ left: position.left, top: position.top, width: CURSOR_SIZE.width }}
+      aria-hidden="true"
+    >
+      {coins.map((image) => (
+        <img key={image} src={asset(image)} alt="" />
+      ))}
     </div>
   )
 }

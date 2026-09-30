@@ -53,17 +53,20 @@ export function commemorativeFor(iso: string): CommemorativeCoin[] {
 // Chemins d'images relatifs à la base Vite (utile si le site est servi dans un sous-dossier).
 export const asset = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '')
 
-// Valeur faciale → nombre + unité, pour construire un libellé traduit.
-const DENOMINATION_VALUES: Record<DenominationId, { n: number; unit: 'cent' | 'euro' }> = {
-  '1c': { n: 1, unit: 'cent' },
-  '2c': { n: 2, unit: 'cent' },
-  '5c': { n: 5, unit: 'cent' },
-  '10c': { n: 10, unit: 'cent' },
-  '20c': { n: 20, unit: 'cent' },
-  '50c': { n: 50, unit: 'cent' },
-  '1e': { n: 1, unit: 'euro' },
-  '2e': { n: 2, unit: 'euro' },
+// Valeur faciale → nombre + unité (libellé traduit) et diamètre réel en mm (taille à l'échelle).
+const DENOMINATION_VALUES: Record<DenominationId, { n: number; unit: 'cent' | 'euro'; diameter: number }> = {
+  '1c': { n: 1, unit: 'cent', diameter: 16.25 },
+  '2c': { n: 2, unit: 'cent', diameter: 18.75 },
+  '5c': { n: 5, unit: 'cent', diameter: 21.25 },
+  '10c': { n: 10, unit: 'cent', diameter: 19.75 },
+  '20c': { n: 20, unit: 'cent', diameter: 22.25 },
+  '50c': { n: 50, unit: 'cent', diameter: 24.25 },
+  '1e': { n: 1, unit: 'euro', diameter: 23.25 },
+  '2e': { n: 2, unit: 'euro', diameter: 25.75 },
 }
+
+/** Diamètre relatif à la plus grande pièce (2 €), entre 0 et 1. */
+export const relativeDiameter = (id: DenominationId) => DENOMINATION_VALUES[id].diameter / 25.75
 
 export function denominationValue(id: DenominationId) {
   return DENOMINATION_VALUES[id]

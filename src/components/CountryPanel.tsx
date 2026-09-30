@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { asset, commemorativeFor, data, type CommemorativeCoin, type Country } from '../data'
+import { asset, commemorativeFor, data, relativeDiameter, type CommemorativeCoin, type Country } from '../data'
 import { useI18n } from '../i18n'
 import { useCoinTexts } from '../i18n/useCoinTexts'
 import type { ZoomItem } from './Lightbox'
@@ -113,7 +113,12 @@ function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoo
               const label = denominationLabel(d.id)
               const text = caption(label, s.index)
               return (
-                <li key={d.id} className={s.index > 1 && !isNew ? 'is-unchanged' : undefined}>
+                <li
+                  key={d.id}
+                  data-denomination={d.id}
+                  className={s.index > 1 && !isNew ? 'is-unchanged' : undefined}
+                  style={{ '--diameter': relativeDiameter(d.id) } as React.CSSProperties}
+                >
                   <button
                     className="coin"
                     {...bind({ image, title: text, text: regularDescription(image) })}
