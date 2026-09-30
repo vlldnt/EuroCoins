@@ -7,7 +7,7 @@
   --euro: #2455c9;
   --euro-hover: #3d6fe6;
   --link: #2f55b5;
-  --gold: #e0a800;
+  --gold: #a67c00;
   --focus-ring: #0b57d0;
   --tag-bg: #eaeff8;
   --shadow: 0 12px 32px rgb(10 20 50 / 0.16);
@@ -79,9 +79,9 @@
   --map-land: #f1f3f7;
   --map-land-stroke: #c3ccda;
   --map-euro: #2455c9;
-  --map-euro-hover: #3d6fe6;
+  --map-euro-hover: #6f93f0;
   --map-euro-stroke: #ffffff;
-  --map-selected: #f2b705;
+  --map-selected: #ffd23f;
   --map-selected-stroke: #6b4f00;
   --map-focus: #e0a800;
   --map-marker: #e0a800;
@@ -90,12 +90,12 @@
 :root[data-theme='dark'],
 :root[data-theme='dark'] [data-palette='standard'] {
   --map-sea: #0b1a33;
-  --map-land: #283149;
-  --map-land-stroke: #0e1424;
+  --map-land: #141926;
+  --map-land-stroke: #2c3654;
   --map-euro: #3f67c9;
-  --map-euro-hover: #5a82e0;
+  --map-euro-hover: #7394ec;
   --map-euro-stroke: #0e1424;
-  --map-selected: #f2b705;
+  --map-selected: #ffd23f;
   --map-selected-stroke: #fff3c4;
   --map-focus: #f2b705;
   --map-marker: #f2b705;
@@ -105,12 +105,12 @@
   :root:not([data-theme='light']),
   :root:not([data-theme='light']) [data-palette='standard'] {
     --map-sea: #0b1a33;
-    --map-land: #283149;
-    --map-land-stroke: #0e1424;
+    --map-land: #141926;
+    --map-land-stroke: #2c3654;
     --map-euro: #3f67c9;
-    --map-euro-hover: #5a82e0;
+    --map-euro-hover: #7394ec;
     --map-euro-stroke: #0e1424;
-    --map-selected: #f2b705;
+    --map-selected: #ffd23f;
     --map-selected-stroke: #fff3c4;
     --map-focus: #f2b705;
     --map-marker: #f2b705;
@@ -580,12 +580,21 @@ body,
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  padding: 6px 4px;
+  min-width: 0;
+  padding: 6px 2px;
   border-radius: 8px;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--muted);
   cursor: pointer;
   text-align: center;
+}
+
+/* Libellé sur une seule ligne, même pour « Automaattinen » ; le title donne le texte complet si coupé. */
+.segmented label span {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .segmented label:has(input:checked) {
