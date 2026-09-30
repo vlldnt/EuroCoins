@@ -1,4 +1,4 @@
-import { useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import map from '../data/europe-map.json'
 import { asset, countriesByIso, latestSeries, type Country, type DenominationId } from '../data'
 import { useI18n } from '../i18n'
@@ -18,12 +18,16 @@ const { focus, bounds, shapes, markers } = map as {
 // Micro-États : c'est leur pastille qui reçoit le focus clavier (un seul arrêt par pays).
 const MARKER_ISOS = new Set(markers.map((m) => m.iso))
 
+// Part de la largeur ajoutée placée à l'ouest (côté Atlantique) quand l'écran est plus large que la
+// zone euro : on évite d'aller trop loin vers l'est (Russie), qui n'apporte rien.
+const WEST_SHARE = 0.75
+
 // Élargit la zone `focus` pour qu'elle ait les proportions du conteneur.
 function baseViewFor(ratio: number): Rect {
   let { x, y, width, height } = focus
   if (ratio > width / height) {
     const w = height * ratio
-    x -= (w - width) / 2
+    x -= (w - width) * WEST_SHARE
     width = w
   } else {
     const h = width / ratio
@@ -40,20 +44,88 @@ interface Hover {
   clientY: number
 }
 
+// Largeur (px) cachée à droite par la fenêtre pays ouverte, d'après les règles de index.css :
+// ordinateur min(640px, 48 %), tablette paysage min(560px, 64 %), plus la marge de 14px.
+// En mobile et tablette portrait, la fenêtre s'ouvre en bas : rien n'est caché sur le côté.
+function panelOcclusion(mapWidth: number): number {
+  const wide = window.matchMedia('(min-width: 1200px)').matches
+  const tabletLandscape = window.matchMedia('(min-width: 700px) and (max-width: 1199px) and (orientation: landscape)').matches
+  if (wide) return Math.min(640, mapWidth * 0.48) + 28
+  if (tabletLandscape) return Math.min(560, mapWidth * 0.64) + 28
+  return 0
+}
+
+// Transition douce d'un cadrage à l'autre (ouverture/fermeture de la fenêtre pays).
+function useTweenedRect(target: Rect, duration = 420): Rect {
+  const [rect, setRect] = useState(target)
+  const from = useRef(target)
+  useEffect(() => {
+    const start = performance.now()
+    const origin = from.current
+    // Onglet caché (animations suspendues) ou mouvement réduit : cadrage final directement.
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.hidden
+    let frame = 0
+    const step = (now: number) => {
+      const t = reduce ? 1 : Math.min(1, (now - start) / duration)
+      const e = 1 - Math.pow(1 - t, 3)
+      const next = {
+        x: origin.x + (target.x - origin.x) * e,
+        y: origin.y + (target.y - origin.y) * e,
+        width: origin.width + (target.width - origin.width) * e,
+        height: origin.height + (target.height - origin.height) * e,
+      }
+      from.current = next
+      setRect(next)
+      if (t < 1) frame = requestAnimationFrame(step)
+    }
+    if (reduce) {
+      from.current = target
+      const timer = window.setTimeout(() => setRect(target), 0)
+      return () => window.clearTimeout(timer)
+    }
+    frame = requestAnimationFrame(step)
+    // Si l'onglet passe en arrière-plan pendant l'animation, on termine d'un coup au retour.
+    const onVisible = () => {
+      if (!document.hidden) return
+      cancelAnimationFrame(frame)
+      from.current = target
+      setRect(target)
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      cancelAnimationFrame(frame)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
+  }, [target, duration])
+  return rect
+}
+
 interface Props {
+  /** Fenêtre pays ouverte : la carte se décale pour rester visible à côté d'elle. */
+  panelOpen: boolean
   selected: string | null
   onSelect: (iso: string) => void
 }
 
 const KEY_PAN = 80 // px par appui sur une flèche
 
-export function EuropeMap({ selected, onSelect }: Props) {
+export function EuropeMap({ selected, onSelect, panelOpen }: Props) {
   const { t, lang } = useI18n()
   const { nameOf } = useCoinTexts()
   const containerRef = useRef<HTMLDivElement>(null)
   const helpId = useId()
   const [size, setSize] = useState({ width: focus.width, height: focus.height })
   const [hover, setHover] = useState<Hover | null>(null)
+  // Largeur de la liste des pays posée sur la gauche de la carte (0 quand elle est masquée).
+  const [listWidth, setListWidth] = useState(0)
+
+  useLayoutEffect(() => {
+    const list = document.getElementById('countries-list')
+    if (!list) return
+    const observer = new ResizeObserver(() => setListWidth(list.offsetParent ? list.offsetWidth : 0))
+    observer.observe(list)
+    return () => observer.disconnect()
+  }, [])
 
   useLayoutEffect(() => {
     const el = containerRef.current
@@ -66,7 +138,17 @@ export function EuropeMap({ selected, onSelect }: Props) {
     return () => observer.disconnect()
   }, [])
 
-  const base = useMemo(() => baseViewFor(size.width / size.height), [size])
+  // Cadrage calculé pour la partie visible de la carte (entre la liste des pays à gauche et la
+  // fenêtre pays à droite), puis prolongé sous ces deux éléments.
+  const target = useMemo(() => {
+    const left = listWidth ? listWidth + 14 : 0
+    const right = panelOpen ? panelOcclusion(size.width) : 0
+    const visible = Math.max(1, size.width - left - right)
+    const rect = baseViewFor(visible / size.height)
+    const scale = rect.width / visible
+    return { ...rect, x: rect.x - left * scale, width: rect.width + (left + right) * scale }
+  }, [size, panelOpen, listWidth])
+  const base = useTweenedRect(target)
   const zoom = useMapZoom(containerRef, base, bounds)
 
   // Pays de la zone euro dessinés par ordre alphabétique : l'ordre de tabulation est logique.

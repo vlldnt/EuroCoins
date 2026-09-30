@@ -356,7 +356,6 @@ a {
 body,
 .panel,
 .map,
-.country-chips button,
 .year-filter button,
 .language-trigger,
 .display-trigger {
@@ -795,6 +794,13 @@ body,
   margin-top: 10px;
 }
 
+/* La barre du bas ne sert qu'au mobile (liste déroulante des pays). */
+@media (min-width: 700px) {
+  .bottom-bar {
+    display: none;
+  }
+}
+
 .site-footer {
   margin-top: 16px;
   color: var(--muted);
@@ -843,10 +849,11 @@ body,
 
 .map-controls {
   position: absolute;
-  right: 12px;
+  left: 50%;
   bottom: 12px;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 6px;
   z-index: 3;
 }
@@ -1013,59 +1020,77 @@ body,
   font-weight: 600;
 }
 
-.country-chips {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
+/* Liste des pays posée sur la gauche de la carte, par année d'entrée dans l'euro. */
+.country-list {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 4;
+  width: 13.5rem;
+  max-height: calc(100% - 28px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  scrollbar-width: thin;
+  animation: fade-in 0.4s var(--ease);
 }
 
-/* Rangée de drapeaux : le nom du pays se déplie au survol, au focus clavier ou à la sélection. */
-nav.country-chips button {
-  display: inline-flex;
+.country-list-group + .country-list-group {
+  margin-top: 6px;
+}
+
+.country-list-year {
+  margin: 0;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.country-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.country-list button {
+  display: flex;
   align-items: center;
-  padding: 5px 7px;
-  gap: 0;
+  gap: 9px;
+  width: 100%;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  font-size: 0.86rem;
+  text-align: left;
   transition:
-    gap 0.25s var(--ease),
-    padding 0.25s var(--ease),
-    background 0.2s,
-    border-color 0.2s,
+    background-color 0.2s,
     color 0.2s,
     transform 0.2s var(--ease);
 }
 
-nav.country-chips .flag {
-  width: 26px;
-  height: 18px;
+.country-list button:hover {
+  background: var(--tag-bg);
+  transform: translateX(3px);
 }
 
-.country-chip-name {
-  max-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  opacity: 0;
-  transition:
-    max-width 0.3s var(--ease),
-    opacity 0.2s var(--ease);
+.country-list button[aria-pressed='true'] {
+  background: var(--euro);
+  color: #fff;
+  font-weight: 600;
 }
 
-nav.country-chips button:hover,
-nav.country-chips button:focus-visible,
-nav.country-chips button[aria-pressed='true'] {
-  gap: 8px;
-  padding-inline: 10px 12px;
-}
-
-nav.country-chips button:hover {
-  transform: translateY(-2px);
-}
-
-nav.country-chips button:hover .country-chip-name,
-nav.country-chips button:focus-visible .country-chip-name,
-nav.country-chips button[aria-pressed='true'] .country-chip-name {
-  max-width: 14rem;
-  opacity: 1;
+.country-list .flag {
+  width: 24px;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 .country-select {
@@ -1081,7 +1106,6 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
   font-size: 1rem;
 }
 
-.country-chips button,
 .year-filter button {
   border: 1px solid var(--border);
   background: var(--surface);
@@ -1094,12 +1118,10 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
     color 0.2s;
 }
 
-.country-chips button:hover,
 .year-filter button:hover {
   border-color: var(--euro-hover);
 }
 
-.country-chips button[aria-pressed='true'],
 .year-filter button[aria-pressed='true'] {
   background: var(--euro);
   border-color: var(--euro);
@@ -1872,16 +1894,8 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
     width: min(560px, 64%);
   }
 
-  .country-chips {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    scrollbar-width: thin;
-  }
-
-  .country-chips button {
-    flex: 0 0 auto;
+  .country-list {
+    width: 12rem;
   }
 }
 
@@ -1981,7 +1995,7 @@ nav.country-chips button[aria-pressed='true'] .country-chip-name {
     margin-top: 8px;
   }
 
-  .country-chips {
+  .country-list {
     display: none;
   }
 

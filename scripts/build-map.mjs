@@ -14,18 +14,19 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const OUT = path.join(ROOT, 'src', 'data', 'europe-map.json')
 const WIDTH = 1000
 
-// Zone à cadrer : toute la zone euro, de l'ouest du Portugal à Chypre et de Malte au nord de la Finlande.
+// Zone à cadrer : de l'Irlande et du Portugal à Chypre, de Malte au milieu de la Finlande.
+// Le nord de la Finlande et les îles de l'Atlantique peuvent être coupés : la carte y gagne en taille.
 const FOCUS_POINTS = [
-  [-9.8, 36.9], // Cap Saint-Vincent (Portugal)
-  [-10.6, 52], // Ouest de l'Irlande
-  [14.5, 34.6], // Sous Malte (un peu de mer, voire la côte africaine)
-  [35.5, 34.2], // Chypre
-  [28.5, 70.1], // Nord de la Finlande
+  [-9.6, 37.0], // Portugal
+  [-10.4, 53.5], // Ouest de l'Irlande
+  [14.5, 35.2], // Malte, avec un peu de côte africaine
+  [34.6, 34.6], // Chypre
+  [25.5, 64.6], // Milieu de la Finlande
 ]
 // Marge dessinée autour de la zone cadrée, pour que l'écran puisse s'élargir sans laisser de vide
 // (on y voit le nord de l'Afrique, la Russie…).
 const MARGIN = 0.6
-const PADDING = 28
+const PADDING = 16
 
 // Pays trop petits pour être cliqués à cette échelle : on ajoute une pastille.
 const MICROSTATES = new Set(['ad', 'mc', 'sm', 'va', 'mt', 'lu'])

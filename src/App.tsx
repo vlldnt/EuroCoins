@@ -4,7 +4,7 @@ import { CountryPanel } from './components/CountryPanel'
 import { Lightbox, type ZoomItem } from './components/Lightbox'
 import { LanguageSelect } from './components/LanguageSelect'
 import { DisplaySettings } from './components/DisplaySettings'
-import { CountryPicker } from './components/CountryPicker'
+import { CountryList, CountrySelect } from './components/CountryPicker'
 import { countriesByIso, data } from './data'
 import { useI18n } from './i18n'
 import { useCoinTexts } from './i18n/useCoinTexts'
@@ -16,9 +16,11 @@ function readHash() {
 }
 
 // Liens d'évitement : on déplace le focus sans changer l'URL (le hash sert au pays ouvert).
-function skipTo(e: React.MouseEvent, id: string) {
+function skipTo(e: React.MouseEvent, ...ids: string[]) {
   e.preventDefault()
-  document.getElementById(id)?.focus()
+  // Premier élément affiché parmi les cibles (la liste des pays diffère selon le format d'écran).
+  const target = ids.map((id) => document.getElementById(id)).find((el) => el && el.offsetParent !== null)
+  target?.focus()
 }
 
 
@@ -85,7 +87,7 @@ export default function App() {
         <a href="#map" onClick={(e) => skipTo(e, 'map')}>
           {t('skipToMap')}
         </a>
-        <a href="#countries" onClick={(e) => skipTo(e, 'countries')}>
+        <a href="#countries-list" onClick={(e) => skipTo(e, 'countries-list', 'countries')}>
           {t('skipToCountries')}
         </a>
       </nav>
@@ -108,7 +110,8 @@ export default function App() {
       </header>
 
       <main className="layout">
-        <EuropeMap selected={selected} onSelect={select} />
+        <EuropeMap selected={selected} onSelect={select} panelOpen={!!country} />
+        <CountryList selected={selected} onSelect={select} />
         {country && (
           <CountryPanel
             key={country.iso}
@@ -120,7 +123,7 @@ export default function App() {
       </main>
 
       <div className="bottom-bar" id="countries" tabIndex={-1} data-keep-panel>
-        <CountryPicker selected={selected} onSelect={select} />
+        <CountrySelect selected={selected} onSelect={select} />
       </div>
 
       <footer className="site-footer">
