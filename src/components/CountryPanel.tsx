@@ -186,7 +186,10 @@ function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoo
   const caption = (label: string, index: number) =>
     `${nameOf(country)} — ${label} (${t('seriesN', { n: index })})`
 
-  const items = country.series.flatMap((s) =>
+  // Série la plus récente en premier (affichage et carrousel).
+  const seriesNewestFirst = [...country.series].reverse()
+
+  const items = seriesNewestFirst.flatMap((s) =>
     data.denominations.flatMap((d) => {
       const image = s.coins[d.id]
       return image
@@ -222,7 +225,7 @@ function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoo
         ))}
       </fieldset>
 
-      {country.series.map((s) => (
+      {seriesNewestFirst.map((s) => (
         <div className="series" key={s.index}>
           <h3>
             {country.series.length > 1 ? t('seriesN', { n: s.index }) : t('currentSeries')}
