@@ -115,3 +115,16 @@ export const commFile = (iso, src) => `${iso}-${path.basename(src).replace(/[^a-
 
 // Nom WebP final : minuscules, extension remplacée.
 export const webpName = (file) => path.basename(file).replace(/\.[a-z]+$/i, '').toLowerCase() + '.webp'
+
+// Volume d'émission d'une pièce commémorative, d'après le texte français de la BCE
+// (« Volume d'émission : 2,5 millions de pièces »). null si non chiffré (émissions communes :
+// « variable d'un pays à l'autre »).
+export function parseMintage(description) {
+  const m = description.match(/Volume d.émission\s*:?\s*([^\n]*)/i)
+  if (!m) return null
+  const value = m[1].replace(/\u00a0|\u202f/g, ' ').match(/(\d[\d ]*(?:,\d+)?)\s*(millions?|milliards?)?/i)
+  if (!value) return null
+  const n = parseFloat(value[1].replace(/ /g, '').replace(',', '.'))
+  const unit = value[2]?.toLowerCase() ?? ''
+  return Math.round(n * (unit.startsWith('million') ? 1e6 : unit.startsWith('milliard') ? 1e9 : 1))
+}

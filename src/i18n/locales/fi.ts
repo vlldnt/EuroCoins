@@ -59,6 +59,8 @@ const fi: Messages = {
   allYears: 'Kaikki',
   filterByYear: 'Suodata vuoden mukaan',
   jointIssue: 'Yhteinen liikkeeseenlasku',
+  mintage: 'Lyöntimäärä: {count} kolikkoa',
+  mintageVariable: 'Lyöntimäärä: vaihtelee maittain',
   details: 'Tiedot',
   comingSoon: 'Kuva tulossa',
   noCommemorative: 'EKP ei ole julkaissut tämän maan erikoisrahoja.',

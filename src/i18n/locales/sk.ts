@@ -59,6 +59,8 @@ const sk: Messages = {
   allYears: 'Všetky',
   filterByYear: 'Filtrovať podľa roka',
   jointIssue: 'Spoločná emisia',
+  mintage: 'Náklad: {count} mincí',
+  mintageVariable: 'Náklad: líši sa podľa krajiny',
   details: 'Podrobnosti',
   comingSoon: 'Obrázok čoskoro',
   noCommemorative: 'ECB pre túto krajinu nezverejnila žiadne pamätné mince.',

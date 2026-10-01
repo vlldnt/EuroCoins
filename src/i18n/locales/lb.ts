@@ -59,6 +59,8 @@ const lb: Messages = {
   allYears: 'All',
   filterByYear: 'No Joer filteren',
   jointIssue: 'Gemeinsam Emissioun',
+  mintage: 'Oplo: {count} Mënzen',
+  mintageVariable: 'Oplo: ënnerschiddlech je no Land',
   details: 'Detailer',
   comingSoon: 'Bild kënnt geschwënn',
   noCommemorative: 'D’EZB huet fir dëst Land keng Gedenkmënze publizéiert.',

@@ -59,6 +59,8 @@ const it: Messages = {
   allYears: 'Tutti',
   filterByYear: 'Filtra per anno',
   jointIssue: 'Emissione congiunta',
+  mintage: 'Tiratura: {count} monete',
+  mintageVariable: 'Tiratura: variabile da paese a paese',
   details: 'Dettagli',
   comingSoon: 'Immagine in arrivo',
   noCommemorative: 'Nessuna moneta commemorativa pubblicata dalla BCE per questo paese.',

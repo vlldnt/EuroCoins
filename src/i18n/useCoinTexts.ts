@@ -5,7 +5,7 @@ import { LOCALES } from './languages'
 
 // Accès aux textes traduits des pièces, avec repli sur le français de coins.json.
 export function useCoinTexts() {
-  const { t, texts, countryName } = useI18n()
+  const { t, texts, countryName, lang } = useI18n()
 
   const denominationLabel = useCallback(
     (id: DenominationId) => {
@@ -44,6 +44,24 @@ export function useCoinTexts() {
     [texts],
   )
 
+  /** « Tirage : 2 500 000 pièces » (ou « variable selon le pays » pour les émissions communes). */
+  const mintageText = useCallback(
+    (c: CommemorativeCoin) => {
+      if (c.mintage !== null) return t('mintage', { count: new Intl.NumberFormat(lang).format(c.mintage) })
+      return c.joint ? t('mintageVariable') : ''
+    },
+    [t, lang],
+  )
+
+  /** Tirage abrégé pour la grille (« 2,5 M », « 500 k »…), dans la langue choisie. */
+  const mintageShort = useCallback(
+    (c: CommemorativeCoin) =>
+      c.mintage === null
+        ? ''
+        : new Intl.NumberFormat(lang, { notation: 'compact', maximumFractionDigits: 1 }).format(c.mintage),
+    [lang],
+  )
+
   const nameOf = useCallback((country: Country) => countryName(country.iso, country.name), [countryName])
 
   /** Nom du pays dans sa propre langue (« Deutschland », « België », « Ελλάδα »…). */
@@ -65,5 +83,7 @@ export function useCoinTexts() {
     countryDescription,
     nameOf,
     nativeNameOf,
+    mintageText,
+    mintageShort,
   }
 }

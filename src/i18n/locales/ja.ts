@@ -59,6 +59,8 @@ const ja: Messages = {
   allYears: 'すべて',
   filterByYear: '年で絞り込む',
   jointIssue: '共同発行',
+  mintage: '発行枚数：{count} 枚',
+  mintageVariable: '発行枚数：国により異なる',
   details: '詳細',
   comingSoon: '画像は準備中です',
   noCommemorative: 'この国の記念硬貨は欧州中央銀行から公表されていません。',

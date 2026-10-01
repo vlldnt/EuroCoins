@@ -59,6 +59,8 @@ const mt: Messages = {
   allYears: 'Kollha',
   filterByYear: 'Iffiltra skont is-sena',
   jointIssue: 'Ħruġ konġunt',
+  mintage: 'Ħruġ: {count} munita',
+  mintageVariable: 'Ħruġ: ivarja minn pajjiż għal ieħor',
   details: 'Dettalji',
   comingSoon: 'Stampa dalwaqt',
   noCommemorative: 'Il-BĊE ma ppubblika l-ebda munita kommemorattiva għal dan il-pajjiż.',

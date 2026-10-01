@@ -59,6 +59,8 @@ const et: Messages = {
   allYears: 'Kõik',
   filterByYear: 'Filtreeri aasta järgi',
   jointIssue: 'Ühisemissioon',
+  mintage: 'Tiraaž: {count} münti',
+  mintageVariable: 'Tiraaž: riigiti erinev',
   details: 'Üksikasjad',
   comingSoon: 'Pilt lisandub peagi',
   noCommemorative: 'EKP ei ole selle riigi mälestusmünte avaldanud.',

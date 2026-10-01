@@ -59,6 +59,8 @@ const sl: Messages = {
   allYears: 'Vse',
   filterByYear: 'Filtriraj po letu',
   jointIssue: 'Skupna izdaja',
+  mintage: 'Naklada: {count} kovancev',
+  mintageVariable: 'Naklada: odvisna od države',
   details: 'Podrobnosti',
   comingSoon: 'Slika kmalu',
   noCommemorative: 'ECB za to državo ni objavila priložnostnih kovancev.',

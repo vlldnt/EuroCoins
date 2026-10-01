@@ -59,6 +59,8 @@ const hr: Messages = {
   allYears: 'Sve',
   filterByYear: 'Filtriraj po godini',
   jointIssue: 'Zajedničko izdanje',
+  mintage: 'Naklada: {count} kovanica',
+  mintageVariable: 'Naklada: razlikuje se po državama',
   details: 'Pojedinosti',
   comingSoon: 'Slika uskoro',
   noCommemorative: 'ESB nije objavila prigodne kovanice za ovu državu.',

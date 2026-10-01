@@ -59,6 +59,8 @@ const eo: Messages = {
   allYears: 'Ĉiuj',
   filterByYear: 'Filtri laŭ jaro',
   jointIssue: 'Komuna eldono',
+  mintage: 'Eldonkvanto: {count} moneroj',
+  mintageVariable: 'Eldonkvanto: malsama laŭ la lando',
   details: 'Detaloj',
   comingSoon: 'Bildo baldaŭ aperos',
   noCommemorative: 'Neniu memormonero publikigita de la Eŭropa Centra Banko por ĉi tiu lando.',

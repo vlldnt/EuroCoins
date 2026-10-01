@@ -59,6 +59,8 @@ const nl: Messages = {
   allYears: 'Alle',
   filterByYear: 'Filteren op jaar',
   jointIssue: 'Gezamenlijke uitgifte',
+  mintage: 'Oplage: {count} munten',
+  mintageVariable: 'Oplage: verschilt per land',
   details: 'Details',
   comingSoon: 'Afbeelding volgt',
   noCommemorative: 'Geen herdenkingsmunten gepubliceerd door de ECB voor dit land.',

@@ -59,6 +59,8 @@ const de: Messages = {
   allYears: 'Alle',
   filterByYear: 'Nach Jahr filtern',
   jointIssue: 'Gemeinschaftsausgabe',
+  mintage: 'Auflage: {count} Münzen',
+  mintageVariable: 'Auflage: je nach Land unterschiedlich',
   details: 'Details',
   comingSoon: 'Abbildung folgt',
   noCommemorative: 'Für dieses Land hat die EZB keine Gedenkmünzen veröffentlicht.',

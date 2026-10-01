@@ -59,6 +59,8 @@ const fr = {
   allYears: 'Toutes',
   filterByYear: 'Filtrer par année',
   jointIssue: 'Émission commune',
+  mintage: 'Tirage : {count} pièces',
+  mintageVariable: 'Tirage : variable selon le pays',
   details: 'Détails',
   comingSoon: 'Visuel à venir',
   noCommemorative: 'Aucune pièce commémorative publiée par la BCE pour ce pays.',

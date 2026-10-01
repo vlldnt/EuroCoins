@@ -59,6 +59,8 @@ const bg: Messages = {
   allYears: 'Всички',
   filterByYear: 'Филтриране по година',
   jointIssue: 'Съвместна емисия',
+  mintage: 'Тираж: {count} монети',
+  mintageVariable: 'Тираж: различен за всяка държава',
   details: 'Подробности',
   comingSoon: 'Изображението предстои',
   noCommemorative: 'ЕЦБ не е публикувала възпоменателни монети за тази държава.',

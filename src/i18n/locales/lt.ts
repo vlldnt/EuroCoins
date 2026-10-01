@@ -59,6 +59,8 @@ const lt: Messages = {
   allYears: 'Visi',
   filterByYear: 'Filtruoti pagal metus',
   jointIssue: 'Bendra emisija',
+  mintage: 'Tiražas: {count} monetų',
+  mintageVariable: 'Tiražas: priklauso nuo šalies',
   details: 'Išsamiau',
   comingSoon: 'Vaizdas netrukus',
   noCommemorative: 'ECB nėra paskelbęs šios šalies proginių monetų.',

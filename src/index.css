@@ -1846,6 +1846,14 @@ body,
   font-weight: 600;
 }
 
+
+/* Tirage abrégé sous l'année (commémoratives). */
+.coin-mintage {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
 .coin-note {
   font-size: 0.72rem;
   color: var(--muted);

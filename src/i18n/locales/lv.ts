@@ -59,6 +59,8 @@ const lv: Messages = {
   allYears: 'Visi',
   filterByYear: 'Filtrēt pēc gada',
   jointIssue: 'Kopīga emisija',
+  mintage: 'Tirāža: {count} monētas',
+  mintageVariable: 'Tirāža: atšķiras atkarībā no valsts',
   details: 'Sīkāk',
   comingSoon: 'Attēls drīzumā',
   noCommemorative: 'ECB nav publicējusi šīs valsts piemiņas monētas.',

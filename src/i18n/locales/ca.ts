@@ -59,6 +59,8 @@ const ca: Messages = {
   allYears: 'Tots',
   filterByYear: 'Filtra per any',
   jointIssue: 'Emissió conjunta',
+  mintage: 'Tiratge: {count} monedes',
+  mintageVariable: 'Tiratge: variable segons el país',
   details: 'Detalls',
   comingSoon: 'Imatge properament',
   noCommemorative: 'El BCE no ha publicat cap moneda commemorativa d’aquest país.',

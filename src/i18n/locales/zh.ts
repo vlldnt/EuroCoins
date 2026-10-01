@@ -59,6 +59,8 @@ const zh: Messages = {
   allYears: '全部',
   filterByYear: '按年份筛选',
   jointIssue: '联合发行',
+  mintage: '发行量：{count} 枚',
+  mintageVariable: '发行量：各国不同',
   details: '详情',
   comingSoon: '图片即将上线',
   noCommemorative: '欧洲央行尚未公布该国的纪念币。',

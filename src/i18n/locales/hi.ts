@@ -59,6 +59,8 @@ const hi: Messages = {
   allYears: 'सभी',
   filterByYear: 'वर्ष के अनुसार फ़िल्टर करें',
   jointIssue: 'संयुक्त निर्गम',
+  mintage: 'टकसाल संख्या: {count} सिक्के',
+  mintageVariable: 'टकसाल संख्या: देश के अनुसार अलग',
   details: 'विवरण',
   comingSoon: 'चित्र जल्द आ रहा है',
   noCommemorative: 'यूरोपीय केंद्रीय बैंक ने इस देश के लिए कोई स्मारक सिक्का प्रकाशित नहीं किया है।',

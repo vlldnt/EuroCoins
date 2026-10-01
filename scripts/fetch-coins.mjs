@@ -12,6 +12,7 @@ import { COUNTRIES, DENOMINATIONS } from './countries.mjs'
 import {
   ECB, FIRST_COMM_YEAR, fetchText, norm, parseBoxes, regularImage, isPlaceholder, commFile, webpName,
   regularUrl, commUrl,
+  parseMintage,
 } from './ecb.mjs'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -177,6 +178,8 @@ async function fetchCommemorative() {
           joint,
           title: (first ?? '').replace(/^Dessin commémoratif\s*:\s*/i, ''),
           description: rest.join('\n'),
+          // Tirage (nombre de pièces émises) ; null pour les émissions communes (« variable »).
+          mintage: parseMintage(rest.join('\n')),
           image: null,
         }
         // Pièce annoncée mais visuel pas encore publié par la BCE.

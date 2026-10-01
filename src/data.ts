@@ -30,6 +30,8 @@ export interface CommemorativeCoin {
   joint: boolean
   title: string
   description: string
+  /** Tirage (pièces émises) d'après la BCE ; null si non chiffré (émissions communes). */
+  mintage: number | null
   image: string | null
 }
 

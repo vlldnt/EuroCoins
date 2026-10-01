@@ -59,6 +59,8 @@ const el: Messages = {
   allYears: 'Όλα',
   filterByYear: 'Φιλτράρισμα ανά έτος',
   jointIssue: 'Κοινή έκδοση',
+  mintage: 'Κοπή: {count} κέρματα',
+  mintageVariable: 'Κοπή: διαφέρει ανά χώρα',
   details: 'Λεπτομέρειες',
   comingSoon: 'Η εικόνα έρχεται σύντομα',
   noCommemorative: 'Η ΕΚΤ δεν έχει δημοσιεύσει αναμνηστικά κέρματα για αυτή τη χώρα.',

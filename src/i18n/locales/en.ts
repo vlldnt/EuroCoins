@@ -59,6 +59,8 @@ const en: Messages = {
   allYears: 'All',
   filterByYear: 'Filter by year',
   jointIssue: 'Joint issue',
+  mintage: 'Mintage: {count} coins',
+  mintageVariable: 'Mintage: varies by country',
   details: 'Details',
   comingSoon: 'Image coming soon',
   noCommemorative: 'No commemorative coins published by the ECB for this country.',

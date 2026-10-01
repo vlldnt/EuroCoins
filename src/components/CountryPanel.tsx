@@ -296,7 +296,9 @@ function Commemoratives({
   bind: Bind
 }) {
   const { t } = useI18n()
-  const { commTitle, commDesign, nameOf } = useCoinTexts()
+  const { commTitle, commDesign, nameOf, mintageText, mintageShort } = useCoinTexts()
+  // Texte de l'aperçu et du carrousel : tirage, puis description du graphisme.
+  const details = (c: CommemorativeCoin) => [mintageText(c), commDesign(c)].filter(Boolean).join('\n')
   const years = useMemo(() => [...new Set(coins.map((c) => c.year))].sort((a, b) => b - a), [coins])
   const [year, setYear] = useState<number | 'all'>('all')
 
@@ -310,7 +312,7 @@ function Commemoratives({
     image: c.image!,
     caption: `${nameOf(country)} ${c.year} — ${commTitle(c)}`,
     iso: country.iso,
-    text: commDesign(c),
+    text: details(c),
   }))
 
   return (
@@ -334,13 +336,14 @@ function Commemoratives({
           .map((c, i) => {
             const title = commTitle(c) || t('commemorativeCoin')
             const heading = `${c.year} — ${title}${c.joint ? ` (${t('jointIssue')})` : ''}`
+            const mintage = mintageShort(c)
             return (
               <li key={`${c.year}-${i}`}>
                 {c.image ? (
                   <button
                     className="coin"
-                    aria-label={heading}
-                    {...bind({ image: c.image, title: heading, text: commDesign(c), iso: country.iso })}
+                    aria-label={[heading, mintageText(c)].filter(Boolean).join('. ')}
+                    {...bind({ image: c.image, title: heading, text: details(c), iso: country.iso })}
                     onClick={() => onZoom(items, zoomable.indexOf(c))}
                   >
                     <img src={asset(c.image)} alt="" loading="lazy" />
@@ -351,6 +354,11 @@ function Commemoratives({
                   </div>
                 )}
                 <span className="coin-label">{c.year}</span>
+                {mintage && (
+                  <span className="coin-mintage" title={mintageText(c)} aria-hidden="true">
+                    {mintage}
+                  </span>
+                )}
               </li>
             )
           })}
