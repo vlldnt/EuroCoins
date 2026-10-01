@@ -14,6 +14,7 @@ import { useCoinTexts } from '../i18n/useCoinTexts'
 import type { ZoomItem } from './Lightbox'
 import { useCoinPreview, type PreviewContent } from './useCoinPreview'
 import { CountryHeading } from './CountryHeading'
+import { CloseIcon } from './CloseIcon'
 
 type Tab = 'regular' | 'commemorative'
 
@@ -21,12 +22,14 @@ type Bind = (content: PreviewContent) => Record<string, unknown>
 
 interface Props {
   country: Country
+  /** Animation de fermeture en cours. */
+  leaving?: boolean
   onClose: () => void
   // Ouvre le carrousel sur items[index] ; les flèches permettent ensuite de parcourir items.
   onZoom: (items: ZoomItem[], index: number) => void
 }
 
-export function CountryPanel({ country, onClose, onZoom }: Props) {
+export function CountryPanel({ country, leaving = false, onClose, onZoom }: Props) {
   const { t, plural, lang, textsLang, languageName } = useI18n()
   const [tab, setTab] = useState<Tab>('regular')
   const commemorative = useMemo(() => commemorativeFor(country.iso), [country.iso])
@@ -62,7 +65,7 @@ export function CountryPanel({ country, onClose, onZoom }: Props) {
 
   return (
     <section
-      className="panel"
+      className={`panel${leaving ? ' is-leaving' : ''}`}
       role="dialog"
       aria-labelledby="panel-title"
       data-keep-panel
@@ -71,7 +74,7 @@ export function CountryPanel({ country, onClose, onZoom }: Props) {
       <header className="panel-header">
         <CountryHeading country={country} variant="panel" titleId="panel-title" titleRef={titleRef} />
         <button className="icon-button panel-close" onClick={onClose} aria-label={t('close')}>
-          ×
+          <CloseIcon />
         </button>
       </header>
 

@@ -9,6 +9,7 @@ import { RotateNotice } from './components/RotateNotice'
 import { CountryList } from './components/CountryPicker'
 import { countriesByIso, data } from './data'
 import { useI18n } from './i18n'
+import { useDelayedUnmount } from './useDelayedUnmount'
 import { useCoinTexts } from './i18n/useCoinTexts'
 
 // Le pays sélectionné est gardé dans l'URL (#fr, #de…) pour pouvoir partager un lien.
@@ -91,6 +92,9 @@ export default function App() {
   const closeZoom = useCallback(() => setZoom(null), [])
 
   const country = selected ? countriesByIso.get(selected) : undefined
+  // Fenêtre pays et carrousel restent affichés le temps de leur animation de fermeture.
+  const panel = useDelayedUnmount(country ?? null, 280)
+  const lightbox = useDelayedUnmount(zoom, 220)
   // Message lu par les lecteurs d'écran (région aria-live) à l'ouverture d'un pays.
   const announcement = country ? t('countryOpened', { country: nameOf(country) }) : ''
 
@@ -124,10 +128,11 @@ export default function App() {
       <main className="layout">
         <EuropeMap selected={selected} onSelect={select} panelOpen={!!country} />
         <CountryList selected={selected} onSelect={select} />
-        {country && (
+        {panel.item && (
           <CountryPanel
-            key={country.iso}
-            country={country}
+            key={panel.item.iso}
+            country={panel.item}
+            leaving={panel.leaving}
             onClose={close}
             onZoom={(items, index) => setZoom({ items, index })}
           />
@@ -146,7 +151,15 @@ export default function App() {
 
       <RotateNotice />
 
-      {zoom && <Lightbox items={zoom.items} index={zoom.index} onIndex={setZoomIndex} onClose={closeZoom} />}
+      {lightbox.item && (
+        <Lightbox
+          items={lightbox.item.items}
+          index={lightbox.item.index}
+          leaving={lightbox.leaving}
+          onIndex={setZoomIndex}
+          onClose={closeZoom}
+        />
+      )}
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { asset } from '../data'
 import { useI18n } from '../i18n'
 import { Flag } from './Flag'
+import { CloseIcon } from './CloseIcon'
 
 export interface ZoomItem {
   image: string
@@ -15,12 +16,14 @@ export interface ZoomItem {
 interface Props {
   items: ZoomItem[]
   index: number
+  /** Animation de fermeture en cours. */
+  leaving?: boolean
   onIndex: (index: number) => void
   onClose: () => void
 }
 
 // Carrousel plein écran : flèches ←/→, Échap, boutons, miniatures et glissement au doigt.
-export function Lightbox({ items, index, onIndex, onClose }: Props) {
+export function Lightbox({ items, index, leaving = false, onIndex, onClose }: Props) {
   const { t } = useI18n()
   const item = items[index]
   const canNavigate = items.length > 1
@@ -80,7 +83,7 @@ export function Lightbox({ items, index, onIndex, onClose }: Props) {
   return (
     <div
       ref={dialogRef}
-      className="lightbox"
+      className={`lightbox${leaving ? ' is-leaving' : ''}`}
       data-keep-panel
       onKeyDown={onTrapKey}
       role="dialog"
@@ -145,7 +148,7 @@ export function Lightbox({ items, index, onIndex, onClose }: Props) {
       )}
 
       <button ref={closeRef} className="lightbox-close" onClick={stop(onClose)} aria-label={t('close')}>
-        ×
+        <CloseIcon />
       </button>
     </div>
   )

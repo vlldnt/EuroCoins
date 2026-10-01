@@ -59,7 +59,7 @@ function panelOcclusion(mapWidth: number): number {
 }
 
 // Transition douce d'un cadrage à l'autre (ouverture/fermeture de la fenêtre pays).
-function useTweenedRect(target: Rect, duration = 420): Rect {
+function useTweenedRect(target: Rect, duration = 600): Rect {
   const [rect, setRect] = useState(target)
   const from = useRef(target)
   useEffect(() => {
@@ -239,10 +239,10 @@ export function EuropeMap({ selected, onSelect, panelOpen }: Props) {
       '-': zoom.zoomOut,
       '−': zoom.zoomOut,
       '0': zoom.reset,
-      ArrowLeft: () => zoom.panBy(KEY_PAN, 0),
-      ArrowRight: () => zoom.panBy(-KEY_PAN, 0),
-      ArrowUp: () => zoom.panBy(0, KEY_PAN),
-      ArrowDown: () => zoom.panBy(0, -KEY_PAN),
+      ArrowLeft: () => zoom.panBy(KEY_PAN, 0, true),
+      ArrowRight: () => zoom.panBy(-KEY_PAN, 0, true),
+      ArrowUp: () => zoom.panBy(0, KEY_PAN, true),
+      ArrowDown: () => zoom.panBy(0, -KEY_PAN, true),
     }
     const action = actions[e.key]
     if (!action || e.metaKey || e.ctrlKey || e.altKey) return

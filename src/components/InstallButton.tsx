@@ -1,6 +1,8 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useI18n, type Messages } from '../i18n'
+import { useDelayedUnmount } from '../useDelayedUnmount'
+import { CloseIcon } from './CloseIcon'
 
 // Événement propre à Chrome / Edge / Android : permet d'ouvrir la fenêtre d'installation native.
 interface BeforeInstallPromptEvent extends Event {
@@ -76,6 +78,8 @@ export function InstallButton() {
     }
   }, [])
 
+  const guide = useDelayedUnmount(open ? true : null, 220)
+
   if (installed) return null
 
   const installNow = async () => {
@@ -95,9 +99,14 @@ export function InstallButton() {
         <span className="install-label">{t('installApp')}</span>
       </button>
       {/* Rendue dans <body> : au-dessus de tout, hors du plan de l'en-tête. */}
-      {open &&
+      {guide.item &&
         createPortal(
-          <InstallGuide canInstall={!!prompt} onInstall={installNow} onClose={() => setOpen(false)} />,
+          <InstallGuide
+            canInstall={!!prompt}
+            leaving={guide.leaving}
+            onInstall={installNow}
+            onClose={() => setOpen(false)}
+          />,
           document.body,
         )}
     </>
@@ -106,10 +115,12 @@ export function InstallButton() {
 
 function InstallGuide({
   canInstall,
+  leaving,
   onInstall,
   onClose,
 }: {
   canInstall: boolean
+  leaving: boolean
   onInstall: () => void
   onClose: () => void
 }) {
@@ -169,7 +180,7 @@ function InstallGuide({
   const steps = t(PLATFORMS.find((p) => p.id === platform)!.steps).split('|')
 
   return (
-    <div className="install-backdrop" onClick={onClose} data-keep-panel>
+    <div className={`install-backdrop${leaving ? ' is-leaving' : ''}`} onClick={onClose} data-keep-panel>
       <div
         ref={dialogRef}
         className="install-dialog"
@@ -186,7 +197,7 @@ function InstallGuide({
             <p>{t('installIntro')}</p>
           </div>
           <button className="icon-button" onClick={onClose} aria-label={t('close')}>
-            ×
+            <CloseIcon />
           </button>
         </header>
 

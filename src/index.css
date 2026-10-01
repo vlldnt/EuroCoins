@@ -1362,18 +1362,13 @@ body,
   animation: slide-in 0.35s var(--ease);
 }
 
-.panel-header {
-  position: relative;
-}
-
-/* Bouton fermer posé sur le bandeau. */
+/* Bouton fermer posé sur le bandeau, à la même distance du haut et du bord droit de la fiche
+   (positionné par rapport à la fiche, pas à ses marges intérieures). */
 .panel-close {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 12px;
+  right: 12px;
   z-index: 2;
-  background: var(--surface);
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
 }
 
 
@@ -1525,20 +1520,44 @@ body,
   font-size: 0.72rem;
 }
 
+/* Boutons « Fermer » : rond plein, ombre, croix SVG centrée ; légère rotation au survol. */
 .icon-button {
-  border: 1px solid var(--border);
-  background: transparent;
+  display: grid;
+  place-items: center;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  font-size: 1.4rem;
-  line-height: 1;
+  padding: 0;
   flex-shrink: 0;
-  transition: background 0.2s;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.18);
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.25s var(--ease);
 }
 
-.icon-button:hover {
-  background: var(--tag-bg);
+.icon-button:hover,
+.icon-button:focus-visible {
+  background: var(--text);
+  color: var(--surface);
+  transform: rotate(90deg);
+}
+
+.close-icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.lightbox-close .close-icon {
+  width: 22px;
+  height: 22px;
 }
 
 .tabs {
@@ -2461,10 +2480,8 @@ body,
   }
 
   .panel-close {
-    top: -2px;
     width: 32px;
     height: 32px;
-    font-size: 1.2rem;
   }
 
   .panel .tabs {
@@ -2776,9 +2793,10 @@ body,
   }
 
   .panel-close {
+    top: 10px;
+    right: 10px;
     width: 30px;
     height: 30px;
-    font-size: 1.1rem;
   }
 
   .panel .tabs {
@@ -2849,5 +2867,99 @@ body,
     100% {
       transform: rotate(0deg);
     }
+  }
+}
+
+/* ---------- animations de fermeture (voir useDelayedUnmount) ---------- */
+
+@keyframes slide-out {
+  to {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+@keyframes sheet-out {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-out {
+  to {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* Ouverture un peu plus ample et plus douce. */
+.panel {
+  animation-duration: 0.45s;
+}
+
+.panel.is-leaving {
+  pointer-events: none;
+  animation: slide-out 0.28s var(--ease) forwards;
+}
+
+.lightbox figure {
+  animation: zoom-in 0.35s var(--ease);
+}
+
+.lightbox.is-leaving {
+  pointer-events: none;
+  animation: fade-out 0.22s var(--ease) forwards;
+}
+
+.lightbox.is-leaving figure {
+  animation: zoom-out 0.22s var(--ease) forwards;
+}
+
+.install-backdrop.is-leaving {
+  pointer-events: none;
+  animation: fade-out 0.22s var(--ease) forwards;
+}
+
+.install-backdrop.is-leaving .install-dialog {
+  animation: zoom-out 0.22s var(--ease) forwards;
+}
+
+/* Panneau « qui monte du bas » (mobile, tablette portrait) : il redescend en se fermant. */
+@media (max-width: 699px), (min-width: 700px) and (max-width: 1199px) and (orientation: portrait) {
+  .panel.is-leaving {
+    animation: sheet-out 0.3s var(--ease) forwards;
+  }
+}
+
+/* Téléphone en paysage : fiche sur le côté, elle repart vers la droite. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .panel.is-leaving {
+    animation: slide-out 0.28s var(--ease) forwards;
+  }
+}
+
+/* Mobile : menus Affichage et Langues centrés sur l'écran, sous l'en-tête. */
+@media (max-width: 699px) {
+  .display-menu,
+  .language-menu {
+    position: fixed;
+    top: calc(var(--header-h, 3.5rem) + 2px);
+    left: 10px;
+    right: 10px;
+    width: auto;
+    transform-origin: top center;
   }
 }

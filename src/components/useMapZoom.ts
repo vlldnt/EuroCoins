@@ -55,9 +55,45 @@ export function useMapZoom(containerRef: React.RefObject<HTMLElement | null>, ba
     latest.current = { rect: current, view }
   })
 
+  // Mouvements animés (boutons, clavier) : interpolation de la vue sur ~0,45 s.
+  // Glisser, pincer et molette restent immédiats (ils suivent le doigt ou la souris).
+  const animation = useRef(0)
+  const animateTo = useCallback(
+    (target: View) => {
+      cancelAnimationFrame(animation.current)
+      const { rect, view: from } = latest.current
+      const fromCx = from.cx ?? rect.x + rect.width / 2
+      const fromCy = from.cy ?? rect.y + rect.height / 2
+      const baseCx = base.x + base.width / 2
+      const baseCy = base.y + base.height / 2
+      const toCx = target.cx ?? baseCx
+      const toCy = target.cy ?? baseCy
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.hidden
+      if (reduce) return setView(target)
+      const start = performance.now()
+      const duration = 450
+      const step = (now: number) => {
+        const t = Math.min(1, (now - start) / duration)
+        const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2 // ease-in-out
+        // Zoom interpolé en échelle logarithmique : mouvement régulier à l'œil.
+        const k = Math.exp(Math.log(from.k) + (Math.log(target.k) - Math.log(from.k)) * e)
+        if (t < 1) {
+          setView({ k, cx: fromCx + (toCx - fromCx) * e, cy: fromCy + (toCy - fromCy) * e })
+          animation.current = requestAnimationFrame(step)
+        } else {
+          setView(target)
+        }
+      }
+      animation.current = requestAnimationFrame(step)
+    },
+    [base],
+  )
+
+  const reset = useCallback(() => animateTo({ k: 1, cx: null, cy: null }), [animateTo])
+
   /** Zoome d'un facteur autour d'un point écran (par défaut le centre de la carte). */
   const zoomAt = useCallback(
-    (factor: number, clientX?: number, clientY?: number) => {
+    (factor: number, clientX?: number, clientY?: number, animate = false) => {
       const box = containerRef.current?.getBoundingClientRect()
       if (!box) return
       const { rect, view: v } = latest.current
@@ -72,24 +108,33 @@ export function useMapZoom(containerRef: React.RefObject<HTMLElement | null>, ba
       const height = base.height / k
       const x = mapX - (px / box.width) * width
       const y = mapY - (py / box.height) * height
-      setView(k === 1 ? { k: 1, cx: null, cy: null } : { k, cx: x + width / 2, cy: y + height / 2 })
+      const next = k === 1 ? { k: 1, cx: null, cy: null } : { k, cx: x + width / 2, cy: y + height / 2 }
+      if (animate) animateTo(next)
+      else {
+        cancelAnimationFrame(animation.current)
+        setView(next)
+      }
     },
-    [base, containerRef],
+    [base, containerRef, animateTo],
   )
 
   const panBy = useCallback(
-    (dxPx: number, dyPx: number) => {
+    (dxPx: number, dyPx: number, animate = false) => {
       const box = containerRef.current?.getBoundingClientRect()
       if (!box) return
       const { rect, view: v } = latest.current
       if (v.k === 1) return
       const scale = rect.width / box.width
-      setView({ k: v.k, cx: rect.x + rect.width / 2 - dxPx * scale, cy: rect.y + rect.height / 2 - dyPx * scale })
+      const next = { k: v.k, cx: rect.x + rect.width / 2 - dxPx * scale, cy: rect.y + rect.height / 2 - dyPx * scale }
+      if (animate) animateTo(next)
+      else {
+        cancelAnimationFrame(animation.current)
+        setView(next)
+      }
     },
-    [containerRef],
+    [containerRef, animateTo],
   )
 
-  const reset = useCallback(() => setView({ k: 1, cx: null, cy: null }), [])
 
   // Molette : écouteur non passif pour empêcher le défilement de la page.
   useEffect(() => {
@@ -160,8 +205,8 @@ export function useMapZoom(containerRef: React.RefObject<HTMLElement | null>, ba
     zoom: view.k,
     isDragging: () => gesture.current.dragging,
     panBy,
-    zoomIn: () => zoomAt(1.6),
-    zoomOut: () => zoomAt(1 / 1.6),
+    zoomIn: () => zoomAt(1.6, undefined, undefined, true),
+    zoomOut: () => zoomAt(1 / 1.6, undefined, undefined, true),
     reset,
     handlers: {
       onPointerDown,
