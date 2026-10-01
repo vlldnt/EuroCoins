@@ -2,6 +2,10 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+// Identifiant unique de chaque build : les textes BCE sont demandés avec ?v=<build>,
+// donc une nouvelle adresse à chaque déploiement (voir src/i18n/provider.tsx).
+const buildId = Date.now().toString(36)
+
 // https://vite.dev/config/
 // Ports fixes pour ne pas entrer en conflit avec les autres projets.
 export default defineConfig({
@@ -10,7 +14,8 @@ export default defineConfig({
     // Application installable (écran d'accueil, plein écran sans barre d'adresse) et hors ligne.
     VitePWA({
       registerType: 'autoUpdate',
-      injectRegister: 'auto',
+      // Enregistrement fait dans src/autoUpdate.ts, qui recharge la page à chaque nouvelle version.
+      injectRegister: false,
       includeAssets: ['icons/*.png', 'icons/*.webp'],
       manifest: {
         name: 'EuroCoins — les pièces en euros par pays',
@@ -49,14 +54,16 @@ export default defineConfig({
           },
           {
             // Textes BCE : affichage immédiat depuis le cache, rafraîchis en arrière-plan.
+            // Une entrée par langue et par build : on purge les anciennes.
             urlPattern: ({ url }) => url.pathname.startsWith('/i18n/'),
             handler: 'StaleWhileRevalidate',
-            options: { cacheName: 'texts' },
+            options: { cacheName: 'texts', expiration: { maxEntries: 40 } },
           },
         ],
       },
     }),
   ],
+  define: { __BUILD_ID__: JSON.stringify(buildId) },
   server: { port: 3006, strictPort: true },
   preview: { port: 3007, strictPort: true },
 })

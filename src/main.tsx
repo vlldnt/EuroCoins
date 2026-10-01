@@ -4,7 +4,10 @@ import { createRoot } from 'react-dom/client'
 import '@fontsource/poiret-one/latin-400.css'
 import './index.css'
 import App from './App.tsx'
+import { startAutoUpdate } from './autoUpdate'
 import { I18nProvider } from './i18n'
+
+startAutoUpdate()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react
 import fr, { type Messages } from './locales/fr'
 import { DEFAULT_LOCALE, localeById, localeForBrowser, localeForLocation, textLangFor, type Locale } from './languages'
 import { I18nContext, type CoinTexts, type I18n, type Vars } from './context'
+import { BUILD_ID } from '../autoUpdate'
 
 // Chaque langue est chargée à la demande (un petit fichier JS par langue).
 const loaders = import.meta.glob<{ default: Messages }>('./locales/*.ts')
@@ -51,7 +52,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let cancelled = false
-    fetch(`${import.meta.env.BASE_URL}i18n/${textsLang}.json`)
+    // ?v= : nouvelle adresse à chaque déploiement, donc jamais de textes périmés en cache.
+    fetch(`${import.meta.env.BASE_URL}i18n/${textsLang}.json?v=${BUILD_ID}`)
       .then((r) => (r.ok ? r.json() : null))
       .then((json: CoinTexts | null) => !cancelled && setTexts(json))
       .catch(() => !cancelled && setTexts(null))
