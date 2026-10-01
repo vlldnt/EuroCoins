@@ -33,6 +33,7 @@ const mt: Messages = {
   coinPosition: 'Munita {n} minn {total}',
   mapLabel: 'Mappa taż-żona tal-euro',
   mapHint: 'Għaddi l-maws fuq pajjiż jew ikklikkja fuqu',
+  rotatePhone: 'Dawwar it-telefown wieqaf',
   zoomIn: 'Kabbar',
   zoomOut: 'Ċekken',
   resetZoom: 'Irrisettja l-veduta',

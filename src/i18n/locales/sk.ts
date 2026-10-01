@@ -33,6 +33,7 @@ const sk: Messages = {
   coinPosition: 'Minca {n} z {total}',
   mapLabel: 'Mapa eurozóny',
   mapHint: 'Prejdite myšou nad krajinu alebo na ňu kliknite',
+  rotatePhone: 'Otočte telefón na výšku',
   zoomIn: 'Priblížiť',
   zoomOut: 'Oddialiť',
   resetZoom: 'Obnoviť zobrazenie',

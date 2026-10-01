@@ -33,6 +33,7 @@ const lv: Messages = {
   coinPosition: 'Monēta {n} no {total}',
   mapLabel: 'Eurozonas karte',
   mapHint: 'Novietojiet kursoru uz valsts vai noklikšķiniet uz tās',
+  rotatePhone: 'Pagrieziet tālruni vertikāli',
   zoomIn: 'Tuvināt',
   zoomOut: 'Tālināt',
   resetZoom: 'Atiestatīt skatu',

@@ -33,6 +33,7 @@ const fi: Messages = {
   coinPosition: 'Kolikko {n}/{total}',
   mapLabel: 'Euroalueen kartta',
   mapHint: 'Vie osoitin maan päälle tai napsauta sitä',
+  rotatePhone: 'Käännä puhelin pystyasentoon',
   zoomIn: 'Lähennä',
   zoomOut: 'Loitonna',
   resetZoom: 'Palauta näkymä',

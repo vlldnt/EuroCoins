@@ -33,6 +33,7 @@ const hr: Messages = {
   coinPosition: 'Kovanica {n} od {total}',
   mapLabel: 'Karta europodručja',
   mapHint: 'Prijeđite mišem preko države ili je kliknite',
+  rotatePhone: 'Okrenite telefon uspravno',
   zoomIn: 'Povećaj',
   zoomOut: 'Smanji',
   resetZoom: 'Vrati prikaz',

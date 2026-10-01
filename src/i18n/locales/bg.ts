@@ -33,6 +33,7 @@ const bg: Messages = {
   coinPosition: 'Монета {n} от {total}',
   mapLabel: 'Карта на еврозоната',
   mapHint: 'Посочете или щракнете върху държава',
+  rotatePhone: 'Завъртете телефона вертикално',
   zoomIn: 'Увеличаване',
   zoomOut: 'Намаляване',
   resetZoom: 'Нулиране на изгледа',

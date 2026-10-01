@@ -33,6 +33,7 @@ const fr = {
   coinPosition: 'Pièce {n} sur {total}',
   mapLabel: 'Carte de la zone euro',
   mapHint: 'Survolez ou cliquez sur un pays',
+  rotatePhone: 'Tournez votre téléphone en mode portrait',
   zoomIn: 'Zoomer',
   zoomOut: 'Dézoomer',
   resetZoom: 'Revenir à la vue d’ensemble',

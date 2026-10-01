@@ -5,6 +5,7 @@ import { Lightbox, type ZoomItem } from './components/Lightbox'
 import { LanguageSelect } from './components/LanguageSelect'
 import { DisplaySettings } from './components/DisplaySettings'
 import { InstallButton } from './components/InstallButton'
+import { RotateNotice } from './components/RotateNotice'
 import { CountryList } from './components/CountryPicker'
 import { countriesByIso, data } from './data'
 import { useI18n } from './i18n'
@@ -142,6 +143,8 @@ export default function App() {
           </a>
         </footer>
       </div>
+
+      <RotateNotice />
 
       {zoom && <Lightbox items={zoom.items} index={zoom.index} onIndex={setZoomIndex} onClose={closeZoom} />}
     </div>

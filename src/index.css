@@ -2799,3 +2799,55 @@ body,
     bottom: calc(60px + env(safe-area-inset-bottom));
   }
 }
+
+/* Téléphone tenu en paysage (écran tactile peu haut) : le site est prévu pour le portrait.
+   Un écran invite à tourner le téléphone (voir RotateNotice). Tablettes et ordinateurs : jamais. */
+.rotate-notice {
+  display: none;
+}
+
+@media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
+  .rotate-notice {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    background: var(--bg);
+    color: var(--text);
+    text-align: center;
+    animation: fade-in 0.3s var(--ease);
+  }
+
+  .rotate-notice svg {
+    width: 72px;
+    height: 72px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: rotate-phone 2.4s var(--ease) infinite;
+  }
+
+  .rotate-notice p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  @keyframes rotate-phone {
+    0%,
+    30% {
+      transform: rotate(-90deg);
+    }
+    60%,
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+}

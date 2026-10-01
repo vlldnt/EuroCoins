@@ -33,6 +33,7 @@ const hi: Messages = {
   coinPosition: '{total} में से सिक्का {n}',
   mapLabel: 'यूरो क्षेत्र का नक्शा',
   mapHint: 'किसी देश पर कर्सर ले जाएँ या क्लिक करें',
+  rotatePhone: 'कृपया फ़ोन को सीधा (पोर्ट्रेट) करें',
   zoomIn: 'ज़ूम इन',
   zoomOut: 'ज़ूम आउट',
   resetZoom: 'दृश्य रीसेट करें',

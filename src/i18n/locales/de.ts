@@ -33,6 +33,7 @@ const de: Messages = {
   coinPosition: 'Münze {n} von {total}',
   mapLabel: 'Karte des Euroraums',
   mapHint: 'Fahren Sie über ein Land oder klicken Sie darauf',
+  rotatePhone: 'Bitte drehen Sie Ihr Telefon ins Hochformat',
   zoomIn: 'Vergrößern',
   zoomOut: 'Verkleinern',
   resetZoom: 'Ansicht zurücksetzen',

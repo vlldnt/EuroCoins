@@ -33,6 +33,7 @@ const ja: Messages = {
   coinPosition: '{total} 枚中 {n} 枚目',
   mapLabel: 'ユーロ圏の地図',
   mapHint: '国にカーソルを合わせるか、クリックしてください',
+  rotatePhone: 'スマートフォンを縦向きにしてください',
   zoomIn: '拡大',
   zoomOut: '縮小',
   resetZoom: '表示をリセット',

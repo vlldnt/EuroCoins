@@ -33,6 +33,7 @@ const eo: Messages = {
   coinPosition: 'Monero {n} el {total}',
   mapLabel: 'Mapo de la eŭrozono',
   mapHint: 'Ŝvebigu la muson super lando aŭ alklaku ĝin',
+  rotatePhone: 'Bonvolu turni vian telefonon vertikalen',
   zoomIn: 'Zomi',
   zoomOut: 'Malzomi',
   resetZoom: 'Reveni al la tuta vido',

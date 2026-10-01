@@ -33,6 +33,7 @@ const sl: Messages = {
   coinPosition: 'Kovanec {n} od {total}',
   mapLabel: 'Zemljevid euroobmočja',
   mapHint: 'Premaknite miško nad državo ali jo kliknite',
+  rotatePhone: 'Obrnite telefon pokončno',
   zoomIn: 'Povečaj',
   zoomOut: 'Pomanjšaj',
   resetZoom: 'Ponastavi pogled',

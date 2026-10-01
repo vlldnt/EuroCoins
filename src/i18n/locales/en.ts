@@ -33,6 +33,7 @@ const en: Messages = {
   coinPosition: 'Coin {n} of {total}',
   mapLabel: 'Map of the euro area',
   mapHint: 'Hover over or click a country',
+  rotatePhone: 'Please rotate your phone to portrait',
   zoomIn: 'Zoom in',
   zoomOut: 'Zoom out',
   resetZoom: 'Reset view',

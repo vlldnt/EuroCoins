@@ -33,6 +33,7 @@ const nl: Messages = {
   coinPosition: 'Munt {n} van {total}',
   mapLabel: 'Kaart van het eurogebied',
   mapHint: 'Beweeg over een land of klik erop',
+  rotatePhone: 'Draai je telefoon naar staande stand',
   zoomIn: 'Inzoomen',
   zoomOut: 'Uitzoomen',
   resetZoom: 'Weergave herstellen',

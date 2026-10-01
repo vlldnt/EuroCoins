@@ -33,6 +33,7 @@ const lb: Messages = {
   coinPosition: 'Mënz {n} vun {total}',
   mapLabel: 'Kaart vun der Eurozon',
   mapHint: 'Fuert mat der Maus iwwer e Land oder klickt drop',
+  rotatePhone: 'Dréit Ären Telefon an den Héichformat',
   zoomIn: 'Vergréisseren',
   zoomOut: 'Verklengeren',
   resetZoom: 'Usiicht zrécksetzen',

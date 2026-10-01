@@ -33,6 +33,7 @@ const el: Messages = {
   coinPosition: 'Κέρμα {n} από {total}',
   mapLabel: 'Χάρτης της ζώνης του ευρώ',
   mapHint: 'Περάστε τον δείκτη ή κάντε κλικ σε μια χώρα',
+  rotatePhone: 'Γυρίστε το τηλέφωνο σε κατακόρυφη θέση',
   zoomIn: 'Μεγέθυνση',
   zoomOut: 'Σμίκρυνση',
   resetZoom: 'Επαναφορά προβολής',

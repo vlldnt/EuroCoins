@@ -33,6 +33,7 @@ const zh: Messages = {
   coinPosition: '第 {n} 枚，共 {total} 枚',
   mapLabel: '欧元区地图',
   mapHint: '将鼠标悬停在某个国家上或点击它',
+  rotatePhone: '请将手机竖屏使用',
   zoomIn: '放大',
   zoomOut: '缩小',
   resetZoom: '重置视图',

@@ -33,6 +33,7 @@ const ca: Messages = {
   coinPosition: 'Moneda {n} de {total}',
   mapLabel: 'Mapa de la zona euro',
   mapHint: 'Passa el cursor o fes clic en un país',
+  rotatePhone: 'Gira el telèfon en vertical',
   zoomIn: 'Apropa',
   zoomOut: 'Allunya',
   resetZoom: 'Restableix la vista',

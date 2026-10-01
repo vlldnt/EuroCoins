@@ -33,6 +33,7 @@ const lt: Messages = {
   coinPosition: 'Moneta {n} iš {total}',
   mapLabel: 'Euro zonos žemėlapis',
   mapHint: 'Užveskite pelę arba spustelėkite šalį',
+  rotatePhone: 'Pasukite telefoną vertikaliai',
   zoomIn: 'Priartinti',
   zoomOut: 'Atitolinti',
   resetZoom: 'Atkurti vaizdą',

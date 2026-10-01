@@ -33,6 +33,7 @@ const et: Messages = {
   coinPosition: 'Münt {n}/{total}',
   mapLabel: 'Euroala kaart',
   mapHint: 'Liigu hiirega riigi kohale või klõpsa sellel',
+  rotatePhone: 'Pööra telefon püstasendisse',
   zoomIn: 'Suurenda',
   zoomOut: 'Vähenda',
   resetZoom: 'Lähtesta vaade',
