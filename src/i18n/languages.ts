@@ -24,6 +24,7 @@ export const LANGUAGES = [
   { code: 'zh', texts: 'en' },
   { code: 'ja', texts: 'en' },
   { code: 'hi', texts: 'en' },
+  { code: 'eo', texts: 'en' },
 ] as const
 
 export type Lang = (typeof LANGUAGES)[number]['code']
@@ -74,6 +75,8 @@ export const LOCALES: Locale[] = [
   { id: 'cn', lang: 'zh', euro: false },
   { id: 'jp', lang: 'ja', euro: false },
   { id: 'in', lang: 'hi', euro: false },
+  // Langue internationale, sans pays : drapeau de l'espéranto (voir Flag.tsx).
+  { id: 'eo', lang: 'eo', label: 'Esperanto', country: 'Internacia lingvo', euro: false },
 ]
 
 export const DEFAULT_LOCALE = 'fr'

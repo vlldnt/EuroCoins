@@ -464,7 +464,7 @@ body,
   align-items: center;
   gap: 10px;
   letter-spacing: 0.04em;
-  font-weight: 400;
+  font-weight: 800;
   background-color: transparent;
 }
 
@@ -892,8 +892,12 @@ body,
   position: absolute;
   top: calc(100% + 6px);
   right: 0;
-  width: 290px;
-  max-height: min(70dvh, 560px);
+  /* Deux colonnes : toutes les langues visibles d'un coup. */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  width: min(480px, calc(100vw - 20px));
+  max-height: min(84dvh, 720px);
   overflow-y: auto;
   margin: 0;
   padding: 6px;
@@ -902,16 +906,18 @@ body,
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  text-shadow: none;
   transform-origin: top right;
   animation: rise-in 0.18s var(--ease);
 }
 
 .language-menu [role='option'] {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
   align-items: center;
-  gap: 10px;
-  padding: 7px 10px;
+  column-gap: 9px;
+  padding: 5px 8px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
@@ -936,22 +942,31 @@ body,
   color: rgb(255 255 255 / 0.75);
 }
 
+.language-menu [role='option'] .flag {
+  grid-row: 1 / 3;
+}
+
 .language-name {
   font-weight: 600;
+  line-height: 1.2;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .language-country {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
+  line-height: 1.2;
   color: var(--muted);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .language-separator {
+  grid-column: 1 / -1;
   height: 1px;
-  margin: 6px 4px;
+  margin: 4px;
   background: var(--border);
 }
 
@@ -1204,7 +1219,7 @@ body,
   margin-top: 4px;
 }
 
-/* Année en face du premier drapeau du groupe, avec un halo pour rester lisible sur la carte. */
+/* Année en face du premier drapeau du groupe : texte seul, sans fond. */
 .country-list-year {
   margin: 0;
   padding-top: 5px;
@@ -1212,10 +1227,6 @@ body,
   font-weight: 800;
   letter-spacing: 0.04em;
   color: var(--text);
-  text-shadow:
-    0 0 3px var(--bg),
-    0 0 3px var(--bg),
-    0 0 6px var(--bg);
 }
 
 .country-list ul {
@@ -2111,13 +2122,9 @@ body,
   margin: 0;
   padding: calc(10px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) 10px
     calc(20px + env(safe-area-inset-left));
-  /* Transparent : le titre reste lisible grâce à un halo de la couleur du fond. */
+  /* Transparent : texte seul, posé sur la carte. */
   background: none;
   pointer-events: none;
-  text-shadow:
-    0 0 4px var(--bg),
-    0 0 8px var(--bg),
-    0 0 12px var(--bg);
 }
 
 .site-header h1,
@@ -2261,7 +2268,23 @@ body,
   }
 
   .language-menu {
-    width: min(290px, calc(100vw - 20px));
+    width: calc(100vw - 20px);
+    max-height: calc(100dvh - 70px);
+  }
+
+  .language-menu [role='option'] {
+    column-gap: 7px;
+    padding: 4px 6px;
+    font-size: 0.8rem;
+  }
+
+  .language-menu .flag {
+    width: 20px;
+    height: 14px;
+  }
+
+  .language-country {
+    font-size: 0.66rem;
   }
 
   .map-hint {
@@ -2558,9 +2581,6 @@ body,
     -webkit-backdrop-filter: none;
     text-align: center;
     font-size: 0.7rem;
-    text-shadow:
-      0 0 3px var(--bg),
-      0 0 6px var(--bg);
   }
 
   .has-panel .bottom-overlay,
