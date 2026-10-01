@@ -73,6 +73,7 @@ const lb: Messages = {
   euro: '{n} Euro',
   euros: '{n} Euro',
   sourceLabel: 'Biller a Beschreiwungen:',
+  visits: '{count} Visitten',
   ecb: 'Europäesch Zentralbank',
   textsInOtherLanguage: 'D’Beschreiwunge vun de Mënze ginn op {language} ugewisen (d’EZB publizéiert se net op Lëtzebuergesch).',
 }

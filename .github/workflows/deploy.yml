@@ -73,6 +73,15 @@ jobs:
             cd '$RELEASES' && ls -1t | tail -n +6 | xargs -r rm -rf
           "
 
+      # Compteur de visites : copie du service puis redémarrage (seule commande sudo autorisée
+      # à l'utilisateur de déploiement, voir /etc/sudoers.d/eurocoins-visits).
+      - name: Service compteur de visites
+        run: |
+          rsync -az -e "ssh -i ~/.ssh/deploy" server/visits.py \
+            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/eurocoins/server/visits.py"
+          ssh -i ~/.ssh/deploy "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
+            "sudo -n /usr/bin/systemctl restart eurocoins-visits"
+
       - name: Vérification
         run: |
           sleep 2

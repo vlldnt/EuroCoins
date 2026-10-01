@@ -6,6 +6,7 @@ import { LanguageSelect } from './components/LanguageSelect'
 import { DisplaySettings } from './components/DisplaySettings'
 import { InstallButton } from './components/InstallButton'
 import { RotateNotice } from './components/RotateNotice'
+import { VisitCounter } from './components/VisitCounter'
 import { CountryList } from './components/CountryPicker'
 import { countriesByIso, data } from './data'
 import { useI18n } from './i18n'
@@ -142,6 +143,7 @@ export default function App() {
       {/* Crédit BCE posé sur la carte, en bas à droite. */}
       <div className="bottom-overlay">
         <footer className="site-footer">
+          <VisitCounter />
           {t('sourceLabel')}{' '}
           <a href={`https://www.ecb.europa.eu/euro/coins/html/index.${textsLang}.html`} target="_blank" rel="noreferrer">
             {t('ecb')}

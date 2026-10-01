@@ -73,6 +73,7 @@ const hr: Messages = {
   euro: '{n} euro',
   euros: '{n} eura',
   sourceLabel: 'Slike i opisi:',
+  visits: '{count} posjeta',
   ecb: 'Europska središnja banka',
   textsInOtherLanguage: 'Opisi kovanica prikazani su na jeziku: {language} (ESB ih ne objavljuje na ovom jeziku).',
 }

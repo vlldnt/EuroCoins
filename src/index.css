@@ -2182,6 +2182,26 @@ body,
   bottom: calc(14px + env(safe-area-inset-bottom));
 }
 
+/* Compteur de visites, discret, devant le crédit BCE. */
+.visit-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 10px;
+  padding-right: 10px;
+  border-right: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.visit-count svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
 /* Crédit BCE en bas à droite, dans une pastille translucide. */
 .bottom-overlay {
   position: absolute;

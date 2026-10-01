@@ -78,6 +78,8 @@ Sur le VPS :
 - utilisateur `deploy-eurocoins` sans sudo, propriétaire de `/var/www/eurocoins` seulement (clé SSH dédiée, stockée dans les secrets GitHub `VPS_SSH_KEY`, `VPS_HOST`, `VPS_USER`, `VPS_KNOWN_HOSTS`) ;
 - site nginx `deploy/nginx/eurocoins.vieilledent.eu.conf` (aucun port ni conteneur : pas de conflit avec les autres projets) ; HTTPS via `sudo certbot --nginx -d eurocoins.vieilledent.eu`.
 
+Compteur de visites : `server/visits.py` (Python standard, sans dépendance), service systemd `eurocoins-visits` (`deploy/systemd/`) en local sur `127.0.0.1:8096`, derrière nginx (`/api/visits`). Une visite = un visiteur par heure (empreinte d'adresse hachée en mémoire, jamais écrite) ; robots, scripts et requêtes venant d'autres sites ignorés. Le total est dans `/var/www/eurocoins/data/visits.json`. Le déploiement copie le service et le redémarre (seule commande sudo autorisée à `deploy-eurocoins`).
+
 Retour à une version précédente (les 5 dernières sont gardées) :
 
 ```bash

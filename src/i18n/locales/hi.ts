@@ -73,6 +73,7 @@ const hi: Messages = {
   euro: '{n} यूरो',
   euros: '{n} यूरो',
   sourceLabel: 'चित्र और विवरण:',
+  visits: '{count} विज़िट',
   ecb: 'यूरोपीय केंद्रीय बैंक',
   textsInOtherLanguage: 'सिक्कों के विवरण {language} में दिखाए गए हैं (यूरोपीय केंद्रीय बैंक इन्हें हिंदी में प्रकाशित नहीं करता)।',
 }

@@ -73,6 +73,7 @@ const eo: Messages = {
   euro: '{n} eŭro',
   euros: '{n} eŭroj',
   sourceLabel: 'Bildoj kaj priskriboj:',
+  visits: '{count} vizitoj',
   ecb: 'Eŭropa Centra Banko',
   textsInOtherLanguage: 'La priskriboj de la moneroj estas montrataj en la {language} (la Eŭropa Centra Banko ne publikigas ilin en Esperanto).',
 }

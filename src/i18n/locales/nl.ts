@@ -73,6 +73,7 @@ const nl: Messages = {
   euro: '{n} euro',
   euros: '{n} euro',
   sourceLabel: 'Afbeeldingen en beschrijvingen:',
+  visits: '{count} bezoeken',
   ecb: 'Europese Centrale Bank',
   textsInOtherLanguage: 'Muntbeschrijvingen weergegeven in het {language} (niet door de ECB gepubliceerd in deze taal).',
 }

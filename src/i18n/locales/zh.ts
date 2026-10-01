@@ -73,6 +73,7 @@ const zh: Messages = {
   euro: '{n} 欧元',
   euros: '{n} 欧元',
   sourceLabel: '图片与说明：',
+  visits: '{count} 次访问',
   ecb: '欧洲中央银行',
   textsInOtherLanguage: '硬币说明以{language}显示（欧洲央行未发布中文版本）。',
 }

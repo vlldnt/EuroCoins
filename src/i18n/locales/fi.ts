@@ -73,6 +73,7 @@ const fi: Messages = {
   euro: '{n} euro',
   euros: '{n} euroa',
   sourceLabel: 'Kuvat ja kuvaukset:',
+  visits: '{count} käyntiä',
   ecb: 'Euroopan keskuspankki',
   textsInOtherLanguage: 'Kolikoiden kuvaukset näytetään kielellä: {language} (EKP ei julkaise niitä tällä kielellä).',
 }

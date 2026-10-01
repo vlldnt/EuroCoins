@@ -73,6 +73,7 @@ const it: Messages = {
   euro: '{n} euro',
   euros: '{n} euro',
   sourceLabel: 'Immagini e descrizioni:',
+  visits: '{count} visite',
   ecb: 'Banca centrale europea',
   textsInOtherLanguage: 'Descrizioni delle monete mostrate in {language} (non pubblicate dalla BCE in questa lingua).',
 }

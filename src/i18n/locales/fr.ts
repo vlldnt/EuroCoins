@@ -73,6 +73,7 @@ const fr = {
   euro: '{n} euro',
   euros: '{n} euros',
   sourceLabel: 'Images et descriptions :',
+  visits: '{count} visites',
   ecb: 'Banque centrale européenne',
   textsInOtherLanguage: 'Descriptions des pièces affichées en {language} (non publiées par la BCE dans cette langue).',
 }

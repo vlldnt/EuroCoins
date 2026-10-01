@@ -73,6 +73,7 @@ const sl: Messages = {
   euro: '{n} evro',
   euros: '{n} evra',
   sourceLabel: 'Slike in opisi:',
+  visits: '{count} obiskov',
   ecb: 'Evropska centralna banka',
   textsInOtherLanguage: 'Opisi kovancev so prikazani v jeziku: {language} (ECB jih v tem jeziku ne objavlja).',
 }

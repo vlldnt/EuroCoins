@@ -73,6 +73,7 @@ const ja: Messages = {
   euro: '{n} ユーロ',
   euros: '{n} ユーロ',
   sourceLabel: '画像と説明：',
+  visits: '{count} 回の訪問',
   ecb: '欧州中央銀行',
   textsInOtherLanguage: '硬貨の説明は{language}で表示しています（欧州中央銀行は日本語版を公開していません）。',
 }

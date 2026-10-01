@@ -73,6 +73,7 @@ const sk: Messages = {
   euro: '{n} euro',
   euros: '{n} eurá',
   sourceLabel: 'Obrázky a opisy:',
+  visits: '{count} návštev',
   ecb: 'Európska centrálna banka',
   textsInOtherLanguage: 'Opisy mincí sú zobrazené v jazyku: {language} (ECB ich v tomto jazyku nezverejňuje).',
 }

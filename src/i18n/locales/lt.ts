@@ -73,6 +73,7 @@ const lt: Messages = {
   euro: '{n} euras',
   euros: '{n} eurai',
   sourceLabel: 'Vaizdai ir aprašymai:',
+  visits: '{count} apsilankymai',
   ecb: 'Europos Centrinis Bankas',
   textsInOtherLanguage: 'Monetų aprašymai rodomi šia kalba: {language} (ECB jų šia kalba neskelbia).',
 }

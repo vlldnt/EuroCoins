@@ -43,6 +43,8 @@ export default defineConfig({
         globIgnores: ['coins/**', 'i18n/**'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: 'index.html',
+        // Compteur de visites : jamais servi depuis le cache, ni remplacé par la page d'accueil.
+        navigateFallbackDenylist: [/^\/api\//],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.startsWith('/coins/'),

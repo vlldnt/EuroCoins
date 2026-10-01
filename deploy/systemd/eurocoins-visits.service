@@ -1,0 +1,33 @@
+# Compteur de visites d'EuroCoins (server/visits.py), en local derrière nginx.
+#
+# Installation sur le VPS (voir README, section Déploiement) :
+#   sudo cp deploy/systemd/eurocoins-visits.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now eurocoins-visits
+# Désinstallation :
+#   sudo systemctl disable --now eurocoins-visits && sudo rm /etc/systemd/system/eurocoins-visits.service
+
+[Unit]
+Description=EuroCoins - compteur de visites
+After=network.target
+
+[Service]
+User=deploy-eurocoins
+Group=deploy-eurocoins
+ExecStart=/usr/bin/python3 /var/www/eurocoins/server/visits.py
+Environment=VISITS_HOST=127.0.0.1 VISITS_PORT=8096 VISITS_FILE=/var/www/eurocoins/data/visits.json
+Restart=on-failure
+RestartSec=3
+
+# Durcissement : lecture seule partout sauf le dossier des données.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+ReadWritePaths=/var/www/eurocoins/data
+MemoryMax=64M
+
+[Install]
+WantedBy=multi-user.target

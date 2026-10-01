@@ -73,6 +73,7 @@ const et: Messages = {
   euro: '{n} euro',
   euros: '{n} eurot',
   sourceLabel: 'Pildid ja kirjeldused:',
+  visits: '{count} külastust',
   ecb: 'Euroopa Keskpank',
   textsInOtherLanguage: 'Müntide kirjeldused on esitatud keeles: {language} (EKP ei avalda neid selles keeles).',
 }

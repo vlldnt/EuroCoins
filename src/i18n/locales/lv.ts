@@ -73,6 +73,7 @@ const lv: Messages = {
   euro: '{n} eiro',
   euros: '{n} eiro',
   sourceLabel: 'Attēli un apraksti:',
+  visits: '{count} apmeklējumi',
   ecb: 'Eiropas Centrālā banka',
   textsInOtherLanguage: 'Monētu apraksti parādīti šādā valodā: {language} (ECB tos šajā valodā nepublicē).',
 }

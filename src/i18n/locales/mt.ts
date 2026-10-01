@@ -73,6 +73,7 @@ const mt: Messages = {
   euro: '{n} euro',
   euros: '{n} euro',
   sourceLabel: 'Stampi u deskrizzjonijiet:',
+  visits: '{count} żjara',
   ecb: 'Bank Ċentrali Ewropew',
   textsInOtherLanguage: 'Id-deskrizzjonijiet tal-muniti jintwerew bil-lingwa: {language} (il-BĊE ma jippubblikahomx b’din il-lingwa).',
 }

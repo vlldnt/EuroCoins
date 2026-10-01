@@ -73,6 +73,7 @@ const bg: Messages = {
   euro: '{n} евро',
   euros: '{n} евро',
   sourceLabel: 'Изображения и описания:',
+  visits: '{count} посещения',
   ecb: 'Европейска централна банка',
   textsInOtherLanguage: 'Описанията на монетите са показани на {language} (ЕЦБ не ги публикува на този език).',
 }
