@@ -1,5 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+// Police du titre « EuroCoins » : Poiret One (Art déco, licence OFL), hébergée avec le site.
+import '@fontsource/poiret-one/latin-400.css'
 import './index.css'
 import App from './App.tsx'
 import { I18nProvider } from './i18n'

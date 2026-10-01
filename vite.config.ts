@@ -34,7 +34,7 @@ export default defineConfig({
       workbox: {
         // L'application (HTML, JS, CSS, icônes) est gardée d'avance ; les photos des pièces (≈ 31 Mo)
         // et les textes des 17 langues (≈ 13 Mo) sont gardés au fil de la consultation.
-        globPatterns: ['**/*.{js,css,html,png,webp,svg,webmanifest}'],
+        globPatterns: ['**/*.{js,css,html,png,webp,svg,webmanifest,woff2}'],
         globIgnores: ['coins/**', 'i18n/**'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: 'index.html',
