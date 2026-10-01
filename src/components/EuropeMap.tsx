@@ -5,7 +5,7 @@ import { useI18n } from '../i18n'
 import { useCoinTexts } from '../i18n/useCoinTexts'
 import { useMapZoom, type Rect } from './useMapZoom'
 import { CountryHeading } from './CountryHeading'
-import { FLAG_ROW, PHONE_LANDSCAPE } from '../layoutModes'
+import { COMPACT_LANDSCAPE, FLAG_ROW, PHONE_LANDSCAPE } from '../layoutModes'
 
 // Tracés précalculés par scripts/build-map.mjs. `focus` = zone euro à montrer en entier,
 // `bounds` = zone dessinée autour, utilisée pour remplir l'écran quel que soit son format.
@@ -46,10 +46,11 @@ interface Hover {
 }
 
 // Largeur (px) cachée à droite par la fenêtre pays ouverte, d'après les règles de index.css :
-// ordinateur min(640px, 48 %), tablette paysage min(560px, 64 %), plus la marge de 14px.
+// ordinateur min(640px, 48 %), paysage à hauteur limitée min(460px, 42 %), plus la marge de 14px.
 // En mobile et tablette portrait, la fenêtre s'ouvre en bas : rien n'est caché sur le côté.
 function panelOcclusion(mapWidth: number): number {
   if (window.matchMedia(PHONE_LANDSCAPE).matches) return Math.min(420, mapWidth * 0.52) + 20
+  if (window.matchMedia(COMPACT_LANDSCAPE).matches) return Math.min(460, mapWidth * 0.42) + 28
   const wide = window.matchMedia('(min-width: 1200px)').matches
   const tabletLandscape = window.matchMedia('(min-width: 700px) and (max-width: 1199px) and (orientation: landscape)').matches
   if (wide) return Math.min(640, mapWidth * 0.48) + 28

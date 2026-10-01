@@ -74,8 +74,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const value = useMemo<I18n>(() => {
     const t = (key: keyof Messages, vars?: Vars) =>
       messages[key].replace(/\{(\w+)\}/g, (m, name) => (vars && name in vars ? String(vars[name]) : m))
-    const regionNames = safeDisplayNames(lang, 'region')
-    const languageNames = safeDisplayNames(lang, 'language')
+    // Si le navigateur ne connaît pas la langue (luxembourgeois, espéranto…), noms de pays et de langues
+    // dans la langue de repli des textes (allemand pour le luxembourgeois), puis en anglais.
+    const regionNames = safeDisplayNames(lang, 'region', textsLang)
+    const languageNames = safeDisplayNames(lang, 'language', textsLang)
     return {
       lang,
       locale,
@@ -100,9 +102,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }
 
-function safeDisplayNames(locale: string, type: 'region' | 'language') {
+function safeDisplayNames(locale: string, type: 'region' | 'language', fallback = 'en') {
   try {
-    return new Intl.DisplayNames([locale, 'en'], { type })
+    return new Intl.DisplayNames([locale, fallback, 'en'], { type })
   } catch {
     return null
   }
