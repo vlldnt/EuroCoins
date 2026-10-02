@@ -43,7 +43,8 @@ self.onmessage = async (e: MessageEvent<MatchRequest>) => {
       return
     }
     const { images, metals, refs } = await loading!
-    const bonus = Float32Array.from(metals, (m) => metalBonus(req.metal ?? null, m))
+    // Fichier sans types (ancienne version en cache) : pas de filtre plutôt qu'une erreur.
+    const bonus = metals?.length === refs.length ? Float32Array.from(metals, (m) => metalBonus(req.metal ?? null, m)) : undefined
     const ranked = rankMatches(req.gray!, req.w!, req.h!, req.cx!, req.cy!, req.r!, refs, bonus).slice(0, 12)
     // Même dessin : déroulés des deux pièces de référence très ressemblants.
     const results = ranked.map((m, i) => {

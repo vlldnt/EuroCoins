@@ -10,6 +10,7 @@ import { useCoinTexts } from '../i18n/useCoinTexts'
 import type { PanelTarget } from '../search'
 import { readScanMode, saveScanMode, type ScanMode } from '../settings'
 import { sharpness } from '../sharpness'
+import { APP_VERSION } from '../version'
 import { CloseIcon } from './CloseIcon'
 
 // Largeur de l'image analysée : assez pour repérer une petite pièce, assez légère pour ~15 analyses/s.
@@ -177,7 +178,8 @@ export function CoinScanner({
   useEffect(() => {
     const worker = new Worker(new URL('../coinMatch.worker.ts', import.meta.url), { type: 'module' })
     workerRef.current = worker
-    const url = `${import.meta.env.BASE_URL}coins/signatures.json?v=${encodeURIComponent(data.generatedAt)}`
+    // Adresse propre aux données et à la version : le cache du téléphone ne sert jamais un ancien fichier.
+    const url = `${import.meta.env.BASE_URL}coins/signatures.json?v=${encodeURIComponent(`${data.generatedAt}-${APP_VERSION}`)}`
     worker.postMessage({ url: new URL(url, location.href).href } satisfies MatchRequest)
     return () => worker.terminate()
   }, [])
