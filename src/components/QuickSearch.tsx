@@ -260,6 +260,7 @@ export function QuickSearch({ onPick }: Props) {
       )}
       {scanning && (
         <CoinScanner
+          onPick={onPick}
           onClose={() => {
             setScanning(false)
             triggerRef.current?.focus()

@@ -3495,7 +3495,8 @@ body,
   object-fit: cover;
 }
 
-.scanner.is-captured .scanner-video {
+.scanner.is-matching .scanner-video,
+.scanner.is-results .scanner-video {
   filter: blur(14px) brightness(0.5);
 }
 
@@ -3519,6 +3520,32 @@ body,
   opacity: 1;
 }
 
+/* Pièce repérée mais image floue. */
+.scanner-ring.is-found.is-blurry {
+  stroke: #ff9f43;
+}
+
+/* Point de mise au point touché : petit cercle qui se resserre puis s'efface. */
+.scanner-focus {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: scanner-focus 0.8s var(--ease) forwards;
+}
+
+@keyframes scanner-focus {
+  from {
+    transform: scale(1.6);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
 /* Anneau qui se remplit pendant que la pièce reste immobile, puis photo automatique. */
 .scanner-progress {
   fill: none;
@@ -3530,17 +3557,132 @@ body,
 .scanner-result {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: calc(64px + env(safe-area-inset-top)) 16px calc(150px + env(safe-area-inset-bottom));
+  overflow-y: auto;
 }
 
-.scanner-result img {
-  width: min(78vw, 46dvh);
+.scanner-result > img {
+  flex-shrink: 0;
+  width: min(60vw, 30dvh);
   aspect-ratio: 1;
   border-radius: 50%;
   box-shadow: 0 10px 40px rgb(0 0 0 / 0.6);
   animation: rise-in 0.25s var(--ease);
+}
+
+/* Recherche en cours : la photo « respire ». */
+.scanner-result > img.is-matching {
+  animation: scanner-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes scanner-pulse {
+  50% {
+    opacity: 0.6;
+    transform: scale(0.97);
+  }
+}
+
+.scanner-matches {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(420px, 100%);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scanner-matches button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 12px 8px 8px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 14px;
+  background: rgb(20 24 40 / 0.85);
+  color: #fff;
+  font: inherit;
+  text-align: left;
+  animation: rise-in 0.25s var(--ease) both;
+}
+
+.scanner-matches li:nth-child(2) button {
+  animation-delay: 0.05s;
+}
+
+.scanner-matches li:nth-child(3) button {
+  animation-delay: 0.1s;
+}
+
+.scanner-matches img {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.scanner-match-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.scanner-match-title,
+.scanner-match-sub {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scanner-match-title {
+  font-weight: 700;
+}
+
+.scanner-match-sub {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+.scanner-unsure {
+  flex-shrink: 0;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgb(255 159 67 / 0.25);
+  color: #ffc58f;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* Choix Auto / Manuel, au-dessus du déclencheur. */
+.scanner-modes {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.45);
+}
+
+.scanner-modes button {
+  padding: 5px 14px;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  color: rgb(255 255 255 / 0.75);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.scanner-modes button[aria-checked='true'] {
+  background: var(--gold);
+  color: #000;
 }
 
 /* Étiquette « Version d'essai », en haut à gauche. */

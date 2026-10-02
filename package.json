@@ -12,7 +12,8 @@
     "fetch-texts": "node scripts/fetch-texts.mjs",
     "build-map": "node scripts/build-map.mjs",
     "fetch-mintages": "node --env-file-if-exists=.env scripts/fetch-mintages.mjs",
-    "build-icons": "node scripts/build-icons.mjs"
+    "build-icons": "node scripts/build-icons.mjs",
+    "build-signatures": "node scripts/build-signatures.mjs"
   },
   "dependencies": {
     "@fontsource/carlito": "^5.3.0",

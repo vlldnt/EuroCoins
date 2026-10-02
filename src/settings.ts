@@ -16,6 +16,7 @@ const KEYS = {
   textSize: 'eurocoins.textSize',
   coinLayout: 'eurocoins.coinLayout',
   commLayout: 'eurocoins.commLayout',
+  scanMode: 'eurocoins.scanMode',
 }
 
 // Disposition des 8 pièces courantes : couronne autour de la 2 €, ligne (1 cent → 2 €), ou grille.
@@ -95,4 +96,15 @@ export function readCommLayout(): CommLayout {
 
 export function saveCommLayout(layout: CommLayout) {
   write(KEYS.commLayout, layout === 'mosaic' ? null : layout)
+}
+
+// Photo d'une pièce : déclenchement automatique (pièce immobile et nette) ou à la main.
+export type ScanMode = 'auto' | 'manual'
+
+export function readScanMode(): ScanMode {
+  return read(KEYS.scanMode) === 'manual' ? 'manual' : 'auto'
+}
+
+export function saveScanMode(mode: ScanMode) {
+  write(KEYS.scanMode, mode === 'auto' ? null : mode)
 }

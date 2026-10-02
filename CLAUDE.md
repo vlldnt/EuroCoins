@@ -4,7 +4,7 @@ Voir README.md pour la présentation fonctionnelle.
 
 ## Commandes
 - `npm run dev` / `npm run build` (tsc + vite) / `npm run lint` (oxlint). Toujours faire passer `build` et `lint` avant de conclure.
-- `npm run fetch-coins`, `npm run build-map` : régénèrent les données. Ne jamais éditer à la main `src/data/*.json` ni `public/coins/**`.
+- `npm run fetch-coins`, `npm run build-map`, `npm run build-signatures` (reconnaissance par photo, après fetch-coins) : régénèrent les données. Ne jamais éditer à la main `src/data/*.json` ni `public/coins/**`.
 
 ## Règles
 - Commentaires en français. Aucun texte d'interface en dur : passer par `useI18n().t()` ; toute nouvelle clé s'ajoute dans `src/i18n/locales/fr.ts` (référence) ET dans les 22 autres fichiers de `locales/` (le type `Messages` l'impose).
