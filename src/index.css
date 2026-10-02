@@ -612,8 +612,24 @@ body,
   display: none;
 }
 
-.search-close {
+.search-close,
+.search-camera {
   flex-shrink: 0;
+}
+
+.search-camera svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+
+/* L'appareil photo ne tourne pas comme la croix « Fermer ». */
+.search-camera:hover,
+.search-camera:focus-visible {
+  transform: none;
 }
 
 .search-results {
@@ -3453,4 +3469,142 @@ body,
   .layout-picker label {
     width: 28px;
   }
+}
+
+/* ---------- photo d'une pièce (téléphone) ---------- */
+
+/* Vue caméra plein écran, toujours sombre (au-dessus de la recherche et du carrousel). */
+.scanner {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: #000;
+  color: #fff;
+  animation: fade-in 0.2s var(--ease);
+}
+
+.scanner-video,
+.scanner-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scanner-video {
+  object-fit: cover;
+}
+
+.scanner.is-captured .scanner-video {
+  filter: blur(14px) brightness(0.5);
+}
+
+/* Assombrit tout sauf le disque de la pièce (ou du cercle-guide). */
+.scanner-mask {
+  fill: rgb(0 0 0 / 0.5);
+}
+
+.scanner-ring {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-dasharray: 6 8;
+  opacity: 0.85;
+}
+
+.scanner-ring.is-found {
+  stroke: var(--gold);
+  stroke-width: 3;
+  stroke-dasharray: none;
+  opacity: 1;
+}
+
+/* Anneau qui se remplit pendant que la pièce reste immobile, puis photo automatique. */
+.scanner-progress {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.scanner-result {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.scanner-result img {
+  width: min(78vw, 46dvh);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: 0 10px 40px rgb(0 0 0 / 0.6);
+  animation: rise-in 0.25s var(--ease);
+}
+
+/* Étiquette « Version d'essai », en haut à gauche. */
+.scanner-trial {
+  position: absolute;
+  top: calc(18px + env(safe-area-inset-top));
+  left: calc(14px + env(safe-area-inset-left));
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #000;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.scanner-close {
+  position: absolute;
+  top: calc(12px + env(safe-area-inset-top));
+  right: calc(12px + env(safe-area-inset-right));
+}
+
+.scanner-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px calc(24px + env(safe-area-inset-bottom));
+  background: linear-gradient(transparent, rgb(0 0 0 / 0.6));
+}
+
+.scanner-hint {
+  margin: 0;
+  max-width: 32ch;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  text-shadow: 0 1px 4px rgb(0 0 0 / 0.8);
+}
+
+/* Déclencheur façon appareil photo : disque blanc cerclé. */
+.scanner-shutter {
+  width: 68px;
+  height: 68px;
+  padding: 0;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.25);
+  box-shadow: inset 0 0 0 4px #000;
+}
+
+.scanner-shutter:active {
+  background: #fff;
+}
+
+.scanner-retake {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  background: #fff;
+  color: #000;
+  font: inherit;
+  font-weight: 700;
 }

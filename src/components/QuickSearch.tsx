@@ -5,6 +5,8 @@ import { useCoinTexts } from '../i18n/useCoinTexts'
 import { search, wordsOf, type PanelTarget, type SearchEntry } from '../search'
 import { Flag } from './Flag'
 import { CloseIcon } from './CloseIcon'
+import { CoinScanner } from './CoinScanner'
+import { canScanCoins } from '../coinDetect'
 
 // Langues dans lesquelles un nom de pays est reconnu, en plus de celle de l'interface.
 const NAME_LANGS = ['fr', 'en', 'de', 'es', 'it', 'nl', 'pt']
@@ -24,6 +26,9 @@ export function QuickSearch({ onPick }: Props) {
   const { t, plural, lang, countryName } = useI18n()
   const { nameOf, commTitle } = useCoinTexts()
   const [open, setOpen] = useState(false)
+  // Photo d'une pièce : téléphone ou tablette avec caméra uniquement.
+  const [canScan] = useState(canScanCoins)
+  const [scanning, setScanning] = useState(false)
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
   const triggerRef = useRef<HTMLButtonElement>(null)
@@ -114,9 +119,10 @@ export function QuickSearch({ onPick }: Props) {
     else if (e.key === 'ArrowUp') setActive((i) => Math.max(0, i - 1))
     else if (e.key === 'Enter' && results[active]) pick(results[active])
     else if (e.key === 'Tab') {
-      // Fenêtre modale : Tab alterne entre le champ et « Fermer » (la liste se parcourt aux flèches).
-      const closeButton = e.currentTarget.querySelector<HTMLElement>('.search-close')
-      ;(document.activeElement === inputRef.current ? closeButton : inputRef.current)?.focus()
+      // Fenêtre modale : Tab boucle sur le champ et les boutons (la liste se parcourt aux flèches).
+      const stops = [...e.currentTarget.querySelectorAll<HTMLElement>('.search-field input, .search-field button')]
+      const i = stops.indexOf(document.activeElement as HTMLElement)
+      stops[(i + (e.shiftKey ? -1 : 1) + stops.length) % stops.length]?.focus()
     } else return
     e.preventDefault()
   }
@@ -201,6 +207,22 @@ export function QuickSearch({ onPick }: Props) {
                   setActive(0)
                 }}
               />
+              {canScan && (
+                <button
+                  className="icon-button search-camera"
+                  onClick={() => {
+                    close(false)
+                    setScanning(true)
+                  }}
+                  aria-label={`${t('scanCoin')} (${t('trialVersion')})`}
+                  title={`${t('scanCoin')} (${t('trialVersion')})`}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1.5-2h6l1.5 2h2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5Z" />
+                    <circle cx="12" cy="13" r="3.5" />
+                  </svg>
+                </button>
+              )}
               <button className="icon-button search-close" onClick={() => close()} aria-label={t('close')}>
                 <CloseIcon />
               </button>
@@ -235,6 +257,14 @@ export function QuickSearch({ onPick }: Props) {
             )}
           </div>
         </div>
+      )}
+      {scanning && (
+        <CoinScanner
+          onClose={() => {
+            setScanning(false)
+            triggerRef.current?.focus()
+          }}
+        />
       )}
     </>
   )
