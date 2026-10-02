@@ -7,6 +7,7 @@ import { DisplaySettings } from './components/DisplaySettings'
 import { InstallButton } from './components/InstallButton'
 import { RotateNotice } from './components/RotateNotice'
 import { VisitCounter } from './components/VisitCounter'
+import { APP_VERSION } from './version'
 import { CountryList } from './components/CountryPicker'
 import { QuickSearch } from './components/QuickSearch'
 import type { PanelTarget } from './search'
@@ -164,6 +165,9 @@ export default function App() {
           <a href={`https://www.ecb.europa.eu/euro/coins/html/index.${textsLang}.html`} target="_blank" rel="noreferrer">
             {t('ecb')}
           </a>
+          <span className="app-version" title={t('version', { version: APP_VERSION })}>
+            {APP_VERSION}
+          </span>
         </footer>
       </div>
 

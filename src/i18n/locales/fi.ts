@@ -95,6 +95,8 @@ const fi: Messages = {
   scanNoMatch: 'Kolikkoa ei tunnistettu varmasti. Tässä lähimmät, tai ota kuva uudelleen paremmassa valossa.',
   scanCameraError: 'Kameraan ei saada yhteyttä. Tarkista lupa selaimen asetuksista.',
   trialVersion: 'Kokeiluversio',
+  about: 'Tietoja',
+  version: 'Versio {version}',
   close: 'Sulje',
   previousCoin: 'Edellinen kolikko',
   nextCoin: 'Seuraava kolikko',

@@ -95,6 +95,8 @@ const sl: Messages = {
   scanNoMatch: 'Kovanec ni zanesljivo prepoznan. Tu so najbolj podobni ali fotografirajte znova pri več svetlobe.',
   scanCameraError: 'Dostop do kamere ni mogoč. Preverite dovoljenje v nastavitvah brskalnika.',
   trialVersion: 'Preizkusna različica',
+  about: 'O aplikaciji',
+  version: 'Različica {version}',
   close: 'Zapri',
   previousCoin: 'Prejšnji kovanec',
   nextCoin: 'Naslednji kovanec',

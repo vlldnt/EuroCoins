@@ -95,6 +95,8 @@ const nl: Messages = {
   scanNoMatch: 'Munt niet met zekerheid herkend. Dit zijn de meest gelijkende, of maak de foto opnieuw met meer licht.',
   scanCameraError: 'Geen toegang tot de camera. Controleer de toestemming in de browserinstellingen.',
   trialVersion: 'Proefversie',
+  about: 'Over',
+  version: 'Versie {version}',
   close: 'Sluiten',
   previousCoin: 'Vorige munt',
   nextCoin: 'Volgende munt',

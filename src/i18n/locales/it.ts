@@ -95,6 +95,8 @@ const it: Messages = {
   scanNoMatch: 'Moneta non riconosciuta con certezza. Ecco le più simili, oppure rifai la foto con più luce.',
   scanCameraError: 'Impossibile accedere alla fotocamera. Controlla l’autorizzazione nelle impostazioni del browser.',
   trialVersion: 'Versione di prova',
+  about: 'Informazioni',
+  version: 'Versione {version}',
   close: 'Chiudi',
   previousCoin: 'Moneta precedente',
   nextCoin: 'Moneta successiva',

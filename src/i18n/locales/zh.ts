@@ -95,6 +95,8 @@ const zh: Messages = {
   scanNoMatch: '无法确定识别该硬币。以下是最接近的结果，也可以在更亮的地方重拍。',
   scanCameraError: '无法访问相机。请在浏览器设置中检查权限。',
   trialVersion: '试用版',
+  about: '关于',
+  version: '版本 {version}',
   close: '关闭',
   previousCoin: '上一枚',
   nextCoin: '下一枚',

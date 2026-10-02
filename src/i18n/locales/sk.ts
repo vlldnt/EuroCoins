@@ -95,6 +95,8 @@ const sk: Messages = {
   scanNoMatch: 'Minca nebola s istotou rozpoznaná. Tu sú najpodobnejšie, alebo odfoťte znova s viac svetla.',
   scanCameraError: 'Nie je prístup ku kamere. Skontrolujte povolenie v nastaveniach prehliadača.',
   trialVersion: 'Skúšobná verzia',
+  about: 'O aplikácii',
+  version: 'Verzia {version}',
   close: 'Zavrieť',
   previousCoin: 'Predchádzajúca minca',
   nextCoin: 'Nasledujúca minca',

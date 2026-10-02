@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { useI18n, type Messages } from '../i18n'
+import { APP_VERSION } from '../version'
 import {
   PALETTES,
   TEXT_SIZES,
@@ -171,6 +172,13 @@ export function DisplaySettings() {
                 A+
               </button>
             </div>
+          </fieldset>
+
+          <fieldset className="about-app">
+            <legend>{t('about')}</legend>
+            <p>
+              EuroCoins <strong>{APP_VERSION}</strong>
+            </p>
           </fieldset>
         </div>
       )}

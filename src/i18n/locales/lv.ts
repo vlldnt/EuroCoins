@@ -95,6 +95,8 @@ const lv: Messages = {
   scanNoMatch: 'Monēta nav droši atpazīta. Lūk, līdzīgākās, vai uzņemiet vēlreiz ar vairāk gaismas.',
   scanCameraError: 'Nevar piekļūt kamerai. Pārbaudiet atļauju pārlūka iestatījumos.',
   trialVersion: 'Izmēģinājuma versija',
+  about: 'Par',
+  version: 'Versija {version}',
   close: 'Aizvērt',
   previousCoin: 'Iepriekšējā monēta',
   nextCoin: 'Nākamā monēta',

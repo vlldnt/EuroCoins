@@ -95,6 +95,8 @@ const eo: Messages = {
   scanNoMatch: 'Monero ne certe rekonita. Jen la plej similaj, aŭ refotu kun pli da lumo.',
   scanCameraError: 'Ne eblas aliri la fotilon. Kontrolu la permeson en la agordoj de la retumilo.',
   trialVersion: 'Prova versio',
+  about: 'Pri',
+  version: 'Versio {version}',
   close: 'Fermi',
   previousCoin: 'Antaŭa monero',
   nextCoin: 'Sekva monero',

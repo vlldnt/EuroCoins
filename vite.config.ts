@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -5,6 +6,12 @@ import { VitePWA } from 'vite-plugin-pwa'
 // Identifiant unique de chaque build : les textes BCE sont demandés avec ?v=<build>,
 // donc une nouvelle adresse à chaque déploiement (voir src/i18n/provider.tsx).
 const buildId = Date.now().toString(36)
+// Version affichée dans l'appli (« v1.10 ») : majeure.mineure de package.json, à incrémenter avant
+// chaque push sur main (voir CLAUDE.md).
+const [major, minor] = (JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as {
+  version: string
+}).version.split('.')
+const appVersion = `v${major}.${minor}`
 
 // https://vite.dev/config/
 // Ports fixes pour ne pas entrer en conflit avec les autres projets.
@@ -65,7 +72,7 @@ export default defineConfig({
       },
     }),
   ],
-  define: { __BUILD_ID__: JSON.stringify(buildId) },
+  define: { __BUILD_ID__: JSON.stringify(buildId), __APP_VERSION__: JSON.stringify(appVersion) },
   server: { port: 3006, strictPort: true },
   preview: { port: 3007, strictPort: true },
 })

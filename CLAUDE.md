@@ -6,6 +6,9 @@ Voir README.md pour la présentation fonctionnelle.
 - `npm run dev` / `npm run build` (tsc + vite) / `npm run lint` (oxlint). Toujours faire passer `build` et `lint` avant de conclure.
 - `npm run fetch-coins`, `npm run build-map`, `npm run build-signatures` (reconnaissance par photo, après fetch-coins) : régénèrent les données. Ne jamais éditer à la main `src/data/*.json` ni `public/coins/**`.
 
+## Version
+- Avant chaque push sur `main` : incrémenter le second chiffre de `version` dans `package.json` (1.10.0 → 1.11.0 → … → 1.99.0) ; une refonte passe en 2.0.0. Affichée « v1.10 » en bas de la carte et dans Affichage › À propos.
+
 ## Règles
 - Commentaires en français. Aucun texte d'interface en dur : passer par `useI18n().t()` ; toute nouvelle clé s'ajoute dans `src/i18n/locales/fr.ts` (référence) ET dans les 22 autres fichiers de `locales/` (le type `Messages` l'impose).
 - Noms de pays : `useCoinTexts().nameOf(country)`, jamais `country.name` directement.

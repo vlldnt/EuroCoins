@@ -95,6 +95,8 @@ const de: Messages = {
   scanNoMatch: 'Münze nicht sicher erkannt. Hier die ähnlichsten – oder neu aufnehmen, mit mehr Licht.',
   scanCameraError: 'Kein Zugriff auf die Kamera. Prüfen Sie die Berechtigung in den Browsereinstellungen.',
   trialVersion: 'Testversion',
+  about: 'Über',
+  version: 'Version {version}',
   close: 'Schließen',
   previousCoin: 'Vorherige Münze',
   nextCoin: 'Nächste Münze',

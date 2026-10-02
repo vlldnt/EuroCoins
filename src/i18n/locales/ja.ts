@@ -95,6 +95,8 @@ const ja: Messages = {
   scanNoMatch: '確実には認識できませんでした。最も近い候補です。明るい場所で撮り直すこともできます。',
   scanCameraError: 'カメラにアクセスできません。ブラウザの設定で許可を確認してください。',
   trialVersion: '試用版',
+  about: 'このアプリについて',
+  version: 'バージョン {version}',
   close: '閉じる',
   previousCoin: '前の硬貨',
   nextCoin: '次の硬貨',

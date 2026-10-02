@@ -95,6 +95,8 @@ const en: Messages = {
   scanNoMatch: 'Coin not recognised with certainty. Here are the closest ones, or retake the photo with more light.',
   scanCameraError: 'Can’t access the camera. Check the permission in your browser settings.',
   trialVersion: 'Trial version',
+  about: 'About',
+  version: 'Version {version}',
   close: 'Close',
   previousCoin: 'Previous coin',
   nextCoin: 'Next coin',

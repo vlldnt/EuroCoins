@@ -95,6 +95,8 @@ const ca: Messages = {
   scanNoMatch: 'Moneda no reconeguda amb certesa. Aquí teniu les més properes, o repetiu la foto amb més llum.',
   scanCameraError: 'No es pot accedir a la càmera. Comproveu el permís a la configuració del navegador.',
   trialVersion: 'Versió de prova',
+  about: 'Quant a',
+  version: 'Versió {version}',
   close: 'Tanca',
   previousCoin: 'Moneda anterior',
   nextCoin: 'Moneda següent',

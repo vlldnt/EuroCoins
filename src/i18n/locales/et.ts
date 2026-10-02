@@ -95,6 +95,8 @@ const et: Messages = {
   scanNoMatch: 'Münti ei tuvastatud kindlalt. Siin on sarnasemad või pildistage uuesti parema valgusega.',
   scanCameraError: 'Kaamerale pole juurdepääsu. Kontrollige luba brauseri seadetes.',
   trialVersion: 'Prooviversioon',
+  about: 'Teave',
+  version: 'Versioon {version}',
   close: 'Sulge',
   previousCoin: 'Eelmine münt',
   nextCoin: 'Järgmine münt',

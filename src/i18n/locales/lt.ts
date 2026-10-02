@@ -95,6 +95,8 @@ const lt: Messages = {
   scanNoMatch: 'Moneta neatpažinta tiksliai. Štai panašiausios arba fotografuokite iš naujo esant daugiau šviesos.',
   scanCameraError: 'Nepavyksta pasiekti kameros. Patikrinkite leidimą naršyklės nustatymuose.',
   trialVersion: 'Bandomoji versija',
+  about: 'Apie',
+  version: 'Versija {version}',
   close: 'Uždaryti',
   previousCoin: 'Ankstesnė moneta',
   nextCoin: 'Kita moneta',

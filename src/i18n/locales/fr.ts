@@ -95,6 +95,8 @@ const fr = {
   scanNoMatch: 'Pièce non reconnue avec certitude. Voici les plus proches, ou reprenez la photo avec plus de lumière.',
   scanCameraError: 'Impossible d’accéder à l’appareil photo. Vérifiez l’autorisation dans les réglages du navigateur.',
   trialVersion: 'Version d’essai',
+  about: 'À propos',
+  version: 'Version {version}',
   close: 'Fermer',
   previousCoin: 'Pièce précédente',
   nextCoin: 'Pièce suivante',

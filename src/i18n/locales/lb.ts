@@ -95,6 +95,8 @@ const lb: Messages = {
   scanNoMatch: 'Mënz net sécher erkannt. Hei déi ähnlechst – oder nei ophuelen, mat méi Liicht.',
   scanCameraError: 'Keen Zougang zur Kamera. Kontrolléiert d’Autorisatioun an den Astellunge vum Browser.',
   trialVersion: 'Testversioun',
+  about: 'Iwwer',
+  version: 'Versioun {version}',
   close: 'Zoumaachen',
   previousCoin: 'Vireg Mënz',
   nextCoin: 'Nächst Mënz',

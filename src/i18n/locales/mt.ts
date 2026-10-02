@@ -95,6 +95,8 @@ const mt: Messages = {
   scanNoMatch: 'Il-munita ma ntgħarfitx b’ċertezza. Dawn huma l-eqreb, jew erġa’ ħu r-ritratt b’aktar dawl.',
   scanCameraError: 'Ma jistax jiġi aċċessat il-kamera. Iċċekkja l-permess fis-settings tal-browser.',
   trialVersion: 'Verżjoni ta’ prova',
+  about: 'Dwar',
+  version: 'Verżjoni {version}',
   close: 'Agħlaq',
   previousCoin: 'Munita preċedenti',
   nextCoin: 'Munita li jmiss',

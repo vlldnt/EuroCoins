@@ -95,6 +95,8 @@ const hr: Messages = {
   scanNoMatch: 'Kovanica nije sigurno prepoznata. Evo najsličnijih ili ponovno snimite uz više svjetla.',
   scanCameraError: 'Nije moguće pristupiti kameri. Provjerite dopuštenje u postavkama preglednika.',
   trialVersion: 'Probna verzija',
+  about: 'O aplikaciji',
+  version: 'Verzija {version}',
   close: 'Zatvori',
   previousCoin: 'Prethodna kovanica',
   nextCoin: 'Sljedeća kovanica',
