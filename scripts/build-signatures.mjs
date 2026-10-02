@@ -13,12 +13,17 @@ const ROOT = path.resolve(import.meta.dirname, '..')
 const SIZE = 160
 
 const data = JSON.parse(await fs.readFile(path.join(ROOT, 'src/data/coins.json'), 'utf8'))
-const images = [
-  ...new Set([
-    ...data.countries.flatMap((c) => c.series.flatMap((s) => Object.values(s.coins))),
-    ...data.commemorative.map((c) => c.image).filter(Boolean),
-  ]),
-]
+// Type de chaque image (2 €, 1 €, or, cuivre) : sert de filtre d'après les couleurs de la photo.
+const metalOf = new Map()
+for (const c of data.countries) {
+  for (const s of c.series) {
+    for (const [d, img] of Object.entries(s.coins)) {
+      metalOf.set(img, d === '2e' ? 'euro2' : d === '1e' ? 'euro1' : ['10c', '20c', '50c'].includes(d) ? 'gold' : 'copper')
+    }
+  }
+}
+for (const c of data.commemorative) if (c.image) metalOf.set(c.image, 'euro2')
+const images = [...metalOf.keys()]
 
 // Pièce sur fond blanc : son cercle est le cadre des pixels non blancs.
 function coinCircle(gray) {
@@ -58,6 +63,6 @@ for (const image of images) {
 await fs.writeFile(path.join(ROOT, 'public/coins/signatures.bin'), Buffer.concat(chunks))
 await fs.writeFile(
   path.join(ROOT, 'public/coins/signatures.json'),
-  JSON.stringify({ rings: RINGS, angles: ANGLES, images: kept }) + '\n',
+  JSON.stringify({ rings: RINGS, angles: ANGLES, images: kept, metals: kept.map((i) => metalOf.get(i)) }) + '\n',
 )
 console.log(`${kept.length} signatures (${(kept.length * RINGS * ANGLES / 1024).toFixed(0)} Ko).`)

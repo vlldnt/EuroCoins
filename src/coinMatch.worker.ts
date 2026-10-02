@@ -1,6 +1,7 @@
 // Reconnaissance en arrière-plan : charge les signatures des pièces connues une fois, puis classe
 // chaque photo reçue sans bloquer l'interface.
 import { ANGLES, RINGS, dequantize, rankMatches, similarity } from './coinMatch'
+import { metalBonus, type Metal, type MetalGuess } from './coinMetal'
 
 export interface MatchRequest {
   /** Adresse de signatures.json (signatures.bin est à côté). */
@@ -11,6 +12,8 @@ export interface MatchRequest {
   cx?: number
   cy?: number
   r?: number
+  /** Type repéré sur la photo (couleurs) : filtre les pièces d'un autre type. */
+  metal?: MetalGuess
 }
 
 export interface MatchResponse {
@@ -20,14 +23,14 @@ export interface MatchResponse {
   error?: string
 }
 
-let loading: Promise<{ images: string[]; refs: Float32Array[] }> | null = null
+let loading: Promise<{ images: string[]; metals: Metal[]; refs: Float32Array[] }> | null = null
 
 async function load(url: string) {
-  const index = (await (await fetch(url)).json()) as { images: string[] }
+  const index = (await (await fetch(url)).json()) as { images: string[]; metals: Metal[] }
   const bin = new Uint8Array(await (await fetch(url.replace('signatures.json', 'signatures.bin'))).arrayBuffer())
   const n = RINGS * ANGLES
   const refs = index.images.map((_, i) => dequantize(bin.subarray(i * n, (i + 1) * n)))
-  return { images: index.images, refs }
+  return { images: index.images, metals: index.metals, refs }
 }
 
 self.onmessage = async (e: MessageEvent<MatchRequest>) => {
@@ -39,8 +42,9 @@ self.onmessage = async (e: MessageEvent<MatchRequest>) => {
       self.postMessage({ ready: true } satisfies MatchResponse)
       return
     }
-    const { images, refs } = await loading!
-    const ranked = rankMatches(req.gray!, req.w!, req.h!, req.cx!, req.cy!, req.r!, refs).slice(0, 12)
+    const { images, metals, refs } = await loading!
+    const bonus = Float32Array.from(metals, (m) => metalBonus(req.metal ?? null, m))
+    const ranked = rankMatches(req.gray!, req.w!, req.h!, req.cx!, req.cy!, req.r!, refs, bonus).slice(0, 12)
     // Même dessin : déroulés des deux pièces de référence très ressemblants.
     const results = ranked.map((m, i) => {
       const twin = ranked.findIndex((o, j) => j < i && similarity(refs[o.index], refs[m.index]) > 0.5)

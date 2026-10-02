@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { detectCircle, toGray, type Circle } from '../coinDetect'
 import { coinOfImage, type CoinRef } from '../coinLookup'
+import { guessMetal } from '../coinMetal'
 import type { MatchRequest, MatchResponse } from '../coinMatch.worker'
 import { asset, countriesByIso, data } from '../data'
 import { useI18n } from '../i18n'
@@ -32,9 +33,10 @@ const PHOTO_MAX = 720
 const PHOTO_MARGIN = 1.12
 // Score en dessous duquel un résultat est signalé « peu sûr ».
 const SURE_SCORE = 0.45
-// Concordance affichée (%) : score ramené sur l'échelle observée aux essais (≤ 0,3 : pièces
-// différentes ; ≥ 0,7 : même pièce sans doute possible).
-const concordance = (score: number) => Math.max(0, Math.min(1, (score - 0.3) / 0.4))
+// Concordance affichée (%) : score ramené sur l'échelle observée (≤ 0,25 : pièces différentes ;
+// ≥ 0,65 : même pièce sans doute possible). Recalée après les premiers essais sur vraies photos,
+// dont les scores restent plus bas que sur les images retouchées.
+const concordance = (score: number) => Math.max(0, Math.min(1, (score - 0.25) / 0.4))
 
 type Phase = 'starting' | 'scanning' | 'matching' | 'results' | 'error'
 
@@ -226,9 +228,12 @@ export function CoinScanner({
     setResults([])
     setPhase('matching')
 
-    const gray = grayOfCanvas(canvas)
+    // Type de pièce d'après les couleurs (2 €, 1 €, centimes) : écarte d'emblée les autres types.
+    const rgba = canvas.getContext('2d', { willReadFrequently: true })!.getImageData(0, 0, canvas.width, canvas.height).data
+    const metal = guessMetal(rgba, canvas.width, canvas.height, c.x, c.y, c.r)
+    const gray = toGray(rgba, canvas.width, canvas.height)
     workerRef.current?.postMessage(
-      { gray, w: canvas.width, h: canvas.height, cx: c.x, cy: c.y, r: c.r } satisfies MatchRequest,
+      { gray, w: canvas.width, h: canvas.height, cx: c.x, cy: c.y, r: c.r, metal } satisfies MatchRequest,
       [gray.buffer],
     )
   }, [])

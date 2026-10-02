@@ -141,6 +141,8 @@ export function rankMatches(
   cy: number,
   radius: number,
   refs: Float32Array[],
+  /** Ajustement par pièce connue (type repéré sur la photo), ajouté au score. */
+  bonus?: Float32Array,
   shortlist = 40,
 ): Match[] {
   const mag = edges(gray, w, h)
@@ -149,7 +151,8 @@ export function rankMatches(
     const q = polarOfEdges(mag, w, h, cx, cy, radius * f)
     for (let j = 0; j < refs.length; j++) best[j] = Math.max(best[j], similarity(q, refs[j]))
   }
-  const candidates = [...best.keys()].sort((a, b) => best[b] - best[a]).slice(0, shortlist)
+  const adjusted = (j: number) => best[j] + (bonus ? bonus[j] : 0)
+  const candidates = [...best.keys()].sort((a, b) => adjusted(b) - adjusted(a)).slice(0, shortlist)
   for (const dx of [-0.03, 0, 0.03]) {
     for (const dy of [-0.03, 0, 0.03]) {
       for (const f of [0.92, 0.96, 1, 1.04, 1.08]) {
@@ -159,5 +162,5 @@ export function rankMatches(
       }
     }
   }
-  return candidates.map((index) => ({ index, score: best[index] })).sort((a, b) => b.score - a.score)
+  return candidates.map((index) => ({ index, score: adjusted(index) })).sort((a, b) => b.score - a.score)
 }
