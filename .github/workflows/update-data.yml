@@ -31,6 +31,8 @@ jobs:
 
       - run: npm ci
       - run: npm run fetch-coins
+      # Signatures pour la reconnaissance par photo (nouvelles pièces comprises).
+      - run: npm run build-signatures
       - run: npm run fetch-texts
 
       # Le champ generatedAt change à chaque passage : on ne commite que si le reste a changé.

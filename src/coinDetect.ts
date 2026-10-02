@@ -18,8 +18,9 @@ export interface Circle {
   score: number
 }
 
-// Rayon cherché, en fraction du plus petit côté de l'image.
-const MIN_RADIUS = 0.12
+// Rayon cherché, en fraction du plus petit côté de l'image (petit minimum : téléphone tenu loin
+// quand il ne fait pas la mise au point de près).
+const MIN_RADIUS = 0.07
 const MAX_RADIUS = 0.48
 // Part minimale du contour retrouvée pour accepter le cercle.
 const MIN_SCORE = 0.5
