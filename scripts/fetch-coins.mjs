@@ -11,7 +11,7 @@ import sharp from 'sharp'
 import { COUNTRIES, DENOMINATIONS } from './countries.mjs'
 import {
   ECB, FIRST_COMM_YEAR, fetchText, norm, parseBoxes, regularImage, isPlaceholder, commFile, webpName,
-  regularUrl, commUrl,
+  regularUrl, commUrl, countryPageUrl,
   parseMintage,
 } from './ecb.mjs'
 
@@ -212,11 +212,12 @@ const data = {
   source: 'Banque centrale européenne — https://www.ecb.europa.eu/euro/coins/',
   generatedAt: new Date().toISOString(),
   denominations: DENOMINATIONS.map(({ id, label }) => ({ id, label })),
-  countries: COUNTRIES.map(({ iso, numeric, fr, euroSince }) => ({
+  countries: COUNTRIES.map(({ iso, numeric, ecb, fr, euroSince }) => ({
     iso,
     numeric,
     name: fr,
     euroSince,
+    ecbPage: countryPageUrl(ecb),
     description: descriptions[iso] ?? [],
     series: series[iso],
   })),

@@ -8,6 +8,8 @@ import { InstallButton } from './components/InstallButton'
 import { RotateNotice } from './components/RotateNotice'
 import { VisitCounter } from './components/VisitCounter'
 import { CountryList } from './components/CountryPicker'
+import { QuickSearch } from './components/QuickSearch'
+import type { PanelTarget } from './search'
 import { countriesByIso, data } from './data'
 import { useI18n } from './i18n'
 import { useDelayedUnmount } from './useDelayedUnmount'
@@ -35,6 +37,8 @@ export default function App() {
   // Élément qui avait le focus avant l'ouverture de la fenêtre : il le retrouve à la fermeture.
   const returnFocus = useRef<HTMLElement | SVGElement | null>(null)
   const [zoom, setZoom] = useState<{ items: ZoomItem[]; index: number } | null>(null)
+  // Destination choisie dans la recherche rapide (onglet, série, pièce) ; nouvel objet à chaque choix.
+  const [target, setTarget] = useState<PanelTarget | null>(null)
 
   useEffect(() => {
     const onHash = () => setSelected(readHash())
@@ -56,9 +60,19 @@ export default function App() {
     // replaceState : fermer la fenêtre ne laisse pas un « # » vide dans l'URL.
     history.replaceState(null, '', iso ? `#${iso}` : location.pathname + location.search)
     setSelected(iso)
+    setTarget(null)
   }, [])
 
   const close = useCallback(() => select(null), [select])
+
+  const goTo = useCallback(
+    (iso: string, to: PanelTarget) => {
+      setZoom(null)
+      select(iso)
+      setTarget({ ...to })
+    },
+    [select],
+  )
 
   // Fermeture : Échap, ou clic en dehors de la fenêtre (sauf sur les éléments marqués
   // data-keep-panel : pays de la carte, carrousel, outils d'en-tête, liste des pays…).
@@ -120,6 +134,7 @@ export default function App() {
         </h1>
         <p>{t('subtitle', { count: data.countries.length })}</p>
         <div className="header-tools" data-keep-panel>
+          <QuickSearch onPick={goTo} />
           <InstallButton />
           <DisplaySettings />
           <LanguageSelect />
@@ -134,6 +149,7 @@ export default function App() {
             key={panel.item.iso}
             country={panel.item}
             leaving={panel.leaving}
+            target={panel.item.iso === selected ? target : null}
             onClose={close}
             onZoom={(items, index) => setZoom({ items, index })}
           />

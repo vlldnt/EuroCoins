@@ -8,13 +8,27 @@ import {
   type Country,
   type DenominationId,
 } from '../data'
-import { COIN_LAYOUTS, readCoinLayout, saveCoinLayout, type CoinLayout } from '../settings'
+import {
+  COIN_LAYOUTS,
+  COMM_LAYOUTS,
+  readCoinLayout,
+  readCommLayout,
+  saveCoinLayout,
+  saveCommLayout,
+  type CoinLayout,
+  type CommLayout,
+} from '../settings'
 import { useI18n } from '../i18n'
 import { useCoinTexts } from '../i18n/useCoinTexts'
 import type { ZoomItem } from './Lightbox'
 import { useCoinPreview, type PreviewContent } from './useCoinPreview'
 import { CountryHeading } from './CountryHeading'
 import { CloseIcon } from './CloseIcon'
+import { MintageTable } from './MintageTable'
+import { useUntilFound } from './useUntilFound'
+import { LayoutPicker } from './LayoutPicker'
+import { YearSelect, type YearChoice } from './YearSelect'
+import type { PanelTarget } from '../search'
 
 type Tab = 'regular' | 'commemorative'
 
@@ -24,19 +38,63 @@ interface Props {
   country: Country
   /** Animation de fermeture en cours. */
   leaving?: boolean
+  /** Destination choisie dans la recherche rapide. */
+  target?: PanelTarget | null
   onClose: () => void
   // Ouvre le carrousel sur items[index] ; les flèches permettent ensuite de parcourir items.
   onZoom: (items: ZoomItem[], index: number) => void
 }
 
-export function CountryPanel({ country, leaving = false, onClose, onZoom }: Props) {
+export function CountryPanel({ country, leaving = false, target = null, onClose, onZoom }: Props) {
   const { t, plural, lang, textsLang, languageName } = useI18n()
-  const [tab, setTab] = useState<Tab>('regular')
+  const tabFor = (to: PanelTarget | null): Tab | null =>
+    !to || to.kind === 'country' ? null : to.kind === 'series' ? 'regular' : 'commemorative'
+  const [tab, setTab] = useState<Tab>(() => tabFor(target) ?? 'regular')
+  // Nouvelle destination de la recherche rapide : on bascule d'onglet pendant le rendu.
+  const [seenTarget, setSeenTarget] = useState(target)
+  if (target !== seenTarget) {
+    setSeenTarget(target)
+    const next = tabFor(target)
+    if (next) setTab(next)
+  }
   const commemorative = useMemo(() => commemorativeFor(country.iso), [country.iso])
   const preview = useCoinPreview()
   const titleRef = useRef<HTMLHeadingElement>(null)
   const tabsId = useId()
   const tabs: Tab[] = ['regular', 'commemorative']
+  // Relance le fondu des commémoratives à chaque ouverture par l'onglet (pas par Ctrl+F : le
+  // nœud trouvé doit rester en place pour que le navigateur puisse y défiler).
+  const [commRun, setCommRun] = useState(0)
+  const chooseTab = (value: Tab) => {
+    if (value === tab) return
+    setTab(value)
+    if (value === 'commemorative') setCommRun((n) => n + 1)
+  }
+  // Commémoratives toujours présentes dans la page, masquées « until-found » : Ctrl+F les trouve
+  // depuis l'onglet des séries courantes et bascule alors sur leur onglet.
+  const commRef = useUntilFound<HTMLDivElement>(tab !== 'commemorative', () => setTab('commemorative'))
+
+  // Recherche rapide : la série visée défile et s'illumine (la pièce commémorative est gérée
+  // par Commemoratives).
+  useEffect(() => {
+    if (target?.kind !== 'series') return
+    const frame = requestAnimationFrame(() =>
+      highlight(document.querySelector(`.panel [data-series="${target.index}"]`)),
+    )
+    return () => cancelAnimationFrame(frame)
+  }, [target])
+
+  // Dispositions mémorisées ; le sélecteur est dans la barre d'onglets et suit l'onglet actif.
+  const [coinLayout, setCoinLayout] = useState<CoinLayout>(readCoinLayout)
+  const [commLayout, setCommLayout] = useState<CommLayout>(readCommLayout)
+  const chooseCoinLayout = (value: CoinLayout) => {
+    setCoinLayout(value)
+    saveCoinLayout(value)
+  }
+  const chooseCommLayout = (value: CommLayout) => {
+    setCommLayout(value)
+    saveCommLayout(value)
+  }
 
   // À l'ouverture, le focus va sur le titre : le lecteur d'écran annonce le pays et la suite se lit.
   useEffect(() => {
@@ -54,7 +112,7 @@ export function CountryPanel({ country, leaving = false, onClose, onZoom }: Prop
       : null
     if (!next) return
     e.preventDefault()
-    setTab(next)
+    chooseTab(next)
     document.getElementById(`${tabsId}-${next}`)?.focus()
   }
   // L'aperçu se ferme dès que le panneau défile ou que le carrousel s'ouvre.
@@ -78,44 +136,67 @@ export function CountryPanel({ country, leaving = false, onClose, onZoom }: Prop
         </button>
       </header>
 
-      <div className="tabs" role="tablist" aria-labelledby="panel-title" onKeyDown={onTabKey}>
-        {tabs.map((value) => (
-          <button
-            key={value}
-            id={`${tabsId}-${value}`}
-            role="tab"
-            aria-selected={tab === value}
-            aria-controls={`${tabsId}-panel`}
-            tabIndex={tab === value ? 0 : -1}
-            onClick={() => setTab(value)}
-          >
-            {value === 'regular' ? t('regularTab') : t('commTab')}
-            <span className="count">
-              {value === 'regular'
-                ? plural('seriesOne', 'seriesMany', country.series.length)
-                : commemorative.length}
-            </span>
-          </button>
-        ))}
+      <div className="tabs-bar">
+        <div className="tabs" role="tablist" aria-labelledby="panel-title" onKeyDown={onTabKey}>
+          {tabs.map((value) => (
+            <button
+              key={value}
+              id={`${tabsId}-${value}`}
+              role="tab"
+              aria-selected={tab === value}
+              aria-controls={`${tabsId}-panel-${value}`}
+              tabIndex={tab === value ? 0 : -1}
+              onClick={() => chooseTab(value)}
+            >
+              {value === 'regular' ? t('regularTab') : t('commTab')}
+              <span className="count">
+                {value === 'regular'
+                  ? plural('seriesOne', 'seriesMany', country.series.length)
+                  : commemorative.length}
+              </span>
+            </button>
+          ))}
+        </div>
+        {tab === 'regular' ? (
+          <LayoutPicker key="regular" options={COIN_LAYOUTS} value={coinLayout} onChange={chooseCoinLayout} />
+        ) : (
+          commemorative.length > 0 && (
+            <LayoutPicker key="comm" options={COMM_LAYOUTS} value={commLayout} onChange={chooseCommLayout} />
+          )
+        )}
       </div>
 
       {textsLang !== lang && (
         <p className="texts-note">{t('textsInOtherLanguage', { language: languageName(textsLang) })}</p>
       )}
 
-      {/* key : fondu à chaque changement d'onglet */}
+      {tab === 'regular' && (
+        <div
+          className="tab-body"
+          id={`${tabsId}-panel-regular`}
+          role="tabpanel"
+          aria-labelledby={`${tabsId}-regular`}
+        >
+          <RegularSeries country={country} layout={coinLayout} onZoom={zoom} bind={preview.bind} />
+        </div>
+      )}
       <div
         className="tab-body"
-        key={tab}
-        id={`${tabsId}-panel`}
+        key={commRun}
+        ref={commRef}
+        id={`${tabsId}-panel-commemorative`}
         role="tabpanel"
-        aria-labelledby={`${tabsId}-${tab}`}
+        aria-labelledby={`${tabsId}-commemorative`}
       >
-        {tab === 'regular' ? (
-          <RegularSeries country={country} onZoom={zoom} bind={preview.bind} />
-        ) : (
-          <Commemoratives key={country.iso} coins={commemorative} country={country} onZoom={zoom} bind={preview.bind} />
-        )}
+        <Commemoratives
+          key={country.iso}
+          coins={commemorative}
+          country={country}
+          layout={commLayout}
+          target={target?.kind === 'comm' ? target : null}
+          onZoom={zoom}
+          bind={preview.bind}
+        />
       </div>
       {preview.node}
     </section>
@@ -138,53 +219,15 @@ function circlePlacements(): Record<DenominationId, Placement> {
   return out
 }
 
-const LAYOUT_LABELS = { circle: 'layoutCircle', row: 'layoutRow', grid: 'layoutGrid' } as const
-
-const LAYOUT_ICONS: Record<CoinLayout, React.ReactNode> = {
-  circle: (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="3.5" />
-      <circle cx="12" cy="4" r="2" />
-      <circle cx="19" cy="9" r="2" />
-      <circle cx="17" cy="18" r="2" />
-      <circle cx="7" cy="18" r="2" />
-      <circle cx="5" cy="9" r="2" />
-    </svg>
-  ),
-  row: (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="2.6" cy="12" r="1.4" />
-      <circle cx="6.2" cy="12" r="1.7" />
-      <circle cx="10.4" cy="12" r="2" />
-      <circle cx="15" cy="12" r="2.2" />
-      <circle cx="20.2" cy="12" r="2.6" />
-    </svg>
-  ),
-  grid: (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="6" cy="6" r="2.2" />
-      <circle cx="12" cy="6" r="2.2" />
-      <circle cx="18" cy="6" r="2.2" />
-      <circle cx="6" cy="12" r="2.2" />
-      <circle cx="12" cy="12" r="2.2" />
-      <circle cx="18" cy="12" r="2.2" />
-      <circle cx="9" cy="18" r="2.2" />
-      <circle cx="15" cy="18" r="2.2" />
-    </svg>
-  ),
-}
-
-function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoom'> & { bind: Bind }) {
+function RegularSeries({
+  country,
+  layout,
+  onZoom,
+  bind,
+}: Pick<Props, 'country' | 'onZoom'> & { layout: CoinLayout; bind: Bind }) {
   const { t } = useI18n()
   const { denominationLabel, countryDescription, regularDescription, nameOf } = useCoinTexts()
-  const [layout, setLayout] = useState<CoinLayout>(readCoinLayout)
-  const layoutName = useId()
   const place = layout === 'circle' ? circlePlacements() : null
-
-  const chooseLayout = (value: CoinLayout) => {
-    setLayout(value)
-    saveCoinLayout(value)
-  }
 
   const caption = (label: string, index: number) =>
     `${nameOf(country)} — ${label} (${t('seriesN', { n: index })})`
@@ -211,25 +254,8 @@ function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoo
 
   return (
     <>
-      {/* Choix de la disposition (mémorisé) : boutons radio natifs, navigables aux flèches. */}
-      <fieldset className="layout-picker">
-        <legend className="visually-hidden">{t('coinLayout')}</legend>
-        {COIN_LAYOUTS.map((value) => (
-          <label key={value} title={t(LAYOUT_LABELS[value])}>
-            <input
-              type="radio"
-              name={layoutName}
-              checked={layout === value}
-              onChange={() => chooseLayout(value)}
-            />
-            {LAYOUT_ICONS[value]}
-            <span className="visually-hidden">{t(LAYOUT_LABELS[value])}</span>
-          </label>
-        ))}
-      </fieldset>
-
       {seriesNewestFirst.map((s) => (
-        <div className="series" key={s.index}>
+        <div className="series" key={s.index} data-series={s.index}>
           <h3>
             {country.series.length > 1 ? t('seriesN', { n: s.index }) : t('currentSeries')}
             {s.note ? (
@@ -263,13 +289,25 @@ function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoo
                   >
                     <img src={asset(image)} alt={text} loading="lazy" />
                   </button>
-                  {s.index > 1 && !isNew && <span className="coin-note">{t('unchanged')}</span>}
+                  {/* Pièce inchangée : astérisque, expliqué par la légende sous la série. */}
+                  {s.index > 1 && !isNew && (
+                    <span className="coin-note" title={t('unchangedNote')}>
+                      <span aria-hidden="true">*</span>
+                      <span className="visually-hidden">{t('unchanged')}</span>
+                    </span>
+                  )}
                 </li>
               )
             })}
           </ul>
+          {s.index > 1 && data.denominations.some((d) => s.coins[d.id] && !s.changed.includes(d.id)) && (
+            <p className="coin-legend" aria-hidden="true">
+              * {t('unchangedNote')}
+            </p>
+          )}
         </div>
       ))}
+      <MintageTable country={country} />
       {description.length > 0 && (
         <details className="about">
           <summary>{t('aboutDesigns')}</summary>
@@ -287,82 +325,176 @@ function RegularSeries({ country, onZoom, bind }: Pick<Props, 'country' | 'onZoo
 function Commemoratives({
   coins,
   country,
+  layout,
+  target,
   onZoom,
   bind,
 }: {
   coins: CommemorativeCoin[]
   country: Country
+  layout: CommLayout
+  target: Extract<PanelTarget, { kind: 'comm' }> | null
   onZoom: Props['onZoom']
   bind: Bind
 }) {
   const { t } = useI18n()
-  const { commTitle, commDesign, nameOf, mintageText, mintageShort } = useCoinTexts()
+  const { commTitle, commDesign, nameOf, mintageText } = useCoinTexts()
   // Texte de l'aperçu et du carrousel : tirage, puis description du graphisme.
   const details = (c: CommemorativeCoin) => [mintageText(c), commDesign(c)].filter(Boolean).join('\n')
   const years = useMemo(() => [...new Set(coins.map((c) => c.year))].sort((a, b) => b - a), [coins])
-  const [year, setYear] = useState<number | 'all'>('all')
+  const sorted = useMemo(() => [...coins].sort((a, b) => b.year - a.year), [coins])
+  const [year, setYear] = useState<YearChoice>('all')
+  const listRef = useRef<HTMLDivElement>(null)
+  // Recherche rapide : toutes les années redeviennent visibles…
+  const [seenTarget, setSeenTarget] = useState(target)
+  if (target !== seenTarget) {
+    setSeenTarget(target)
+    if (target) setYear('all')
+  }
+
+  // … puis la pièce défile et s'illumine, et le carrousel s'ouvre dessus.
+  useEffect(() => {
+    if (!target) return
+    const coin = target.coin
+    const frame = requestAnimationFrame(() => {
+      highlight(listRef.current?.querySelector(`[data-coin="${sorted.indexOf(coin)}"]`) ?? null)
+      const all = sorted.filter((c) => c.image)
+      if (coin.image) onZoom(all.map((c) => zoomItem(c)), all.indexOf(coin))
+    })
+    return () => cancelAnimationFrame(frame)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target])
 
   if (coins.length === 0) {
     return <p className="empty">{t('noCommemorative')}</p>
   }
 
-  const visibleYears = year === 'all' ? years : [year]
-  const zoomable = coins.filter((c) => visibleYears.includes(c.year) && c.image).sort((a, b) => b.year - a.year)
-  const items = zoomable.map((c) => ({
-    image: c.image!,
-    caption: `${nameOf(country)} ${c.year} — ${commTitle(c)}`,
-    iso: country.iso,
-    text: details(c),
-  }))
+  function zoomItem(c: CommemorativeCoin): ZoomItem {
+    return {
+      image: c.image!,
+      caption: `${nameOf(country)} ${c.year} — ${commTitle(c)}`,
+      iso: country.iso,
+      text: details(c),
+    }
+  }
+  const isVisible = (y: number) => year === 'all' || y === year
+  const zoomable = sorted.filter((c) => isVisible(c.year) && c.image)
+  const items = zoomable.map((c) => zoomItem(c))
+  const showAll = () => setYear('all')
 
+  const item = (c: CommemorativeCoin, i: number, hidden: boolean, showYear: boolean) => (
+    <CommItem
+      key={`${c.year}-${i}`}
+      index={i}
+      coin={c}
+      hidden={hidden}
+      showYear={showYear}
+      onFound={showAll}
+      details={details(c)}
+      bind={bind}
+      onZoom={() => onZoom(items, zoomable.indexOf(c))}
+    />
+  )
+
+  // Les pièces des autres années restent dans la page, masquées « until-found » : Ctrl+F les
+  // trouve et réaffiche alors toutes les années.
   return (
     <>
-      <div className="year-filter" role="group" aria-label={t('filterByYear')}>
-        <button aria-pressed={year === 'all'} onClick={() => setYear('all')}>
-          {t('allYears')}
-        </button>
-        {years.map((y) => (
-          <button key={y} aria-pressed={year === y} onClick={() => setYear(y)}>
-            {y}
-          </button>
-        ))}
+      <div className="comm-toolbar">
+        <YearSelect years={years} value={year} onChange={setYear} />
       </div>
 
-      {/* Pièces seules avec leur année ; le détail est dans l'aperçu (survol) et le carrousel (clic). */}
-      <ul className="comm-grid">
-        {coins
-          .filter((c) => visibleYears.includes(c.year))
-          .sort((a, b) => b.year - a.year)
-          .map((c, i) => {
-            const title = commTitle(c) || t('commemorativeCoin')
-            const heading = `${c.year} — ${title}${c.joint ? ` (${t('jointIssue')})` : ''}`
-            const mintage = mintageShort(c)
-            return (
-              <li key={`${c.year}-${i}`}>
-                {c.image ? (
-                  <button
-                    className="coin"
-                    aria-label={[heading, mintageText(c)].filter(Boolean).join('. ')}
-                    {...bind({ image: c.image, title: heading, text: details(c), iso: country.iso })}
-                    onClick={() => onZoom(items, zoomable.indexOf(c))}
-                  >
-                    <img src={asset(c.image)} alt="" loading="lazy" />
-                  </button>
-                ) : (
-                  <div className="coin coin-placeholder" title={heading}>
-                    {t('comingSoon')}
-                  </div>
-                )}
-                <span className="coin-label">{c.year}</span>
-                {mintage && (
-                  <span className="coin-mintage" title={mintageText(c)} aria-hidden="true">
-                    {mintage}
-                  </span>
-                )}
-              </li>
-            )
-          })}
-      </ul>
+      <div ref={listRef}>
+        {layout === 'mosaic' ? (
+          <ul className="comm-grid">{sorted.map((c, i) => item(c, i, !isVisible(c.year), true))}</ul>
+        ) : (
+          years.map((y) => (
+            <YearGroup key={y} year={y} hidden={!isVisible(y)} onFound={showAll}>
+              {sorted.map((c, i) => (c.year === y ? item(c, i, false, false) : null))}
+            </YearGroup>
+          ))
+        )}
+      </div>
     </>
   )
+}
+
+// Disposition « une ligne par année » : l'année en titre, ses pièces à la suite.
+function YearGroup({
+  year,
+  hidden,
+  onFound,
+  children,
+}: {
+  year: number
+  hidden: boolean
+  onFound: () => void
+  children: React.ReactNode
+}) {
+  const ref = useUntilFound<HTMLElement>(hidden, onFound)
+  return (
+    <section className="comm-year" ref={ref}>
+      <h3>{year}</h3>
+      <ul className="comm-grid">{children}</ul>
+    </section>
+  )
+}
+
+function CommItem({
+  coin: c,
+  index,
+  hidden,
+  showYear,
+  onFound,
+  details,
+  bind,
+  onZoom,
+}: {
+  coin: CommemorativeCoin
+  index: number
+  hidden: boolean
+  showYear: boolean
+  onFound: () => void
+  details: string
+  bind: Bind
+  onZoom: () => void
+}) {
+  const { t } = useI18n()
+  const { commTitle, mintageText } = useCoinTexts()
+  const ref = useUntilFound<HTMLLIElement>(hidden, onFound)
+  const title = commTitle(c) || t('commemorativeCoin')
+  const heading = `${c.year} — ${title}${c.joint ? ` (${t('jointIssue')})` : ''}`
+
+  return (
+    <li ref={ref} data-coin={index}>
+      {c.image ? (
+        <button
+          className="coin"
+          aria-label={[heading, mintageText(c)].filter(Boolean).join('. ')}
+          {...bind({ image: c.image, title: heading, text: details, iso: c.country })}
+          onClick={onZoom}
+        >
+          <img src={asset(c.image)} alt="" loading="lazy" />
+        </button>
+      ) : (
+        <div className="coin coin-placeholder" title={heading}>
+          {t('comingSoon')}
+        </div>
+      )}
+      {showYear && <span className="coin-label">{c.year}</span>}
+      {/* Titre visible (et donc trouvable par Ctrl+F), tronqué ; complet au survol. */}
+      <span className="coin-title" title={title} aria-hidden="true">
+        {title}
+      </span>
+    </li>
+  )
+}
+
+// Défile jusqu'à l'élément visé par la recherche rapide et le fait briller un instant.
+function highlight(el: Element | null) {
+  if (!el) return
+  el.scrollIntoView({ block: 'center', behavior: 'smooth' })
+  el.classList.remove('is-found')
+  void (el as HTMLElement).offsetWidth
+  el.classList.add('is-found')
 }

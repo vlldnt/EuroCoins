@@ -1,4 +1,4 @@
-import { commemorativeFor, type Country } from '../data'
+import { commemorativeFor, ecbPageUrl, type Country } from '../data'
 import { useI18n } from '../i18n'
 import { useCoinTexts } from '../i18n/useCoinTexts'
 import { Flag } from './Flag'
@@ -40,7 +40,7 @@ const ICONS = {
 // En-tête d'un pays : drapeau, nom (et nom dans sa langue), pastilles d'infos illustrées.
 // Le drapeau flouté sert de fond au bandeau de la fenêtre pays.
 export function CountryHeading({ country, variant, titleId, titleRef }: Props) {
-  const { t, plural } = useI18n()
+  const { t, plural, textsLang } = useI18n()
   const { nameOf, nativeNameOf } = useCoinTexts()
   const name = nameOf(country)
   const native = nativeNameOf(country)
@@ -61,9 +61,26 @@ export function CountryHeading({ country, variant, titleId, titleRef }: Props) {
           <Flag id={country.iso} />
         </span>
         <div className="country-heading-names">
-          <Title id={titleId} ref={titleRef as React.Ref<HTMLHeadingElement>} tabIndex={titleRef ? -1 : undefined}>
-            {name}
-          </Title>
+          <span className="country-heading-title">
+            <Title id={titleId} ref={titleRef as React.Ref<HTMLHeadingElement>} tabIndex={titleRef ? -1 : undefined}>
+              {name}
+            </Title>
+            {/* Page officielle BCE du pays (la même pour toutes ses séries) : icône seule. */}
+            {variant === 'panel' && (
+              <a
+                className="ecb-link"
+                href={ecbPageUrl(country, textsLang)}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={t('ecbOfficial')}
+                title={t('ecbOfficial')}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+                </svg>
+              </a>
+            )}
+          </span>
           {native !== name && (
             <span className="country-heading-native">{native}</span>
           )}

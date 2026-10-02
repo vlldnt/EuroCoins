@@ -78,6 +78,8 @@ export async function pool(items, concurrency, fn) {
 // ---------- pages BCE ----------
 
 export const regularUrl = (slug, lang = 'fr') => `${ECB}/euro/coins/${slug}/html/index.${lang}.html`
+// Page officielle d'un pays (toutes ses faces nationales) ; {lang} est remplacé côté site.
+export const countryPageUrl = (ecb) => `${ECB}/euro/coins/html/${ecb}.{lang}.html`
 export const commUrl = (year, lang = 'fr') => `${ECB}/euro/coins/comm/html/comm_${year}.${lang}.html`
 
 // Découpe une page BCE en « box » (une par pays / par pièce).

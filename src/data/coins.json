@@ -1,6 +1,6 @@
 {
   "source": "Banque centrale européenne — https://www.ecb.europa.eu/euro/coins/",
-  "generatedAt": "2026-10-01T07:22:30.179Z",
+  "generatedAt": "2026-10-02T07:19:50.685Z",
   "denominations": [
     {
       "id": "1c",
@@ -41,6 +41,7 @@
       "numeric": "020",
       "name": "Andorre",
       "euroSince": 2014,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/ad.{lang}.html",
       "description": [
         "Andorre a signé un accord monétaire avec l’Union européenne le 30 juin 2011. En conséquence, Andorre peut utiliser l’euro comme monnaie officielle et émettre ses propres pièces en euros. Toutes les pièces représentent les douze étoiles du drapeau de l’Union européenne.\nLes pièces de 1, 2 et 5 cent(ime)(s) montrent un chamois des Pyrénées et un aigle doré.",
         "Andorre a signé un accord monétaire avec l’Union européenne le 30 juin 2011. En conséquence, Andorre peut utiliser l’euro comme monnaie officielle et émettre ses propres pièces en euros. Toutes les pièces représentent les douze étoiles du drapeau de l’Union européenne.\nLes pièces de 10, 20 et 50 cent(ime)s montrent l’église romane de Santa Coloma.",
@@ -80,6 +81,7 @@
       "numeric": "040",
       "name": "Autriche",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/at.{lang}.html",
       "description": [
         "L’Autriche a décidé de produire une série de pièces représentant des fleurs, des styles architecturaux et des personnages éminents de son histoire. Les dessins ont été choisis par un panel national et soumis à une enquête d’opinion. Ils ont été conçus par l’artiste autrichien Josef Kaiser. La gentiane, issue de la série florale, rappelle le devoir écologique de l’Autriche et son rôle dans la mise en œuvre d’une politique communautaire de l’environnement.",
         "L’Autriche a décidé de produire une série de pièces représentant des fleurs, des styles architecturaux et des personnages éminents de son histoire. Les dessins ont été choisis par un panel national et soumis à une enquête d’opinion. Ils ont été conçus par l’artiste autrichien Josef Kaiser. L’edelweiss, lui aussi issu de la série florale, rappelle le devoir écologique de l’Autriche et son rôle dans la mise en œuvre d’une politique communautaire de l’environnement.",
@@ -123,6 +125,7 @@
       "numeric": "056",
       "name": "Belgique",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/be.{lang}.html",
       "description": [
         "Le graphisme des pièces en euros de la Belgique est l’œuvre de Jan Alfons Keustermans, directeur de l’Académie municipale des Beaux-Arts de Turnhout. Trois séries de pièces sont en circulation. Elles ont toutes cours légal.\nLa première série représente le roi Albert II sur la partie interne de la pièce, tandis que le monogramme royal (un « A » majuscule sous une couronne) placé au centre de douze étoiles, symbolisant l’Europe, et l’année d’émission apparaissent sur la partie extérieure des pièces.\nLa Belgique a légèrement modifié le graphisme de ses pièces en 2008 pour se conformer aux orientations de la Commission européenne. Les pièces de la deuxième série représentent également l’effigie du roi Albert II, mais le monogramme royal et l’année d’émission figurent désormais sur la partie interne des pièces, de même que la marque d’atelier et le code pays de la Belgique (« BE »).\nEn 2014, la Belgique a introduit la troisième série de pièces en euros, qui représentent l’effigie du roi Philippe, le monogramme royal (« FP ») et le code pays de la Belgique (« BE »). Les marques d’atelier apparaissent de chaque côté de l’année d’émission.",
         "Le graphisme des pièces en euros de la Belgique est l’œuvre de Jan Alfons Keustermans, directeur de l’Académie municipale des Beaux-Arts de Turnhout. Trois séries de pièces sont en circulation. Elles ont toutes cours légal.\nLa première série représente le roi Albert II sur la partie interne de la pièce, tandis que le monogramme royal (un « A » majuscule sous une couronne) placé au centre de douze étoiles, symbolisant l’Europe, et l’année d’émission apparaissent sur la partie extérieure des pièces.\nLa Belgique a légèrement modifié le graphisme de ses pièces en 2008 pour se conformer aux orientations de la Commission européenne. Les pièces de la deuxième série représentent également l’effigie du roi Albert II, mais le monogramme royal et l’année d’émission figurent désormais sur la partie interne des pièces, de même que la marque d’atelier et le code pays de la Belgique (« BE »).\nEn 2014, la Belgique a introduit la troisième série de pièces en euros, qui représentent l’effigie du roi Philippe, le monogramme royal (« FP ») et le code pays de la Belgique (« BE »). Les marques d’atelier apparaissent de chaque côté de l’année d’émission.\nGravure sur la tranche de la pièce de 2 euros : 2**, répété six fois, orienté alternativement de bas en haut et de haut en bas."
@@ -210,6 +213,7 @@
       "numeric": "100",
       "name": "Bulgarie",
       "euroSince": 2026,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/bg.{lang}.html",
       "description": [
         "La Bulgarie a choisi trois motifs pour les faces nationales de ses pièces en euros. Toutes les pièces représentent également les douze étoiles du drapeau de l’Union européenne.\nLa pièce de 1 cent(ime) représente le bas-relief du cavalier de Madara, sculpté sur un rocher au huitième siècle et inscrit au patrimoine mondial de l’Unesco. Le cavalier, apparaissant de face, transperce un lion de sa lance, puissant symbole du passé de la Bulgarie.\nLe motif comprend l’année d’émission, l’inscription « БЪЛГАРИЯ » (le nom du pays en bulgare) et la légende « СТОТИНКA » (cent(ime)) en cyrillique.",
         "La Bulgarie a choisi trois motifs pour les faces nationales de ses pièces en euros. Toutes les pièces représentent également les douze étoiles du drapeau de l’Union européenne.\nLa pièce de 2 cent(ime)s représente le bas-relief du cavalier de Madara, sculpté sur un rocher au huitième siècle et inscrit au patrimoine mondial de l’Unesco. Le cavalier, apparaissant de face, transperce un lion de sa lance, puissant symbole du passé de la Bulgarie.\nLe motif comprend l’année d’émission, l’inscription « БЪЛГАРИЯ » (le nom du pays en bulgare) et la légende « СТОТИНКИ » (cent(ime)s) en cyrillique.",
@@ -253,6 +257,7 @@
       "numeric": "196",
       "name": "Chypre",
       "euroSince": 2008,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/cy.{lang}.html",
       "description": [
         "Les pièces de 1, 2 et 5 cent(ime)(s) représentent le mouflon, espèce de moutons sauvages répandue à Chypre, qui est le symbole de la faune de l’île.",
         "Les pièces de 10, 20 et 50 cent(ime)s représentent le bateau de Kyrenia, navire de commerce datant du IVe siècle avant J.-C., qui symbolise l’histoire maritime de Chypre et son importance en tant que place commerciale.",
@@ -291,6 +296,7 @@
       "numeric": "276",
       "name": "Allemagne",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/de.{lang}.html",
       "description": [
         "Des fonctionnaires et des experts en numismatique ont sélectionné trois graphismes pour les pièces allemandes en euros. Pièces de 1, 2 et 5 cent(ime)(s) : le rameau de chêne, rappel du motif ornant autrefois les pfennigs, illustre ces pièces. Ce graphisme est l’œuvre du professeur Rolf Lederbogen.",
         "Des fonctionnaires et des experts en numismatique ont sélectionné trois graphismes pour les pièces allemandes en euros. Pièces de 10, 20 et 50 cent(ime)s : la porte de Brandebourg, symbole de la division passée mais aussi de la réunification allemande, constitue le motif choisi pour ces pièces. La perspective du dessin, signé Reinhard Heinsdorff, met en évidence la porte ouverte, mettant l’accent sur l’unification de l’Allemagne et de l’Europe.",
@@ -330,6 +336,7 @@
       "numeric": "233",
       "name": "Estonie",
       "euroSince": 2011,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/et.{lang}.html",
       "description": [
         "Le graphisme illustrant la face nationale est identique sur toutes les pièces en euros de l’Estonie. Il représente une carte géographique de l’Estonie et le mot « EESTI », signifiant « Estonie »."
       ],
@@ -366,6 +373,7 @@
       "numeric": "724",
       "name": "Espagne",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/es.{lang}.html",
       "description": [
         "Les pièces espagnoles présentent trois graphismes différents : l’effigie du roi, l’effigie de Miguel de Cervantes et la cathédrale de Saint-Jacques-de-Compostelle. Trois séries de pièces sont en circulation. Elles ont toutes cours légal.\nS’agissant de la deuxième série, les dessins ont été légèrement modifiés en 2010 pour les rendre conformes aux orientations communes formulées par la Commission européenne. L’année d’émission, par exemple, est inscrite dans la partie intérieure de la pièce.\nPièces de 1, 2 et 5 cent(ime)(s) : joyau de l’architecture romane espagnole, la cathédrale de Saint-Jacques-de-Compostelle, qui est également l’un des plus célèbres lieux de pèlerinage au monde, constitue le motif de ces pièces. Celles-ci montrent la monumentale façade de l’Obradoiro, splendeur de l’architecture baroque espagnole, édifiée à partir de 1667 par José del Toro et Domingo de Andrade. Elle a été achevée au XVIIIe siècle par Fernando Casas y Novoa.",
         "Les pièces espagnoles présentent trois graphismes différents : l’effigie du roi, l’effigie de Miguel de Cervantes et la cathédrale de Saint-Jacques-de-Compostelle. Trois séries de pièces sont en circulation. Elles ont toutes cours légal.\nS’agissant de la deuxième série, les dessins ont été légèrement modifiés en 2010 pour les rendre conformes aux orientations communes formulées par la Commission européenne. L’année d’émission, par exemple, est inscrite dans la partie intérieure de la pièce.\nPièces de 10, 20 et 50 cent(ime)s : portrait de Miguel de Cervantes, père de la littérature espagnole. Ce dessin symbolise « l’universalité de l’écrivain et de son œuvre ».",
@@ -448,6 +456,7 @@
       "numeric": "246",
       "name": "Finlande",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/fi.{lang}.html",
       "description": [
         "La Finlande a sélectionné trois motifs s’inspirant de ceux figurant autrefois sur les pièces finlandaises. Pièces de 1, 2, 5, 10, 20 et 50 cent(ime)(s) : elles montrent un lion héraldique qui est une reproduction d’une œuvre du sculpteur Heikki Häiväoja. Ce symbole a été présent sous des formes différentes sur plusieurs pièces finlandaises pendant de nombreuses années, notamment sur les pièces de 1 markka entre 1964 et 2001.",
         "La Finlande a sélectionné trois motifs s’inspirant de ceux figurant autrefois sur les pièces finlandaises. L’artiste Pertti Mäkinen est l’auteur du motif représentant l’envol de deux cygnes. Ce dessin avait été présenté lors du concours organisé pour la conception d’une pièce commémorant le 80e anniversaire de l’indépendance de la Finlande.",
@@ -486,6 +495,7 @@
       "numeric": "250",
       "name": "France",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/fr.{lang}.html",
       "description": [
         "Chaque valeur faciale française présente un graphisme différent. Il existe une série en circulation pour les pièces de 1, 2 et 5 cent(ime)(s) et deux pour les pièces de 1 euro, de 2 euros et de 10, 20 et 50 cent(ime)(s). Elles ont toutes cours légal.\nPièces de 1, 2 et 5 cent(ime)(s) : portrait d’une nouvelle Marianne, jeune et féminine, aux traits volontaires, qui incarne le souhait d’une Europe solide et durable. Ce motif est signé Fabienne Courtiade, graveuse à la Monnaie de Paris.",
         "Chaque valeur faciale française présente un graphisme différent. Il existe une série en circulation pour les pièces de 1, 2 et 5 cent(ime)(s) et deux pour les pièces de 1 euro, de 2 euros et de 10, 20 et 50 cent(ime)(s). Elles ont toutes cours légal.\nLa première série de pièces de 10, 20 et 50 cent(ime)s a été conçue par Laurent Jorlo. Elle montre la Semeuse, une figure largement représentée sur les pièces en francs français. Cette image à la fois moderne et intemporelle incarne une France qui reste fidèle à elle-même tout en s’intégrant à l’Europe.\nEn 2024, la France a introduit une nouvelle série de pièces de 10 cent(ime)s dessinées par Joaquin Jimenez. Ces nouvelles pièces représentent Simone Veil, survivante de la Shoah et première présidente du Parlement européen élu au suffrage universel direct. Elle a consacré une grande partie de sa vie à la lutte pour les droits des femmes et fait adopter en 1975 la loi de dépénalisation de l’avortement en France.",
@@ -549,6 +559,7 @@
       "numeric": "300",
       "name": "Grèce",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/gr.{lang}.html",
       "description": [
         "Le ministre de l’Économie et le gouverneur de la Banque de Grèce ont sélectionné les dessins pour les pièces grecques en euros parmi une série de propositions qui leur ont été soumises par un comité technique et artistique national. Le sculpteur Georges Stamatopoulos, parrainé par la Banque de Grèce, est l’auteur des dessins gagnants. Il a réalisé un graphisme distinct pour chaque valeur faciale. Ce motif représente une trirème moderne, datant de l’époque de la démocratie athénienne (Ve siècle avant J.-C.). Ce navire de guerre imposant a régné sur les mers durant plus de 200 ans.",
         "Le ministre de l’Économie et le gouverneur de la Banque de Grèce ont sélectionné les dessins pour les pièces grecques en euros parmi une série de propositions qui leur ont été soumises par un comité technique et artistique national. Le sculpteur Georges Stamatopoulos, parrainé par la Banque de Grèce, est l’auteur des dessins gagnants. Il a réalisé un graphisme distinct pour chaque valeur faciale. Cette pièce évoque une corvette, type d’embarcation utilisée durant la guerre d’Indépendance grecque (1821-1827).",
@@ -592,6 +603,7 @@
       "numeric": "191",
       "name": "Croatie",
       "euroSince": 2023,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/hr.{lang}.html",
       "description": [
         "La Croatie a choisi quatre dessins pour les faces nationales de ses pièces en euros, contenant tous le motif caractéristique du damier croate en arrière-plan. Toutes les pièces représentent également les douze étoiles du drapeau de l’Union européenne.\nLa pièce de 1 cent(ime)s a pour motif les lettres « HR » en écriture glagolitique angulaire. L’alphabet glagolitique est la plus ancienne écriture slave connue, utilisée en Croatie jusqu’au XIXe siècle. Dessinée par Maja Škripelj, cette pièce comporte l’année d’émission et l’inscription « HRVATSKA », le nom du pays en croate.",
         "La Croatie a choisi quatre dessins pour les faces nationales de ses pièces en euros, contenant tous le motif caractéristique du damier croate en arrière-plan. Toutes les pièces représentent également les douze étoiles du drapeau de l’Union européenne.\nLa pièce de 2 cent(ime)s a pour motif les lettres « HR » en écriture glagolitique angulaire. L’alphabet glagolitique est la plus ancienne écriture slave connue, utilisée en Croatie jusqu’au XIXe siècle. Dessinée par Maja Škripelj, cette pièce comporte l’année d’émission et l’inscription « HRVATSKA », le nom du pays en croate.",
@@ -635,6 +647,7 @@
       "numeric": "372",
       "name": "Irlande",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/ie.{lang}.html",
       "description": [
         "Le Gouvernement irlandais a retenu un seul motif national pour toutes les pièces irlandaises. Il montre la harpe celtique, symbole traditionnel de l’Irlande, assortie du millésime et du mot « ÉIRE » (nom gaélique de l’Irlande). La harpe a été dessinée par Jarlath Hayes.",
         "Le Gouvernement irlandais a retenu un seul motif national pour toutes les pièces irlandaises. Il montre la harpe celtique, symbole traditionnel de l’Irlande, assortie du millésime et du mot « ÉIRE » (nom gaélique de l’Irlande). La harpe a été dessinée par Jarlath Hayes. Gravure sur la tranche de la pièce de 2 euros : 2**, répété six fois, orienté alternativement de bas en haut et de haut en bas."
@@ -672,6 +685,7 @@
       "numeric": "380",
       "name": "Italie",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/it.{lang}.html",
       "description": [
         "En Italie, les dessins des pièces en euros ont été soumis à un comité technique et artistique national avant d’être présentés au public sur RAI UNO, la première chaîne de télévision publique. Un motif distinct, choisi parmi les chefs-d’œuvre artistiques de l’Italie, a été retenu pour chaque valeur faciale. Le château Castel del Monte apparaît sur cette pièce.",
         "En Italie, les dessins des pièces en euros ont été soumis à un comité technique et artistique national avant d’être présentés au public sur RAI UNO, la première chaîne de télévision publique. Un motif distinct, choisi parmi les chefs-d’œuvre artistiques de l’Italie, a été retenu pour chaque valeur faciale. Cette pièce montre le Môle Antonelliana, tour érigée en 1863 par Alessandro Antonelli.",
@@ -715,6 +729,7 @@
       "numeric": "440",
       "name": "Lituanie",
       "euroSince": 2015,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/lt.{lang}.html",
       "description": [
         "Les pièces en euros de la Lituanie montrent les armoiries de la République de Lituanie, Vytis, le nom du pays émetteur, « LIETUVA », et l’année d’émission, « 2015 ». Les pièces représentent également les douze étoiles du drapeau de l’Union européenne. Elles ont été dessinées par le sculpteur Antanas Žukauskas.",
         "Les pièces en euros de la Lituanie montrent les armoiries de la République de Lituanie, Vytis, le nom du pays émetteur, « LIETUVA », et l’année d’émission, « 2015 ». Les pièces représentent également les douze étoiles du drapeau de l’Union européenne. Elles ont été dessinées par le sculpteur Antanas Žukauskas. Gravure sur tranche de la pièce de 2 euros : LAISVĖ * VIENYBĖ * GEROVĖ * (Liberté * Unité * Bien-être *)"
@@ -752,6 +767,7 @@
       "numeric": "442",
       "name": "Luxembourg",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/lu.{lang}.html",
       "description": [
         "D’un commun accord entre la Maison souveraine et le Gouvernement luxembourgeois, la face nationale luxembourgeoise des pièces en euros a été conçue par l’artiste Yvette Gastauer-Claire.\nToutes les pièces sont frappées à l’effigie de Son Altesse Royale, le Grand-Duc Henri. Elles comportent l’année d’émission et la légende « Luxembourg » écrite en luxembourgeois (« Lëtzebuerg »)."
       ],
@@ -788,6 +804,7 @@
       "numeric": "428",
       "name": "Lettonie",
       "euroSince": 2014,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/lv.{lang}.html",
       "description": [
         "La pièce de 1 cent(ime)s montre les petites armoiries de la République de Lettonie. Le graphiste est Laimonis Šēnbergs.",
         "La pièce de 2 cent(ime)s montre les petites armoiries de la République de Lettonie. Le graphiste est Laimonis Šēnbergs.",
@@ -831,6 +848,7 @@
       "numeric": "492",
       "name": "Monaco",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/mo.{lang}.html",
       "description": [
         "Trois séries de pièces en euros émises par Monaco sont actuellement en circulation.\nLa pièce de 2 euros de la première série, émise en 2002, représente le prince Rainier III. La pièce de 1 euro comporte un double portrait du prince Rainier III et de son fils le prince Albert. Le sceau du prince de Monaco apparaît sur les pièces de 10, 20 et 50 cent(ime)s, tandis que les pièces de 1, 2 et 5 cent(ime)(s) présentent les armoiries de la Maison Grimaldi.\nLes pièces de 1 et 2 euro(s) de la deuxième série, émise en 2006, représentent un portrait du prince Albert II. Son monogramme figure sur les pièces de 10, 20 et 50 cent(ime)s. Les armoiries de la Maison Grimaldi demeurent le motif principal des pièces de 1, 2 et 5 cent(ime)(s).\nLes pièces de 1 et 2 euro(s) de la troisième série, introduite en 2025, arborent un portrait de face du prince Albert II. Son monogramme figure sur les pièces de 10, 20 et 50 cent(ime)s, tandis que les pièces de 1, 2 et 5 cent(ime)(s) présentent les armoiries de la Maison Grimaldi.",
         "Trois séries de pièces en euros émises par Monaco sont actuellement en circulation.\nLa pièce de 2 euros de la première série, émise en 2002, représente le prince Rainier III. La pièce de 1 euro comporte un double portrait du prince Rainier III et de son fils le prince Albert. Le sceau du prince de Monaco apparaît sur les pièces de 10, 20 et 50 cent(ime)s, tandis que les pièces de 1, 2 et 5 cent(ime)(s) présentent les armoiries de la Maison Grimaldi.\nLes pièces de 1 et 2 euro(s) de la deuxième série, émise en 2006, représentent un portrait du prince Albert II. Son monogramme figure sur les pièces de 10, 20 et 50 cent(ime)s. Les armoiries de la Maison Grimaldi demeurent le motif principal des pièces de 1, 2 et 5 cent(ime)(s).\nLes pièces de 1 et 2 euro(s) de la troisième série, introduite en 2025, arborent un portrait de face du prince Albert II. Son monogramme figure sur les pièces de 10, 20 et 50 cent(ime)s, tandis que les pièces de 1, 2 et 5 cent(ime)(s) présentent les armoiries de la Maison Grimaldi.\nGravure sur la tranche de la pièce de 2 euros : 2**, répété six fois, orienté alternativement de bas en haut et de haut en bas."
@@ -918,6 +936,7 @@
       "numeric": "470",
       "name": "Malte",
       "euroSince": 2008,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/mt.{lang}.html",
       "description": [
         "Pièces de 1, 2 et 5 cent(ime)(s) : elles représentent l’autel du temple mégalithique de Mnajdra, édifié vers 3600 avant J.-C. sur une hauteur surplombant la mer.",
         "Pièces de 10, 20 et 50 cent(ime)s : elles montrent les armoiries de Malte, un écu comportant une représentation héraldique du drapeau national de Malte, surmonté d’une couronne murale représentant les fortifications de Malte et marquant son statut de cité. L’écu est entouré, à gauche, par un rameau d’olivier et à droite, par une feuille de palmier. Ces symboles de paix, que l’on associe traditionnellement à Malte, forment une couronne liée à sa base par un ruban portant l’inscription « REPUBBLIKA TA’ MALTA » (République de Malte).",
@@ -956,6 +975,7 @@
       "numeric": "528",
       "name": "Pays-Bas",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/nl.{lang}.html",
       "description": [
         "Deux graphismes à l’effigie de la reine Beatrix, conçus par Bruno Ninaber van Eyben, ont été retenus pour la première série. Deux séries de pièces sont en circulation. Toutes deux ont cours légal.\nLa deuxième série, introduite en 2014, montre l’effigie du roi Willem-Alexander et comporte l’inscription « Willem-Alexander Koning der Nederlanden » (roi des Pays-Bas). Pièces de 1, 2, 5, 10, 20 et 50 cent(ime)(s)Première série : effigie de la reine Beatrix entourée de l’inscription « Beatrix Koningin der Nederlanden » (reine des Pays-Bas).\nDeuxième série : se superposant à l’effigie du roi Willem-Alexander figurent les mots « Willem-Alexander Koning der Nederlanden » (roi des Pays-Bas). Les marques d’ateliers apparaissent de chaque côté du nom.",
         "Deux graphismes à l’effigie de la reine Beatrix, conçus par Bruno Ninaber van Eyben, ont été retenus pour la première série. Deux séries de pièces sont en circulation. Toutes deux ont cours légal.\nLa deuxième série, introduite en 2014, montre l’effigie du roi Willem-Alexander et comporte l’inscription « Willem-Alexander Koning der Nederlanden » (roi des Pays-Bas). Pièces de 1, 2, 5, 10, 20 et 50 cent(ime)(s)\nPremière série : effigie de la reine Beatrix entourée de l’inscription « Beatrix Koningin der Nederlanden » (reine des Pays-Bas).\nDeuxième série : se superposant à l’effigie du roi Willem-Alexander figurent les mots « Willem-Alexander Koning der Nederlanden » (roi des Pays-Bas). Les marques d’ateliers apparaissent de chaque côté du nom.",
@@ -1020,6 +1040,7 @@
       "numeric": "620",
       "name": "Portugal",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/pt.{lang}.html",
       "description": [
         "Trois dessins différents ont été retenus à l’issue d’un concours national. Le graphiste Vítor Manuel Fernandes dos Santos, qui s’est inspiré des symboles historiques et des sceaux du premier roi du Portugal, Alphonse Ier Henriques, a remporté le concours avec les motifs qui figurent maintenant sur les pièces. Pièces de 1, 2 et 5 cent(ime)(s) : elles représentent le premier sceau royal de 1134 accompagné de la légende « Portugal ».",
         "Trois dessins différents ont été retenus à l’issue d’un concours national. Le graphiste Vítor Manuel Fernandes dos Santos, qui s’est inspiré des symboles historiques et des sceaux du premier roi du Portugal, Alphonse Ier Henriques, a remporté le concours avec les motifs qui figurent maintenant sur les pièces. Pièces de 10, 20 et 50 cent(ime)s : le sceau royal de 1142 est placé au centre du motif.",
@@ -1059,6 +1080,7 @@
       "numeric": "705",
       "name": "Slovénie",
       "euroSince": 2007,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/sl.{lang}.html",
       "description": [
         "Sur cette pièce figure une cigogne.",
         "Cette pièce représente une borne frontière du duché de Karantania.",
@@ -1102,6 +1124,7 @@
       "numeric": "703",
       "name": "Slovaquie",
       "euroSince": 2009,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/sk.{lang}.html",
       "description": [
         "Les pièces de 1, 2 et 5 cent(ime)(s) représentent le mont Kriváň, situé dans les Tatras, qui est un symbole de la souveraineté de la nation slovaque, et l’emblème national de la Slovaquie.",
         "Les pièces de 10, 20 et 50 cent(ime)s montrent le château de Bratislava et l’emblème national de la Slovaquie.",
@@ -1140,6 +1163,7 @@
       "numeric": "674",
       "name": "Saint-Marin",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/sm.{lang}.html",
       "description": [
         "Première série : sur les pièces de 1, 2 et 5 cent(ime)(s) figurent respectivement la troisième tour (Montale), la statue de la Liberté et la première tour (Guaita).\nDeuxième série : sur les pièces de 1, 2 et 5 cent(ime)(s) apparaissent respectivement les armoiries officielles de la République de Saint-Marin, la porte de la ville et l’église de Saint-Quirinus.",
         "Première série : la pièce de 10 cent(ime)s est ornée de la Basilique de Saint-Marin.\nDeuxième série : la pièce de 10 cent(ime)s représente l’église de Saint-François.",
@@ -1206,6 +1230,7 @@
       "numeric": "336",
       "name": "Vatican",
       "euroSince": 2002,
+      "ecbPage": "https://www.ecb.europa.eu/euro/coins/html/va.{lang}.html",
       "description": [
         "Cinq séries de pièces émises par la Cité du Vatican sont en circulation. Elles ont toutes cours légal.La première série, à l’effigie de feu sa Sainteté le pape Jean-Paul II, a été mise en circulation entre 2002 et 2005.\nLa deuxième série, mise en circulation entre juin 2005 et mars 2006, représente les armoiries du cardinal camerlingue, le chef d’État intérimaire de l’État de la Cité du Vatican, portant l’emblème de la Chambre apostolique dans la partie supérieure. Les termes « SEDE VACANTE » forment un demi-cercle le long de la partie supérieure de ce dessin. On y voit également l’année d’émission en chiffres romains (« MMV »). Le nom du graveur, « D. LONGO », se trouve sur le côté inférieur gauche du dessin placé au centre, tandis que les initiales des différents artistes figurent sur le côté inférieur droit, à savoir « MAC inc » (1 cent(ime) et 20 cent(ime)s), « LDS inc » (2 cent(ime)s et 50 cent(ime)s), « ELF inc » (5 cent(ime)s et 1 euro) et « MCC inc » (10 cent(ime)s et 2 euros).La troisième série, émise entre avril 2006 et décembre 2013, représente sa Sainteté le pape Benoît XVI. À gauche figurent les initiales « D.L. » de la dessinatrice.\nLa quatrième série, émise en janvier 2014, montre sa Sainteté le pape François.\nLa cinquième série, qui a été mise en circulation en mars 2017, représente les armoiries du souverain de la Cité du Vatican, sa Sainteté le pape François.\nSur les pièces de chaque série figurent les douze étoiles du drapeau européen, les mots « CITTÀ DEL VATICANO », l’année d’émission et la marque d’atelier, « R ».",
         "Cinq séries de pièces émises par la Cité du Vatican sont en circulation. Elles ont toutes cours légal.La première série, à l’effigie de feu sa Sainteté le pape Jean-Paul II, a été mise en circulation entre 2002 et 2005.\nLa deuxième série, mise en circulation entre juin 2005 et mars 2006, représente les armoiries du cardinal camerlingue, le chef d’État intérimaire de l’État de la Cité du Vatican, portant l’emblème de la Chambre apostolique dans la partie supérieure. Les termes « SEDE VACANTE » forment un demi-cercle le long de la partie supérieure de ce dessin. On y voit également l’année d’émission en chiffres romains (« MMV »). Le nom du graveur, « D. LONGO », se trouve sur le côté inférieur gauche du dessin placé au centre, tandis que les initiales des différents artistes figurent sur le côté inférieur droit, à savoir « MAC inc » (1 cent(ime) et 20 cent(ime)s), « LDS inc » (2 cent(ime)s et 50 cent(ime)s), « ELF inc » (5 cent(ime)s et 1 euro) et « MCC inc » (10 cent(ime)s et 2 euros).La troisième série, émise entre avril 2006 et décembre 2013, représente sa Sainteté le pape Benoît XVI. À gauche figurent les initiales « D.L. » de la dessinatrice.\nLa quatrième série, émise en janvier 2014, montre sa Sainteté le pape François.\nLa cinquième série, qui a été mise en circulation en mars 2017, représente les armoiries du souverain de la Cité du Vatican, sa Sainteté le pape François.\nSur les pièces de chaque série figurent les douze étoiles du drapeau européen, les mots « CITTÀ DEL VATICANO », l’année d’émission et la marque d’atelier, « R ». Gravure sur la tranche de la pièce de 2 euros : 2*, répété six fois, orienté alternativement vers le haut et vers le bas."

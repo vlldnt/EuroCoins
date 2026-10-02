@@ -20,6 +20,8 @@ export interface Country {
   numeric: string
   name: string
   euroSince: number
+  /** Page officielle BCE du pays ; {lang} = code de langue BCE (fr, de…). */
+  ecbPage: string
   description: string[]
   series: Series[]
 }
@@ -73,6 +75,9 @@ export const relativeDiameter = (id: DenominationId) => DENOMINATION_VALUES[id].
 export function denominationValue(id: DenominationId) {
   return DENOMINATION_VALUES[id]
 }
+
+/** Lien vers la page officielle BCE du pays, dans une langue publiée par la BCE. */
+export const ecbPageUrl = (country: Country, lang: string) => country.ecbPage.replace('{lang}', lang)
 
 /** Dernière série du pays (celle en circulation). */
 export function latestSeries(country: Country): Series | undefined {

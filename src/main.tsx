@@ -1,7 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-// Police du titre « EuroCoins » : Poiret One (Art déco, licence OFL), hébergée avec le site.
-import '@fontsource/poiret-one/latin-400.css'
+// Police de toute l'interface : Calibri si elle est installée (Windows, Office), sinon Carlito,
+// son équivalent libre aux mêmes dimensions (licence OFL), hébergé avec le site (hors ligne, PWA).
+// Latin, grec et cyrillique ; chinois, japonais et hindi passent par la police système.
+import '@fontsource/carlito/400.css'
+import '@fontsource/carlito/400-italic.css'
+import '@fontsource/carlito/700.css'
 import './index.css'
 import App from './App.tsx'
 import { startAutoUpdate } from './autoUpdate'

@@ -15,11 +15,16 @@ const KEYS = {
   palette: 'eurocoins.palette',
   textSize: 'eurocoins.textSize',
   coinLayout: 'eurocoins.coinLayout',
+  commLayout: 'eurocoins.commLayout',
 }
 
 // Disposition des 8 pièces courantes : couronne autour de la 2 €, ligne (1 cent → 2 €), ou grille.
 export type CoinLayout = 'circle' | 'row' | 'grid'
 export const COIN_LAYOUTS: CoinLayout[] = ['circle', 'row', 'grid']
+
+// Disposition des commémoratives : mosaïque continue, ou une ligne par année.
+export type CommLayout = 'mosaic' | 'years'
+export const COMM_LAYOUTS: CommLayout[] = ['mosaic', 'years']
 
 function read(key: string): string | null {
   try {
@@ -81,4 +86,13 @@ export function readCoinLayout(): CoinLayout {
 
 export function saveCoinLayout(layout: CoinLayout) {
   write(KEYS.coinLayout, layout === 'circle' ? null : layout)
+}
+
+export function readCommLayout(): CommLayout {
+  const v = read(KEYS.commLayout) as CommLayout | null
+  return v && COMM_LAYOUTS.includes(v) ? v : 'mosaic'
+}
+
+export function saveCommLayout(layout: CommLayout) {
+  write(KEYS.commLayout, layout === 'mosaic' ? null : layout)
 }

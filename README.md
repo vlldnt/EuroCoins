@@ -32,6 +32,7 @@ Les données sont générées par des scripts et **versionnées** : le site fonc
 |---|---|---|
 | `npm run fetch-coins` | Parcourt les pages de la BCE (1 cent → 2 €, commémoratives 2004 → année en cours), télécharge les visuels et les convertit en WebP 540 px | `public/coins/**`, `src/data/coins.json` |
 | `npm run fetch-texts` | Récupère les textes de la BCE (descriptions des pays, titres et descriptions des commémoratives) dans les 18 langues de l'UE, associés aux pièces par leur image (à lancer après `fetch-coins`) | `public/i18n/<langue>.json` |
+| `npm run fetch-mintages` | Récupère sur l'API Numista les tirages par année et par valeur faciale des pièces courantes (circulation et coffrets BU/BE séparés). Demande `NUMISTA_API_KEY` dans `.env` (voir `.env.example`) ; réponses gardées dans `scripts/.cache/numista/` pour ménager le quota mensuel (`-- --refresh` pour réinterroger) | `src/data/mintages.json` |
 | `npm run build-map` | Projette le fond de carte (world-atlas 1:50m) en tracés SVG pour l'Europe | `src/data/europe-map.json` |
 
 `fetch-coins` ne retélécharge pas les images déjà présentes (option `-- --force` pour tout reprendre). Relance-le quand la BCE publie de nouvelles pièces.

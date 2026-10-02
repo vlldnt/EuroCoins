@@ -11,10 +11,11 @@
     "fetch-coins": "node scripts/fetch-coins.mjs",
     "fetch-texts": "node scripts/fetch-texts.mjs",
     "build-map": "node scripts/build-map.mjs",
+    "fetch-mintages": "node --env-file-if-exists=.env scripts/fetch-mintages.mjs",
     "build-icons": "node scripts/build-icons.mjs"
   },
   "dependencies": {
-    "@fontsource/poiret-one": "^5.3.0",
+    "@fontsource/carlito": "^5.3.0",
     "country-flag-icons": "^1.6.20",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"

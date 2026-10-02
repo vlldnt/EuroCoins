@@ -15,10 +15,12 @@
   --coin-shadow: 0 3px 10px rgb(20 35 70 / 0.28), 0 1px 2px rgb(20 35 70 / 0.18);
   --coin-filter: none;
   --radius: 12px;
+  /* Contrôles de l'en-tête : coins légèrement arrondis, sobres. */
+  --control-radius: 6px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   color-scheme: light;
-  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: Calibri, Carlito, system-ui, -apple-system, 'Segoe UI', sans-serif;
   color: var(--text);
   background: var(--bg);
   line-height: 1.5;
@@ -355,7 +357,7 @@ a {
 body,
 .panel,
 .map,
-.year-filter button,
+.year-trigger,
 .language-trigger,
 .display-trigger {
   transition:
@@ -457,14 +459,12 @@ body,
 
 .site-header h1 {
   margin: 0;
-  /* Titre en Art déco (esprit Paris 2024) ; police système en secours. */
-  font-family: 'Poiret One', 'Inter', system-ui, sans-serif;
-  font-size: 2.2rem;
+  font-size: 1.9rem;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  letter-spacing: 0.04em;
-  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-weight: 750;
   background-color: transparent;
 }
 
@@ -486,31 +486,243 @@ body,
   z-index: 20;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
-/* Bouton « Installer l'application » (PWA) et fenêtre d'aide à l'installation. */
-.install-button {
+/* Les trois boutons de l'en-tête partagent le même style discret : fond translucide, filet fin,
+   texte atténué qui se renforce au survol. */
+.search-trigger,
+.install-button,
+.display-trigger,
+.language-trigger {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px 6px 10px;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  background: var(--euro);
-  color: #fff;
-  font-size: 0.9rem;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  border-radius: var(--control-radius);
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  box-shadow: none;
+  transition:
+    color 0.15s,
+    border-color 0.15s,
+    background-color 0.15s;
+}
+
+.search-trigger:hover,
+.install-button:hover,
+.display-trigger:hover,
+.display-trigger[aria-expanded='true'],
+.language-trigger:hover,
+.language-trigger[aria-expanded='true'] {
+  color: var(--text);
+  border-color: var(--muted);
+  background: var(--surface);
+}
+
+/* ---------- recherche rapide ---------- */
+
+.search-trigger svg,
+.search-field svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.search-kbd {
+  padding: 1px 5px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font: inherit;
+  font-size: 0.7rem;
+  line-height: 1.3;
+}
+
+/* Fond assombri ; --vvh = hauteur visible réelle (clavier virtuel déduit), posée en JS. */
+.search-backdrop {
+  position: fixed;
+  inset: 0 0 auto;
+  height: var(--vvh, 100dvh);
+  /* Au-dessus du carrousel (60) et de l'en-tête (20). */
+  z-index: 80;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: max(10vh, calc(12px + env(safe-area-inset-top))) 12px 12px;
+  background: rgb(5 10 25 / 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: fade-in 0.15s var(--ease);
+}
+
+.search-dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(560px, 100%);
+  max-height: 100%;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transform-origin: top center;
+  animation: rise-in 0.18s var(--ease);
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 6px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.search-field svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 16 px minimum : iOS ne zoome pas sur le champ. */
+.search-field input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  border: none;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: max(16px, 1rem);
+  outline: none;
+}
+
+.search-field input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search-close {
+  flex-shrink: 0;
+}
+
+.search-results {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+}
+
+.search-results [role='option'] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.search-results [role='option'][aria-selected='true'] {
+  background: var(--tag-bg);
+}
+
+.search-thumb {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.search-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.search-thumb .flag {
+  width: 30px;
+  height: 20px;
+}
+
+.search-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.search-title,
+.search-sub {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-title {
   font-weight: 600;
-  text-shadow: none;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
-  transition: background-color 0.2s;
+  font-size: 0.92rem;
 }
 
-.install-button:hover {
-  background: var(--euro-hover);
+.search-sub {
+  font-size: 0.75rem;
+  color: var(--muted);
 }
 
-.install-button svg,
+.search-empty {
+  margin: 0;
+  padding: 18px 16px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Élément atteint par la recherche rapide : halo bref. */
+.is-found {
+  animation: found-glow 1.6s var(--ease);
+  border-radius: 12px;
+}
+
+@keyframes found-glow {
+  0%,
+  40% {
+    box-shadow: 0 0 0 3px var(--gold);
+  }
+  100% {
+    box-shadow: 0 0 0 3px transparent;
+  }
+}
+
+/* Fenêtre d'aide à l'installation (PWA). */
+
+.language-trigger .flag {
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.install-button svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .install-now svg,
 .install-tabs svg {
   width: 18px;
@@ -660,27 +872,10 @@ body,
   text-align: left;
 }
 
-.display-trigger {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  border-radius: 999px;
-  padding: 6px 12px 6px 10px;
-  font-size: 0.9rem;
-  transition: border-color 0.2s;
-}
-
-.display-trigger:hover,
-.display-trigger[aria-expanded='true'] {
-  border-color: var(--euro-hover);
-}
-
 .display-trigger svg,
 .segmented svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
   fill: none;
   stroke: currentColor;
@@ -850,28 +1045,12 @@ body,
   text-align: left;
 }
 
-.language-trigger {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  border-radius: 999px;
-  padding: 6px 12px 6px 8px;
-  font-size: 0.9rem;
-  transition: border-color 0.2s;
-}
-
-.language-trigger:hover,
-.language-trigger[aria-expanded='true'] {
-  border-color: var(--euro-hover);
-}
 
 .chevron {
-  width: 7px;
-  height: 7px;
-  border-right: 2px solid var(--muted);
-  border-bottom: 2px solid var(--muted);
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
   transform: translateY(-2px) rotate(45deg);
   transition: transform 0.2s var(--ease);
 }
@@ -1209,23 +1388,42 @@ body,
   display: none;
 }
 
+/* Frise chronologique : année d'arrivée à gauche, reliée à ses drapeaux par un filet vertical ;
+   un espace net sépare chaque vague d'adhésion. */
 .country-list-group {
+  position: relative;
   display: grid;
-  grid-template-columns: 2.4rem auto;
+  grid-template-columns: 2.9rem auto;
   align-items: start;
 }
 
-.country-list-group + .country-list-group {
-  margin-top: 4px;
+.country-list-group::before {
+  content: '';
+  position: absolute;
+  left: 1.2rem;
+  top: 24px;
+  bottom: 6px;
+  width: 1px;
+  background: color-mix(in srgb, var(--muted) 45%, transparent);
 }
 
-/* Année en face du premier drapeau du groupe : texte seul, sans fond. */
+.country-list-group + .country-list-group {
+  margin-top: 10px;
+}
+
+/* Année en face du premier drapeau du groupe, dans une petite étiquette. */
 .country-list-year {
-  margin: 0;
-  padding-top: 5px;
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
+  justify-self: start;
+  margin: 3px 0 0;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-size: 0.68rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
   color: var(--text);
 }
 
@@ -1268,46 +1466,70 @@ body,
   box-shadow:
     0 2px 6px rgb(0 0 0 / 0.25),
     0 0 0 1px rgb(0 0 0 / 0.1);
-  transition: transform 0.25s var(--ease);
+  transform-origin: left center;
+  transition: transform 0.3s var(--ease);
 }
 
+/* Survol : le drapeau grossit et ondule comme un drapeau qui se déploie, puis le nom se déroule
+   depuis son bord droit. */
 .country-list button:hover .flag,
 .country-list button:focus-visible .flag {
-  transform: scale(1.15);
+  transform: scale(1.3);
+  animation: flag-unfurl 0.6s var(--ease);
+}
+
+@keyframes flag-unfurl {
+  0% {
+    transform: perspective(60px) rotateY(-55deg) scale(0.9);
+  }
+  45% {
+    transform: perspective(60px) rotateY(12deg) skewY(-3deg) scale(1.3);
+  }
+  70% {
+    transform: perspective(60px) rotateY(-5deg) skewY(1.5deg) scale(1.3);
+  }
+  100% {
+    transform: scale(1.3);
+  }
 }
 
 .country-list button[aria-pressed='true'] .flag {
-  transform: scale(1.15);
+  transform: scale(1.3);
   box-shadow:
     0 2px 6px rgb(0 0 0 / 0.25),
     0 0 0 2px var(--map-selected);
 }
 
-/* Nom en bulle à droite du drapeau : fondu + glissement au survol / focus, fixe pour le pays ouvert. */
+/* Nom à droite du drapeau : il se déroule de gauche à droite (clip-path) au survol / focus,
+   et reste affiché pour le pays ouvert. */
 .country-list-name {
   position: absolute;
-  left: calc(100% + 8px);
+  left: calc(100% + 10px);
   top: 50%;
-  padding: 3px 10px;
-  border-radius: 999px;
+  padding: 3px 9px;
+  border-radius: 4px;
   background: var(--surface);
   color: var(--text);
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.18);
-  font-size: 0.82rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.16);
+  font-size: 0.8rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   white-space: nowrap;
   opacity: 0;
-  transform: translate(-8px, -50%);
+  clip-path: inset(0 100% 0 0 round 4px);
+  transform: translate(-6px, -50%);
   pointer-events: none;
   transition:
-    opacity 0.25s var(--ease),
-    transform 0.3s var(--ease);
+    opacity 0.2s var(--ease),
+    clip-path 0.4s var(--ease) 0.08s,
+    transform 0.35s var(--ease);
 }
 
 .country-list button:hover .country-list-name,
 .country-list button:focus-visible .country-list-name,
 .country-list button[aria-pressed='true'] .country-list-name {
   opacity: 1;
+  clip-path: inset(0 0 0 0 round 4px);
   transform: translate(0, -50%);
 }
 
@@ -1316,27 +1538,6 @@ body,
   color: #fff;
 }
 
-.year-filter button {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  border-radius: 999px;
-  padding: 4px 12px;
-  font-size: 0.85rem;
-  transition:
-    background 0.2s,
-    border-color 0.2s,
-    color 0.2s;
-}
-
-.year-filter button:hover {
-  border-color: var(--euro-hover);
-}
-
-.year-filter button[aria-pressed='true'] {
-  background: var(--euro);
-  border-color: var(--euro);
-  color: #fff;
-}
 
 /* ---------- panneau pays ---------- */
 
@@ -1560,17 +1761,27 @@ body,
   height: 22px;
 }
 
-.tabs {
+/* Onglets à gauche, choix de disposition à droite, sur la même ligne. */
+.tabs-bar {
   display: flex;
-  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
   margin: 8px 0 6px;
   border-bottom: 1px solid var(--border);
+}
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  min-width: 0;
 }
 
 .tabs button {
   border: none;
   background: none;
-  padding: 10px 14px;
+  padding: 7px 12px;
+  font-size: 0.92rem;
   border-bottom: 3px solid transparent;
   margin-bottom: -1px;
   font-weight: 600;
@@ -1618,8 +1829,48 @@ body,
 }
 
 .series h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
   margin: 0;
   font-size: 1.05rem;
+}
+
+/* Nom du pays suivi de l'icône de la page officielle BCE. */
+.country-heading-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ecb-link {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: var(--muted);
+  transition:
+    color 0.15s,
+    background-color 0.15s;
+}
+
+.ecb-link:hover {
+  color: var(--link);
+  background: var(--tag-bg);
+}
+
+.ecb-link svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .coin-grid {
@@ -1662,21 +1913,17 @@ body,
 
 .layout-picker {
   display: flex;
-  justify-content: flex-end;
   gap: 2px;
-  margin: 0 0 -30px auto;
-  width: fit-content;
-  position: relative;
-  z-index: 1;
-  padding: 0;
+  margin: 0 0 0 auto;
+  padding: 0 0 3px;
   border: none;
 }
 
 .layout-picker label {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 30px;
+  width: 32px;
+  height: 28px;
   border-radius: 8px;
   color: var(--muted);
   cursor: pointer;
@@ -1706,8 +1953,8 @@ body,
 }
 
 .layout-picker svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   fill: currentColor;
 }
 
@@ -1749,11 +1996,8 @@ body,
 
 .coin-row .coin-note {
   position: absolute;
-  left: 50%;
-  bottom: -14px;
-  transform: translateX(-50%);
-  font-size: 0.62rem;
-  white-space: nowrap;
+  right: -2px;
+  bottom: -6px;
 }
 
 .coin-ring > li {
@@ -1768,18 +2012,11 @@ body,
   width: 100%;
 }
 
-/* « inchangée » posé sur le bas de la pièce, lisible sur toutes les couleurs. */
+/* Astérisque « inchangée » juste à côté du bord de la pièce, en bas à droite. */
 .coin-ring .coin-note {
   position: absolute;
-  left: 50%;
+  right: -4px;
   bottom: -2px;
-  transform: translateX(-50%);
-  padding: 0 6px;
-  border-radius: 999px;
-  background: var(--surface);
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
-  font-size: 0.72rem;
-  white-space: nowrap;
   pointer-events: none;
 }
 
@@ -1847,15 +2084,27 @@ body,
 }
 
 
-/* Tirage abrégé sous l'année (commémoratives). */
-.coin-mintage {
+/* Titre de la commémorative sous l'année : une seule ligne, tronquée. */
+.coin-title {
+  max-width: 100%;
   font-size: 0.7rem;
   color: var(--muted);
-  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .coin-note {
-  font-size: 0.72rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--muted);
+}
+
+/* Légende de l'astérisque, sous la série. */
+.coin-legend {
+  margin: 6px 0 0;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 
@@ -1871,13 +2120,187 @@ body,
   font-weight: 600;
 }
 
+/* Tirages par année (pièces courantes) : défile horizontalement, colonne des années figée. */
+.mintage-scroll {
+  margin-top: 10px;
+  max-height: 60vh;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.mintage-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.mintage-table th,
+.mintage-table td {
+  padding: 4px 8px;
+  text-align: right;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.mintage-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.mintage-table th[scope='row'],
+.mintage-table thead th:first-child {
+  position: sticky;
+  left: 0;
+  text-align: left;
+  background: var(--surface);
+}
+
+.mintage-table thead th:first-child {
+  z-index: 2;
+}
+
+.mintage-table tbody tr:nth-child(even) td {
+  background: var(--tag-bg);
+}
+
+.mintage-table .is-empty {
+  color: var(--muted);
+  text-align: center;
+}
+
+.mintage-table .is-sets {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.mintage-legend {
+  margin-top: 6px;
+  font-size: 0.78rem;
+}
+
 /* ---------- commémoratives ---------- */
 
-.year-filter {
+/* Barre au-dessus des commémoratives : sélecteur d'année. */
+.comm-toolbar {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 20px;
+  align-items: center;
+  margin: 4px 0 16px;
+}
+
+.year-select {
+  position: relative;
+}
+
+.year-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--control-radius);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.year-trigger:hover,
+.year-trigger[aria-expanded='true'] {
+  border-color: var(--muted);
+}
+
+.year-trigger svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.year-trigger[aria-expanded='true'] .chevron {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+/* Grille d'années : « Toutes » sur toute la largeur, puis 4 colonnes. */
+.year-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  width: 248px;
+  max-height: min(60dvh, 360px);
+  overflow-y: auto;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transform-origin: top left;
+  animation: rise-in 0.18s var(--ease);
+}
+
+.year-menu [role='option'] {
+  padding: 7px 0;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.year-menu .is-all {
+  grid-column: 1 / -1;
+  font-weight: 600;
+}
+
+.year-menu [role='option']:hover,
+.year-menu [role='option']:focus-visible {
+  background: var(--tag-bg);
+}
+
+.year-menu [role='option']:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: -3px;
+}
+
+.year-menu [role='option'][aria-selected='true'] {
+  background: var(--euro);
+  color: #fff;
+}
+
+/* Disposition « une ligne par année ». */
+.comm-year + .comm-year {
+  margin-top: 18px;
+}
+
+.comm-year h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.comm-year h3::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
 }
 
 .comm-grid {
@@ -1893,6 +2316,11 @@ body,
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Pièce d'une autre année, masquée « until-found » : hors de la grille pour ne pas laisser de trou. */
+.comm-grid li[hidden] {
+  position: absolute;
 }
 
 .coin-placeholder {
@@ -2261,7 +2689,7 @@ body,
     font-size: 0.74rem;
   }
 
-  .panel .tabs {
+  .panel .tabs-bar {
     margin: 6px 0 4px;
   }
 
@@ -2353,24 +2781,27 @@ body,
     gap: 6px;
   }
 
-  .display-trigger {
-    padding: 7px 9px;
+  .search-trigger,
+  .display-trigger,
+  .install-button {
+    width: 32px;
+    justify-content: center;
+    padding: 0;
   }
 
-  .display-trigger-label {
+  .display-trigger-label,
+  .search-trigger-label,
+  .search-kbd {
     display: none;
   }
 
-  .install-button {
-    padding: 7px 9px;
-  }
 
   .install-label {
     display: none;
   }
 
   .language-trigger {
-    padding: 6px 10px 6px 8px;
+    padding: 0 8px;
   }
 
   .language-trigger-label {
@@ -2512,7 +2943,7 @@ body,
     height: 32px;
   }
 
-  .panel .tabs {
+  .panel .tabs-bar {
     margin: 8px 0 4px;
   }
 
@@ -2606,8 +3037,21 @@ body,
     margin: 0 0 0 6px;
   }
 
-  .country-list-year {
+  .country-list-year,
+  .country-list-group::before {
     display: none;
+  }
+
+  /* Rangée du bas : agrandissement plus mesuré, centré (le nom n'est pas affiché ici). */
+  .country-list .flag {
+    transform-origin: center;
+  }
+
+  .country-list button:hover .flag,
+  .country-list button:focus-visible .flag,
+  .country-list button[aria-pressed='true'] .flag {
+    transform: scale(1.15);
+    animation: none;
   }
 
   .country-list ul {
@@ -2739,7 +3183,9 @@ body,
 
   .display-trigger-label,
   .language-trigger-label,
-  .install-label {
+  .install-label,
+  .search-trigger-label,
+  .search-kbd {
     display: none;
   }
 
@@ -2827,7 +3273,7 @@ body,
     height: 30px;
   }
 
-  .panel .tabs {
+  .panel .tabs-bar {
     margin: 6px 0 4px;
   }
 
@@ -2989,5 +3435,22 @@ body,
     right: 10px;
     width: auto;
     transform-origin: top center;
+  }
+}
+
+/* Téléphone : onglets et choix de disposition sur une seule ligne (repli à la ligne si une langue
+   a des libellés trop longs). */
+@media (max-width: 699px), (orientation: landscape) and (max-height: 500px) {
+  .tabs-bar {
+    gap: 4px;
+  }
+
+  .tabs button {
+    padding: 8px 7px;
+    font-size: 0.84rem;
+  }
+
+  .layout-picker label {
+    width: 28px;
   }
 }
