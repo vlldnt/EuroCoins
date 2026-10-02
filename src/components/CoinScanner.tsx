@@ -401,7 +401,8 @@ export function CoinScanner({
     if (ref.kind === 'comm') return { title: commTitle(ref.coin) || t('commemorativeCoin'), sub: `${name} · ${ref.coin.year}` }
     const ids = data.denominations.map((d) => d.id).filter((id) => ref.denominations.includes(id))
     const series = country && country.series.length > 1 ? t('seriesN', { n: ref.series }) : t('currentSeries')
-    return { title: ids.map(denominationLabel).join(' · '), sub: `${name} · ${series}` }
+    // Pièce courante : valeur, pays et série dans le titre (« 1 euro · Finlande · Série 2 »).
+    return { title: `${ids.map(denominationLabel).join(' / ')} · ${name} · ${series}`, sub: t('regularTab') }
   }
 
   const message =
