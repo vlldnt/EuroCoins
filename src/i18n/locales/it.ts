@@ -93,7 +93,6 @@ const it: Messages = {
   scanMatching: 'Ricerca della moneta…',
   scanResults: 'Monete più simili: tocca quella giusta',
   scanNoMatch: 'Moneta non riconosciuta con certezza. Ecco le più simili, oppure rifai la foto con più luce.',
-  scanUnsure: 'Incerto',
   scanCameraError: 'Impossibile accedere alla fotocamera. Controlla l’autorizzazione nelle impostazioni del browser.',
   trialVersion: 'Versione di prova',
   close: 'Chiudi',

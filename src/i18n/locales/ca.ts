@@ -93,7 +93,6 @@ const ca: Messages = {
   scanMatching: 'Cercant la moneda…',
   scanResults: 'Monedes més properes: toqueu la correcta',
   scanNoMatch: 'Moneda no reconeguda amb certesa. Aquí teniu les més properes, o repetiu la foto amb més llum.',
-  scanUnsure: 'Poc segur',
   scanCameraError: 'No es pot accedir a la càmera. Comproveu el permís a la configuració del navegador.',
   trialVersion: 'Versió de prova',
   close: 'Tanca',

@@ -93,7 +93,6 @@ const eo: Messages = {
   scanMatching: 'Serĉado de la monero…',
   scanResults: 'Plej similaj moneroj: tuŝu la ĝustan',
   scanNoMatch: 'Monero ne certe rekonita. Jen la plej similaj, aŭ refotu kun pli da lumo.',
-  scanUnsure: 'Malcerta',
   scanCameraError: 'Ne eblas aliri la fotilon. Kontrolu la permeson en la agordoj de la retumilo.',
   trialVersion: 'Prova versio',
   close: 'Fermi',

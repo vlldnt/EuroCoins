@@ -32,6 +32,9 @@ const PHOTO_MAX = 720
 const PHOTO_MARGIN = 1.12
 // Score en dessous duquel un résultat est signalé « peu sûr ».
 const SURE_SCORE = 0.45
+// Concordance affichée (%) : score ramené sur l'échelle observée aux essais (≤ 0,3 : pièces
+// différentes ; ≥ 0,7 : même pièce sans doute possible).
+const concordance = (score: number) => Math.max(0, Math.min(1, (score - 0.3) / 0.4))
 
 type Phase = 'starting' | 'scanning' | 'matching' | 'results' | 'error'
 
@@ -106,6 +109,7 @@ export function CoinScanner({
   onPick: (iso: string, target: PanelTarget) => void
 }) {
   const { t, lang } = useI18n()
+  const percent = new Intl.NumberFormat(lang, { style: 'percent' })
   const { commTitle, nameOf, denominationLabel } = useCoinTexts()
   const [phase, setPhase] = useState<Phase>('starting')
   const [mode, setMode] = useState<ScanMode>(readScanMode)
@@ -466,7 +470,9 @@ export function CoinScanner({
                         <span className="scanner-match-title">{d.title}</span>
                         <span className="scanner-match-sub">{d.sub}</span>
                       </span>
-                      {score < SURE_SCORE && <span className="scanner-unsure">{t('scanUnsure')}</span>}
+                      <span className={score < SURE_SCORE ? 'scanner-percent is-unsure' : 'scanner-percent'}>
+                        {percent.format(concordance(score))}
+                      </span>
                     </button>
                   </li>
                 )

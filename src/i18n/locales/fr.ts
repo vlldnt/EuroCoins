@@ -93,7 +93,6 @@ const fr = {
   scanMatching: 'Recherche de la pièce…',
   scanResults: 'Pièces les plus proches : touchez la bonne',
   scanNoMatch: 'Pièce non reconnue avec certitude. Voici les plus proches, ou reprenez la photo avec plus de lumière.',
-  scanUnsure: 'Peu sûr',
   scanCameraError: 'Impossible d’accéder à l’appareil photo. Vérifiez l’autorisation dans les réglages du navigateur.',
   trialVersion: 'Version d’essai',
   close: 'Fermer',

@@ -93,7 +93,6 @@ const de: Messages = {
   scanMatching: 'Münze wird gesucht …',
   scanResults: 'Ähnlichste Münzen: Tippen Sie auf die richtige',
   scanNoMatch: 'Münze nicht sicher erkannt. Hier die ähnlichsten – oder neu aufnehmen, mit mehr Licht.',
-  scanUnsure: 'Unsicher',
   scanCameraError: 'Kein Zugriff auf die Kamera. Prüfen Sie die Berechtigung in den Browsereinstellungen.',
   trialVersion: 'Testversion',
   close: 'Schließen',

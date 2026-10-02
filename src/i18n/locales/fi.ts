@@ -93,7 +93,6 @@ const fi: Messages = {
   scanMatching: 'Etsitään kolikkoa…',
   scanResults: 'Lähimmät kolikot: napauta oikeaa',
   scanNoMatch: 'Kolikkoa ei tunnistettu varmasti. Tässä lähimmät, tai ota kuva uudelleen paremmassa valossa.',
-  scanUnsure: 'Epävarma',
   scanCameraError: 'Kameraan ei saada yhteyttä. Tarkista lupa selaimen asetuksista.',
   trialVersion: 'Kokeiluversio',
   close: 'Sulje',

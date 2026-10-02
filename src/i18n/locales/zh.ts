@@ -93,7 +93,6 @@ const zh: Messages = {
   scanMatching: '正在查找硬币…',
   scanResults: '最接近的硬币：请点按正确的那一枚',
   scanNoMatch: '无法确定识别该硬币。以下是最接近的结果，也可以在更亮的地方重拍。',
-  scanUnsure: '不确定',
   scanCameraError: '无法访问相机。请在浏览器设置中检查权限。',
   trialVersion: '试用版',
   close: '关闭',

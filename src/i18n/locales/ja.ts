@@ -93,7 +93,6 @@ const ja: Messages = {
   scanMatching: '硬貨を検索中…',
   scanResults: '最も近い硬貨：正しいものをタップしてください',
   scanNoMatch: '確実には認識できませんでした。最も近い候補です。明るい場所で撮り直すこともできます。',
-  scanUnsure: '不確実',
   scanCameraError: 'カメラにアクセスできません。ブラウザの設定で許可を確認してください。',
   trialVersion: '試用版',
   close: '閉じる',

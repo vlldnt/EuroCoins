@@ -93,7 +93,6 @@ const sl: Messages = {
   scanMatching: 'Iskanje kovanca …',
   scanResults: 'Najbolj podobni kovanci: tapnite pravega',
   scanNoMatch: 'Kovanec ni zanesljivo prepoznan. Tu so najbolj podobni ali fotografirajte znova pri več svetlobe.',
-  scanUnsure: 'Negotovo',
   scanCameraError: 'Dostop do kamere ni mogoč. Preverite dovoljenje v nastavitvah brskalnika.',
   trialVersion: 'Preizkusna različica',
   close: 'Zapri',

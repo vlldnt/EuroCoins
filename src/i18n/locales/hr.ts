@@ -93,7 +93,6 @@ const hr: Messages = {
   scanMatching: 'Traženje kovanice…',
   scanResults: 'Najsličnije kovanice: dodirnite pravu',
   scanNoMatch: 'Kovanica nije sigurno prepoznata. Evo najsličnijih ili ponovno snimite uz više svjetla.',
-  scanUnsure: 'Nesigurno',
   scanCameraError: 'Nije moguće pristupiti kameri. Provjerite dopuštenje u postavkama preglednika.',
   trialVersion: 'Probna verzija',
   close: 'Zatvori',

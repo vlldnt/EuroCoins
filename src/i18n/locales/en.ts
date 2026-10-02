@@ -93,7 +93,6 @@ const en: Messages = {
   scanMatching: 'Looking for the coin…',
   scanResults: 'Closest coins: tap the right one',
   scanNoMatch: 'Coin not recognised with certainty. Here are the closest ones, or retake the photo with more light.',
-  scanUnsure: 'Unsure',
   scanCameraError: 'Can’t access the camera. Check the permission in your browser settings.',
   trialVersion: 'Trial version',
   close: 'Close',

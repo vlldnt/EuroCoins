@@ -3650,14 +3650,21 @@ body,
   opacity: 0.75;
 }
 
-.scanner-unsure {
+/* Concordance en % : vert si sûre, orange sinon. */
+.scanner-percent {
   flex-shrink: 0;
-  padding: 1px 8px;
+  padding: 2px 9px;
   border-radius: 999px;
+  background: rgb(72 199 116 / 0.22);
+  color: #8ee6ac;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.scanner-percent.is-unsure {
   background: rgb(255 159 67 / 0.25);
   color: #ffc58f;
-  font-size: 0.72rem;
-  font-weight: 700;
 }
 
 /* Choix Auto / Manuel, au-dessus du déclencheur. */

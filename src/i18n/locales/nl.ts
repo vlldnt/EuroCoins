@@ -93,7 +93,6 @@ const nl: Messages = {
   scanMatching: 'Munt wordt gezocht…',
   scanResults: 'Meest gelijkende munten: tik op de juiste',
   scanNoMatch: 'Munt niet met zekerheid herkend. Dit zijn de meest gelijkende, of maak de foto opnieuw met meer licht.',
-  scanUnsure: 'Onzeker',
   scanCameraError: 'Geen toegang tot de camera. Controleer de toestemming in de browserinstellingen.',
   trialVersion: 'Proefversie',
   close: 'Sluiten',

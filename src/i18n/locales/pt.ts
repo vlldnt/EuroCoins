@@ -93,7 +93,6 @@ const pt: Messages = {
   scanMatching: 'A procurar a moeda…',
   scanResults: 'Moedas mais parecidas: toque na certa',
   scanNoMatch: 'Moeda não reconhecida com certeza. Eis as mais parecidas, ou repita a foto com mais luz.',
-  scanUnsure: 'Pouco seguro',
   scanCameraError: 'Não é possível aceder à câmara. Verifique a autorização nas definições do navegador.',
   trialVersion: 'Versão de teste',
   close: 'Fechar',

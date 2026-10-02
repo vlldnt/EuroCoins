@@ -93,7 +93,6 @@ const et: Messages = {
   scanMatching: 'Mündi otsimine…',
   scanResults: 'Kõige sarnasemad mündid: puudutage õiget',
   scanNoMatch: 'Münti ei tuvastatud kindlalt. Siin on sarnasemad või pildistage uuesti parema valgusega.',
-  scanUnsure: 'Ebakindel',
   scanCameraError: 'Kaamerale pole juurdepääsu. Kontrollige luba brauseri seadetes.',
   trialVersion: 'Prooviversioon',
   close: 'Sulge',

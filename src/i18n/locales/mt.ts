@@ -93,7 +93,6 @@ const mt: Messages = {
   scanMatching: 'Qed tinfittex il-munita…',
   scanResults: 'L-eqreb muniti: agħfas fuq it-tajba',
   scanNoMatch: 'Il-munita ma ntgħarfitx b’ċertezza. Dawn huma l-eqreb, jew erġa’ ħu r-ritratt b’aktar dawl.',
-  scanUnsure: 'Mhux ċert',
   scanCameraError: 'Ma jistax jiġi aċċessat il-kamera. Iċċekkja l-permess fis-settings tal-browser.',
   trialVersion: 'Verżjoni ta’ prova',
   close: 'Agħlaq',

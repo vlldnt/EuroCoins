@@ -93,7 +93,6 @@ const lb: Messages = {
   scanMatching: 'D’Mënz gëtt gesicht …',
   scanResults: 'Ähnlechst Mënzen: tippt op déi richteg',
   scanNoMatch: 'Mënz net sécher erkannt. Hei déi ähnlechst – oder nei ophuelen, mat méi Liicht.',
-  scanUnsure: 'Onsécher',
   scanCameraError: 'Keen Zougang zur Kamera. Kontrolléiert d’Autorisatioun an den Astellunge vum Browser.',
   trialVersion: 'Testversioun',
   close: 'Zoumaachen',

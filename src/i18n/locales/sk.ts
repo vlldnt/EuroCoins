@@ -93,7 +93,6 @@ const sk: Messages = {
   scanMatching: 'Hľadá sa minca…',
   scanResults: 'Najpodobnejšie mince: ťuknite na správnu',
   scanNoMatch: 'Minca nebola s istotou rozpoznaná. Tu sú najpodobnejšie, alebo odfoťte znova s viac svetla.',
-  scanUnsure: 'Neisté',
   scanCameraError: 'Nie je prístup ku kamere. Skontrolujte povolenie v nastaveniach prehliadača.',
   trialVersion: 'Skúšobná verzia',
   close: 'Zavrieť',

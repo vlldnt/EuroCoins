@@ -93,7 +93,6 @@ const lv: Messages = {
   scanMatching: 'Meklē monētu…',
   scanResults: 'Līdzīgākās monētas: pieskarieties pareizajai',
   scanNoMatch: 'Monēta nav droši atpazīta. Lūk, līdzīgākās, vai uzņemiet vēlreiz ar vairāk gaismas.',
-  scanUnsure: 'Nedroši',
   scanCameraError: 'Nevar piekļūt kamerai. Pārbaudiet atļauju pārlūka iestatījumos.',
   trialVersion: 'Izmēģinājuma versija',
   close: 'Aizvērt',

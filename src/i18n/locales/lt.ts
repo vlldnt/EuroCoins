@@ -93,7 +93,6 @@ const lt: Messages = {
   scanMatching: 'Ieškoma monetos…',
   scanResults: 'Panašiausios monetos: palieskite tinkamą',
   scanNoMatch: 'Moneta neatpažinta tiksliai. Štai panašiausios arba fotografuokite iš naujo esant daugiau šviesos.',
-  scanUnsure: 'Nežinoma',
   scanCameraError: 'Nepavyksta pasiekti kameros. Patikrinkite leidimą naršyklės nustatymuose.',
   trialVersion: 'Bandomoji versija',
   close: 'Uždaryti',
