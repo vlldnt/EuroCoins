@@ -97,6 +97,7 @@ const lv: Messages = {
   trialVersion: 'Izmēģinājuma versija',
   about: 'Par',
   version: 'Versija {version}',
+  updatedTo: 'EuroCoins atjaunināts: {version}',
   close: 'Aizvērt',
   previousCoin: 'Iepriekšējā monēta',
   nextCoin: 'Nākamā monēta',

@@ -97,6 +97,7 @@ const lb: Messages = {
   trialVersion: 'Testversioun',
   about: 'Iwwer',
   version: 'Versioun {version}',
+  updatedTo: 'EuroCoins aktualiséiert: {version}',
   close: 'Zoumaachen',
   previousCoin: 'Vireg Mënz',
   nextCoin: 'Nächst Mënz',

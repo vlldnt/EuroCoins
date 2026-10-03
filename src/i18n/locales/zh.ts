@@ -97,6 +97,7 @@ const zh: Messages = {
   trialVersion: '试用版',
   about: '关于',
   version: '版本 {version}',
+  updatedTo: 'EuroCoins 已更新：{version}',
   close: '关闭',
   previousCoin: '上一枚',
   nextCoin: '下一枚',

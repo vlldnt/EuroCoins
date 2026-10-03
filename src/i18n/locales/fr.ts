@@ -97,6 +97,7 @@ const fr = {
   trialVersion: 'Version d’essai',
   about: 'À propos',
   version: 'Version {version}',
+  updatedTo: 'EuroCoins mis à jour : {version}',
   close: 'Fermer',
   previousCoin: 'Pièce précédente',
   nextCoin: 'Pièce suivante',

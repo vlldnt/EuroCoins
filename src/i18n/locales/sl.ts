@@ -97,6 +97,7 @@ const sl: Messages = {
   trialVersion: 'Preizkusna različica',
   about: 'O aplikaciji',
   version: 'Različica {version}',
+  updatedTo: 'EuroCoins posodobljen: {version}',
   close: 'Zapri',
   previousCoin: 'Prejšnji kovanec',
   nextCoin: 'Naslednji kovanec',

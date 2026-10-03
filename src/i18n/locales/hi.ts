@@ -97,6 +97,7 @@ const hi: Messages = {
   trialVersion: 'परीक्षण संस्करण',
   about: 'परिचय',
   version: 'संस्करण {version}',
+  updatedTo: 'EuroCoins अपडेट हुआ: {version}',
   close: 'बंद करें',
   previousCoin: 'पिछला सिक्का',
   nextCoin: 'अगला सिक्का',

@@ -97,6 +97,7 @@ const fi: Messages = {
   trialVersion: 'Kokeiluversio',
   about: 'Tietoja',
   version: 'Versio {version}',
+  updatedTo: 'EuroCoins päivitetty: {version}',
   close: 'Sulje',
   previousCoin: 'Edellinen kolikko',
   nextCoin: 'Seuraava kolikko',

@@ -97,6 +97,7 @@ const es: Messages = {
   trialVersion: 'Versión de prueba',
   about: 'Acerca de',
   version: 'Versión {version}',
+  updatedTo: 'EuroCoins actualizado: {version}',
   close: 'Cerrar',
   previousCoin: 'Moneda anterior',
   nextCoin: 'Moneda siguiente',

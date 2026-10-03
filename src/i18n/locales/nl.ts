@@ -97,6 +97,7 @@ const nl: Messages = {
   trialVersion: 'Proefversie',
   about: 'Over',
   version: 'Versie {version}',
+  updatedTo: 'EuroCoins bijgewerkt: {version}',
   close: 'Sluiten',
   previousCoin: 'Vorige munt',
   nextCoin: 'Volgende munt',

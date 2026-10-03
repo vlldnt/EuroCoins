@@ -8,6 +8,7 @@ import { InstallButton } from './components/InstallButton'
 import { RotateNotice } from './components/RotateNotice'
 import { VisitCounter } from './components/VisitCounter'
 import { APP_VERSION } from './version'
+import { UpdateToast } from './components/UpdateToast'
 import { CountryList } from './components/CountryPicker'
 import { QuickSearch } from './components/QuickSearch'
 import type { PanelTarget } from './search'
@@ -172,6 +173,7 @@ export default function App() {
       </div>
 
       <RotateNotice />
+      <UpdateToast />
 
       {lightbox.item && (
         <Lightbox

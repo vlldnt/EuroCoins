@@ -97,6 +97,7 @@ const sk: Messages = {
   trialVersion: 'Skúšobná verzia',
   about: 'O aplikácii',
   version: 'Verzia {version}',
+  updatedTo: 'EuroCoins aktualizované: {version}',
   close: 'Zavrieť',
   previousCoin: 'Predchádzajúca minca',
   nextCoin: 'Nasledujúca minca',

@@ -97,6 +97,7 @@ const ca: Messages = {
   trialVersion: 'Versió de prova',
   about: 'Quant a',
   version: 'Versió {version}',
+  updatedTo: 'EuroCoins actualitzat: {version}',
   close: 'Tanca',
   previousCoin: 'Moneda anterior',
   nextCoin: 'Moneda següent',

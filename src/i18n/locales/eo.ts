@@ -97,6 +97,7 @@ const eo: Messages = {
   trialVersion: 'Prova versio',
   about: 'Pri',
   version: 'Versio {version}',
+  updatedTo: 'EuroCoins ĝisdatigita: {version}',
   close: 'Fermi',
   previousCoin: 'Antaŭa monero',
   nextCoin: 'Sekva monero',

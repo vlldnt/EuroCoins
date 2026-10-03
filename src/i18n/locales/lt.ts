@@ -97,6 +97,7 @@ const lt: Messages = {
   trialVersion: 'Bandomoji versija',
   about: 'Apie',
   version: 'Versija {version}',
+  updatedTo: 'EuroCoins atnaujinta: {version}',
   close: 'Uždaryti',
   previousCoin: 'Ankstesnė moneta',
   nextCoin: 'Kita moneta',

@@ -97,6 +97,7 @@ const ja: Messages = {
   trialVersion: '試用版',
   about: 'このアプリについて',
   version: 'バージョン {version}',
+  updatedTo: 'EuroCoins を更新しました：{version}',
   close: '閉じる',
   previousCoin: '前の硬貨',
   nextCoin: '次の硬貨',

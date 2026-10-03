@@ -19,10 +19,14 @@ export function startAutoUpdate() {
     immediate: true,
     onRegisteredSW(_url, registration) {
       if (!registration) return
+      const check = () => void registration.update().catch(() => {})
       // Onglet ou application installée qui revient au premier plan : on cherche une nouvelle version.
       document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') void registration.update().catch(() => {})
+        if (document.visibilityState === 'visible') check()
       })
+      // Appli laissée ouverte : vérification toutes les 5 minutes (et au retour du réseau).
+      setInterval(() => document.visibilityState === 'visible' && check(), 5 * 60 * 1000)
+      window.addEventListener('online', check)
     },
   })
 }

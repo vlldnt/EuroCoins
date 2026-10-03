@@ -97,6 +97,7 @@ const mt: Messages = {
   trialVersion: 'Verżjoni ta’ prova',
   about: 'Dwar',
   version: 'Verżjoni {version}',
+  updatedTo: 'EuroCoins aġġornat: {version}',
   close: 'Agħlaq',
   previousCoin: 'Munita preċedenti',
   nextCoin: 'Munita li jmiss',

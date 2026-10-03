@@ -97,6 +97,7 @@ const en: Messages = {
   trialVersion: 'Trial version',
   about: 'About',
   version: 'Version {version}',
+  updatedTo: 'EuroCoins updated: {version}',
   close: 'Close',
   previousCoin: 'Previous coin',
   nextCoin: 'Next coin',

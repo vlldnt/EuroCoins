@@ -1603,8 +1603,8 @@ body,
    (positionné par rapport à la fiche, pas à ses marges intérieures). */
 .panel-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 16px;
+  right: 16px;
   z-index: 2;
 }
 
@@ -2532,8 +2532,9 @@ body,
 
 .lightbox-close {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  /* Sous la barre d'état et à l'écart de l'encoche (appli installée, plein écran). */
+  top: calc(24px + env(safe-area-inset-top));
+  right: calc(22px + env(safe-area-inset-right));
   width: 44px;
   height: 44px;
   font-size: 1.6rem;
@@ -3303,10 +3304,10 @@ body,
   }
 
   .panel-close {
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
   }
 
   .panel .tabs-bar {
@@ -3715,7 +3716,7 @@ body,
 /* Étiquette « Version d'essai », en haut à gauche. */
 .scanner-trial {
   position: absolute;
-  top: calc(18px + env(safe-area-inset-top));
+  top: calc(30px + env(safe-area-inset-top));
   left: calc(14px + env(safe-area-inset-left));
   padding: 3px 10px;
   border-radius: 999px;
@@ -3727,8 +3728,10 @@ body,
 
 .scanner-close {
   position: absolute;
-  top: calc(12px + env(safe-area-inset-top));
-  right: calc(12px + env(safe-area-inset-right));
+  top: calc(20px + env(safe-area-inset-top));
+  right: calc(20px + env(safe-area-inset-right));
+  width: 44px;
+  height: 44px;
 }
 
 .scanner-bottom {
@@ -3776,4 +3779,25 @@ body,
   color: #000;
   font: inherit;
   font-weight: 700;
+}
+
+/* Message « mis à jour », en haut au centre, sous la barre d'état. */
+.update-toast {
+  position: fixed;
+  top: calc(14px + env(safe-area-inset-top));
+  left: 50%;
+  z-index: 95;
+  transform: translateX(-50%);
+  max-width: calc(100vw - 32px);
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  animation: rise-in 0.3s var(--ease);
+  cursor: pointer;
 }

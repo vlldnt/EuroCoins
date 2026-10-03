@@ -97,6 +97,7 @@ const el: Messages = {
   trialVersion: 'Δοκιμαστική έκδοση',
   about: 'Σχετικά',
   version: 'Έκδοση {version}',
+  updatedTo: 'Το EuroCoins ενημερώθηκε: {version}',
   close: 'Κλείσιμο',
   previousCoin: 'Προηγούμενο κέρμα',
   nextCoin: 'Επόμενο κέρμα',

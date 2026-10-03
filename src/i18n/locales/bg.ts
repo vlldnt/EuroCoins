@@ -97,6 +97,7 @@ const bg: Messages = {
   trialVersion: 'Пробна версия',
   about: 'Относно',
   version: 'Версия {version}',
+  updatedTo: 'EuroCoins е обновено: {version}',
   close: 'Затваряне',
   previousCoin: 'Предишна монета',
   nextCoin: 'Следваща монета',

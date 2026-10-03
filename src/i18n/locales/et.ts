@@ -97,6 +97,7 @@ const et: Messages = {
   trialVersion: 'Prooviversioon',
   about: 'Teave',
   version: 'Versioon {version}',
+  updatedTo: 'EuroCoins uuendatud: {version}',
   close: 'Sulge',
   previousCoin: 'Eelmine münt',
   nextCoin: 'Järgmine münt',
