@@ -1,0 +1,189 @@
+/* Pages statiques générées par scripts/build-pages.mjs : contenu lisible sans JavaScript (moteurs de
+   recherche, aperçus de partage) et pages sans appli (valeurs faciales, commémoratives par année).
+   Couleurs : uniquement les variables de index.css. */
+
+/* Contenu de secours des pages de l'appli : remplacé par l'appli, donc masqué dès que JavaScript
+   est actif (classe posée par index.html) pour ne pas apparaître pendant le chargement. */
+.js .static-page.is-fallback {
+  display: none;
+}
+
+.static-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 16px 20px 48px;
+  color: var(--text);
+}
+
+.static-page a {
+  color: var(--link);
+}
+
+.static-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.static-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.static-crumbs ol,
+.static-links,
+.static-coins {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.static-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.static-crumbs li + li::before {
+  content: '›';
+  margin-right: 8px;
+}
+
+.static-page h1 {
+  margin: 24px 0 8px;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.static-page h2 {
+  margin: 32px 0 12px;
+  font-size: 1.3rem;
+}
+
+.static-page h3 {
+  margin: 20px 0 8px;
+  font-size: 1.05rem;
+}
+
+.static-lead {
+  max-width: 70ch;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.static-page p {
+  max-width: 75ch;
+}
+
+.static-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--tag-bg);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+/* Grille de pièces : visuel, libellé, précision. */
+.static-coins {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 20px 16px;
+}
+
+.static-coins li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.static-coins img,
+.static-figure img {
+  border-radius: 50%;
+  box-shadow: var(--coin-shadow);
+  filter: var(--coin-filter);
+}
+
+.static-coins img {
+  width: 112px;
+  height: 112px;
+}
+
+.static-coins small {
+  color: var(--muted);
+}
+
+.static-figure {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px 28px;
+  margin: 20px 0;
+}
+
+.static-figure img {
+  width: min(280px, 70vw);
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.static-figure figcaption {
+  flex: 1 1 320px;
+}
+
+.static-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+.static-links a {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--control-radius);
+  background: var(--surface);
+  text-decoration: none;
+}
+
+.static-links a:hover {
+  border-color: var(--euro);
+}
+
+.static-table {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.static-table th,
+.static-table td {
+  padding: 4px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+}
+
+.static-table th:first-child {
+  text-align: left;
+}
+
+.static-foot {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.95rem;
+}

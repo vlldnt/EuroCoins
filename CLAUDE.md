@@ -4,6 +4,7 @@ Voir README.md pour la présentation fonctionnelle.
 
 ## Commandes
 - `npm run dev` / `npm run build` (tsc + vite) / `npm run lint` (oxlint). Toujours faire passer `build` et `lint` avant de conclure.
+- `npm run build` génère aussi les pages statiques (`scripts/build-pages.mjs` : une page HTML par pays et par pièce, `sitemap.xml`, `robots.txt`). Adresses dans `src/routes.ts`, titres et descriptions dans `src/pageMeta.ts` (clés `seo*` des locales), partagés entre l'appli et le script.
 - `npm run fetch-coins`, `npm run build-map`, `npm run build-signatures` (reconnaissance par photo, après fetch-coins) : régénèrent les données. Ne jamais éditer à la main `src/data/*.json` ni `public/coins/**`.
 
 ## Version

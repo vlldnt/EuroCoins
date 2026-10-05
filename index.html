@@ -21,6 +21,9 @@
     <script>
       // Applique les réglages d'affichage avant le premier rendu (évite un flash).
       // Mêmes règles que src/settings.ts.
+      // Avec JavaScript, l'appli remplace le contenu statique des pages (voir scripts/build-pages.mjs) :
+      // on le masque d'emblée pour qu'il n'apparaisse pas le temps du chargement.
+      document.documentElement.classList.add('js')
       try {
         const root = document.documentElement
         const theme = localStorage.getItem('eurocoins.theme')

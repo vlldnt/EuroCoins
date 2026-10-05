@@ -1,11 +1,11 @@
 {
   "name": "eurocoins",
   "private": true,
-  "version": "1.13.0",
+  "version": "1.14.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/build-pages.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "fetch-coins": "node scripts/fetch-coins.mjs",
@@ -13,7 +13,8 @@
     "build-map": "node scripts/build-map.mjs",
     "fetch-mintages": "node --env-file-if-exists=.env scripts/fetch-mintages.mjs",
     "build-icons": "node scripts/build-icons.mjs",
-    "build-signatures": "node scripts/build-signatures.mjs"
+    "build-signatures": "node scripts/build-signatures.mjs",
+    "build-pages": "node scripts/build-pages.mjs"
   },
   "dependencies": {
     "@fontsource/carlito": "^5.3.0",

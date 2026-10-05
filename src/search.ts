@@ -1,4 +1,4 @@
-import type { CommemorativeCoin } from './data'
+import type { CommemorativeCoin, DenominationId } from './data'
 
 // Recherche rapide : chaque résultat porte une liste de mots normalisés ; une requête correspond si
 // chacun de ses mots est le début (ou, à partir de 3 lettres, un morceau) d'un de ces mots.
@@ -6,7 +6,10 @@ import type { CommemorativeCoin } from './data'
 /** Ce que la fenêtre pays doit montrer à l'ouverture depuis la recherche. */
 export type PanelTarget =
   | { kind: 'country' }
-  | { kind: 'series'; index: number }
+  /** Série du pays ; avec `denomination`, le carrousel s'ouvre sur cette pièce (lien direct). */
+  | { kind: 'series'; index: number; denomination?: DenominationId }
+  /** Onglet des commémoratives, sans pièce précise. */
+  | { kind: 'commTab' }
   | { kind: 'comm'; coin: CommemorativeCoin }
 
 export interface SearchEntry {

@@ -51,7 +51,14 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: 'index.html',
         // Compteur de visites : jamais servi depuis le cache, ni remplacé par la page d'accueil.
-        navigateFallbackDenylist: [/^\/api\//],
+        // Idem pour les pages purement statiques (une valeur faciale dans tous les pays,
+        // commémoratives par année : voir scripts/build-pages.mjs), le sitemap et robots.txt.
+        navigateFallbackDenylist: [
+          /^\/api\//,
+          /^\/fr\/\d+-(centimes?|euros?)\/?$/,
+          /^\/fr\/2-euros-commemoratives(\/\d{4})?\/?$/,
+          /\.(xml|txt)$/,
+        ],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.startsWith('/coins/'),

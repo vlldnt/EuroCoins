@@ -3,6 +3,7 @@ import { asset } from '../data'
 import { useI18n } from '../i18n'
 import { Flag } from './Flag'
 import { CloseIcon } from './CloseIcon'
+import type { Route } from '../routes'
 
 export interface ZoomItem {
   image: string
@@ -11,6 +12,8 @@ export interface ZoomItem {
   text?: string
   /** Pays de la pièce : drapeau dans la légende. */
   iso?: string
+  /** Adresse de la pièce : affichée dans la barre du navigateur tant que la pièce est ouverte. */
+  route?: Route
 }
 
 interface Props {

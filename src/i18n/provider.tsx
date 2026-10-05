@@ -3,6 +3,7 @@ import fr, { type Messages } from './locales/fr'
 import { DEFAULT_LOCALE, localeById, localeForBrowser, localeForLocation, textLangFor, type Locale } from './languages'
 import { I18nContext, type CoinTexts, type I18n, type Vars } from './context'
 import { BUILD_ID } from '../autoUpdate'
+import { pathLang } from '../routes'
 
 // Chaque langue est chargée à la demande (un petit fichier JS par langue).
 const loaders = import.meta.glob<{ default: Messages }>('./locales/*.ts')
@@ -22,6 +23,11 @@ function initialLocale(): Locale {
   } catch {
     // stockage indisponible (navigation privée…)
   }
+  // Page d'une langue (« /fr/… ») : la langue de l'adresse, quel que soit le navigateur. Un moteur
+  // de recherche voit ainsi la page dans la langue de son URL.
+  const pageLang = pathLang(window.location.pathname, import.meta.env.BASE_URL)
+  const fromUrl = pageLang && localeForBrowser(pageLang)
+  if (fromUrl) return fromUrl
   // Par défaut : la langue du pays où l'on se trouve, puis celle du navigateur.
   const browserLangs = navigator.languages ?? []
   const here = localeForLocation(Intl.DateTimeFormat().resolvedOptions().timeZone, browserLangs)

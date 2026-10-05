@@ -131,7 +131,7 @@ export function QuickSearch({ onPick }: Props) {
     const country = countriesByIso.get(entry.iso)!
     const name = nameOf(country)
     const target = entry.target
-    if (target.kind === 'country') {
+    if (target.kind === 'country' || target.kind === 'commTab') {
       const comm = commemorativeFor(country.iso).length
       return {
         thumb: <Flag id={country.iso} />,

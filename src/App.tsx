@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { EuropeMap } from './components/EuropeMap'
-import { CountryPanel } from './components/CountryPanel'
+import { CountryPanel, type PanelTab } from './components/CountryPanel'
 import { Lightbox, type ZoomItem } from './components/Lightbox'
 import { LanguageSelect } from './components/LanguageSelect'
 import { DisplaySettings } from './components/DisplaySettings'
@@ -16,12 +16,13 @@ import { countriesByIso, data } from './data'
 import { useI18n } from './i18n'
 import { useDelayedUnmount } from './useDelayedUnmount'
 import { useCoinTexts } from './i18n/useCoinTexts'
+import { readLocation, targetFor, writeLocation } from './navigation'
+import { usePageMeta } from './usePageMeta'
+import type { Route } from './routes'
 
-// Le pays sélectionné est gardé dans l'URL (#fr, #de…) pour pouvoir partager un lien.
-function readHash() {
-  const iso = window.location.hash.slice(1).toLowerCase()
-  return countriesByIso.has(iso) ? iso : null
-}
+// Le pays, l'onglet et la pièce ouverte sont gardés dans l'URL (/fr/belgique/2-euros/, ou #be dans
+// les langues sans pages) pour pouvoir partager un lien : voir src/navigation.ts.
+const isoOf = (route: Route) => (route.kind === 'home' ? null : route.iso)
 
 // Liens d'évitement : on déplace le focus sans changer l'URL (le hash sert au pays ouvert).
 function skipTo(e: React.MouseEvent, ...ids: string[]) {
@@ -33,20 +34,47 @@ function skipTo(e: React.MouseEvent, ...ids: string[]) {
 
 
 export default function App() {
-  const { t, textsLang } = useI18n()
+  const { t, lang, textsLang } = useI18n()
   const { nameOf } = useCoinTexts()
-  const [selected, setSelected] = useState<string | null>(readHash)
+  // Vue demandée par l'adresse à l'arrivée sur le site.
+  const [initial] = useState(readLocation)
+  const [selected, setSelected] = useState<string | null>(() => isoOf(initial))
   // Élément qui avait le focus avant l'ouverture de la fenêtre : il le retrouve à la fermeture.
   const returnFocus = useRef<HTMLElement | SVGElement | null>(null)
   const [zoom, setZoom] = useState<{ items: ZoomItem[]; index: number } | null>(null)
   // Destination choisie dans la recherche rapide (onglet, série, pièce) ; nouvel objet à chaque choix.
-  const [target, setTarget] = useState<PanelTarget | null>(null)
+  const [target, setTarget] = useState<PanelTarget | null>(() => targetFor(initial))
+  // Onglet affiché par la fenêtre pays (elle le signale), avec le pays auquel il se rapporte.
+  const [tab, setTab] = useState<{ iso: string; tab: PanelTab } | null>(null)
 
+  // Adresse modifiée à la main, ou retour arrière : on affiche la vue demandée.
   useEffect(() => {
-    const onHash = () => setSelected(readHash())
-    window.addEventListener('hashchange', onHash)
-    return () => window.removeEventListener('hashchange', onHash)
+    const onLocation = () => {
+      const route = readLocation()
+      setSelected(isoOf(route))
+      setTarget(targetFor(route))
+      if (route.kind !== 'coin' && route.kind !== 'comm') setZoom(null)
+    }
+    window.addEventListener('hashchange', onLocation)
+    window.addEventListener('popstate', onLocation)
+    return () => {
+      window.removeEventListener('hashchange', onLocation)
+      window.removeEventListener('popstate', onLocation)
+    }
   }, [])
+
+  // Vue affichée : la pièce ouverte dans le carrousel, sinon l'onglet du pays, sinon la carte.
+  const zoomRoute = zoom?.items[zoom.index]?.route
+  const showsCommemoratives = !!selected && tab?.iso === selected && tab.tab === 'commemorative'
+  const route = useMemo<Route>(() => {
+    if (zoomRoute) return zoomRoute
+    if (!selected) return { kind: 'home' }
+    return { kind: showsCommemoratives ? 'commList' : 'country', iso: selected }
+  }, [zoomRoute, selected, showsCommemoratives])
+
+  // L'adresse suit la vue (replaceState : fermer une fenêtre ne remplit pas l'historique).
+  useEffect(() => writeLocation(route, lang), [route, lang])
+  usePageMeta(route)
 
   const select = useCallback((iso: string | null) => {
     if (iso && !returnFocus.current) returnFocus.current = document.activeElement as HTMLElement | null
@@ -59,8 +87,6 @@ export default function App() {
         el?.focus({ preventScroll: true })
       })
     }
-    // replaceState : fermer la fenêtre ne laisse pas un « # » vide dans l'URL.
-    history.replaceState(null, '', iso ? `#${iso}` : location.pathname + location.search)
     setSelected(iso)
     setTarget(null)
   }, [])
@@ -153,6 +179,7 @@ export default function App() {
             leaving={panel.leaving}
             target={panel.item.iso === selected ? target : null}
             onClose={close}
+            onTab={(value) => setTab({ iso: panel.item!.iso, tab: value })}
             onZoom={(items, index) => setZoom({ items, index })}
           />
         )}

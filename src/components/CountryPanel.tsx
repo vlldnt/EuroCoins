@@ -30,7 +30,8 @@ import { LayoutPicker } from './LayoutPicker'
 import { YearSelect, type YearChoice } from './YearSelect'
 import type { PanelTarget } from '../search'
 
-type Tab = 'regular' | 'commemorative'
+export type PanelTab = 'regular' | 'commemorative'
+type Tab = PanelTab
 
 type Bind = (content: PreviewContent) => Record<string, unknown>
 
@@ -41,11 +42,13 @@ interface Props {
   /** Destination choisie dans la recherche rapide. */
   target?: PanelTarget | null
   onClose: () => void
+  /** Onglet affiché (à l'ouverture, puis à chaque changement) : il fait partie de l'adresse. */
+  onTab?: (tab: PanelTab) => void
   // Ouvre le carrousel sur items[index] ; les flèches permettent ensuite de parcourir items.
   onZoom: (items: ZoomItem[], index: number) => void
 }
 
-export function CountryPanel({ country, leaving = false, target = null, onClose, onZoom }: Props) {
+export function CountryPanel({ country, leaving = false, target = null, onClose, onTab, onZoom }: Props) {
   const { t, plural, lang, textsLang, languageName } = useI18n()
   const tabFor = (to: PanelTarget | null): Tab | null =>
     !to || to.kind === 'country' ? null : to.kind === 'series' ? 'regular' : 'commemorative'
@@ -83,6 +86,11 @@ export function CountryPanel({ country, leaving = false, target = null, onClose,
     )
     return () => cancelAnimationFrame(frame)
   }, [target])
+
+  useEffect(() => {
+    onTab?.(tab)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab])
 
   // Dispositions mémorisées ; le sélecteur est dans la barre d'onglets et suit l'onglet actif.
   const [coinLayout, setCoinLayout] = useState<CoinLayout>(readCoinLayout)
@@ -177,7 +185,13 @@ export function CountryPanel({ country, leaving = false, target = null, onClose,
           role="tabpanel"
           aria-labelledby={`${tabsId}-regular`}
         >
-          <RegularSeries country={country} layout={coinLayout} onZoom={zoom} bind={preview.bind} />
+          <RegularSeries
+            country={country}
+            layout={coinLayout}
+            target={target?.kind === 'series' ? target : null}
+            onZoom={zoom}
+            bind={preview.bind}
+          />
         </div>
       )}
       <div
@@ -222,10 +236,15 @@ function circlePlacements(): Record<DenominationId, Placement> {
 function RegularSeries({
   country,
   layout,
+  target,
   onZoom,
   bind,
-}: Pick<Props, 'country' | 'onZoom'> & { layout: CoinLayout; bind: Bind }) {
-  const { t } = useI18n()
+}: Pick<Props, 'country' | 'onZoom'> & {
+  layout: CoinLayout
+  target: Extract<PanelTarget, { kind: 'series' }> | null
+  bind: Bind
+}) {
+  const { t, texts } = useI18n()
   const { denominationLabel, countryDescription, regularDescription, nameOf } = useCoinTexts()
   const place = layout === 'circle' ? circlePlacements() : null
 
@@ -245,12 +264,27 @@ function RegularSeries({
               caption: caption(denominationLabel(d.id), s.index),
               text: regularDescription(image),
               iso: country.iso,
+              route: { kind: 'coin' as const, iso: country.iso, denomination: d.id, series: s.index },
             },
           ]
         : []
     }),
   )
   const description = countryDescription(country)
+
+  // Lien direct vers une pièce (/fr/belgique/2-euros/) : le carrousel s'ouvre dessus. Les textes BCE
+  // arrivent après le premier rendu : on rouvre une fois avec eux, puis plus jamais pour ce lien.
+  const opened = useRef<PanelTarget | null>(null)
+  useEffect(() => {
+    if (!target?.denomination || opened.current === target) return
+    const index = items.findIndex(
+      (it) => it.route.series === target.index && it.route.denomination === target.denomination,
+    )
+    if (index < 0) return
+    onZoom(items, index)
+    if (texts) opened.current = target
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target, texts])
 
   return (
     <>
@@ -375,6 +409,7 @@ function Commemoratives({
       caption: `${nameOf(country)} ${c.year} — ${commTitle(c)}`,
       iso: country.iso,
       text: details(c),
+      route: { kind: 'comm', iso: country.iso, coin: c },
     }
   }
   const isVisible = (y: number) => year === 'all' || y === year
