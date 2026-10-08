@@ -217,6 +217,18 @@ ${links(years.map((y) => [routes.yearPath(y), String(y)]))}`
     if (lang === PAGE_LANGS[0]) await write('/', { ...page, canonical: routes.base, listed: false })
   }
 
+  // ----- ma collection (page de l'appli : le contenu vit dans le navigateur de chacun) -----
+  {
+    const meta = pageMeta({ kind: 'collection' }, ctx)
+    const pathname = routes.pathOf({ kind: 'collection' })
+    await write(pathname, {
+      ...meta,
+      crumbs: [home, [t('collection'), pathname]],
+      body: `<h1>${esc(t('collection'))}</h1>\n<p class="static-lead">${esc(meta.description)}</p>`,
+      jsonld: (url) => [{ '@type': 'WebPage', name: meta.title, description: meta.description, url, inLanguage: lang, isPartOf: { '@id': website['@id'] } }],
+    })
+  }
+
   // ----- pays -----
   for (const country of countries) {
     const name = nameOf(country)

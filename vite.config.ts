@@ -47,7 +47,8 @@ export default defineConfig({
         // L'application (HTML, JS, CSS, icônes) est gardée d'avance ; les photos des pièces (≈ 31 Mo)
         // et les textes des 17 langues (≈ 13 Mo) sont gardés au fil de la consultation.
         globPatterns: ['**/*.{js,css,html,png,webp,svg,webmanifest,woff2}'],
-        globIgnores: ['coins/**', 'i18n/**'],
+        // La bibliothèque Excel (≈ 1 Mo) n'est chargée qu'à l'export ou à l'import d'un classeur.
+        globIgnores: ['coins/**', 'i18n/**', '**/collectionXlsx-*.js', '**/exceljs*.js'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: 'index.html',
         // Compteur de visites : jamais servi depuis le cache, ni remplacé par la page d'accueil.

@@ -41,10 +41,12 @@ export function PreviewCard({ preview }: { preview: PreviewState }) {
       <div className="coin-preview-image">
         <img key={preview.image} src={asset(preview.image)} alt="" />
       </div>
-      <strong className="coin-preview-title">
-        {preview.iso && <Flag id={preview.iso} />}
-        <span>{preview.title}</span>
-      </strong>
+      {preview.title && (
+        <strong className="coin-preview-title">
+          {preview.iso && <Flag id={preview.iso} />}
+          <span>{preview.title}</span>
+        </strong>
+      )}
       {preview.text &&
         preview.text.split('\n').map((p, i) => (
           <p key={i} className="coin-preview-text">

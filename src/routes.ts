@@ -10,6 +10,9 @@ export type PageLang = (typeof PAGE_LANGS)[number]
 
 export type Route =
   | { kind: 'home' }
+  /** Collection de l'utilisateur (pièces possédées et manquantes). */
+  /** `shared` : code d'une collection reçue par lien (lecture seule), voir src/collection.ts. */
+  | { kind: 'collection'; shared?: string }
   | { kind: 'country'; iso: string }
   /** Pièce courante : une valeur faciale d'une série du pays. */
   | { kind: 'coin'; iso: string; denomination: DenominationId; series: number }
@@ -18,7 +21,7 @@ export type Route =
   | { kind: 'comm'; iso: string; coin: CommemorativeCoin }
 
 // Mots des adresses, par langue.
-const WORDS: Record<PageLang, { denominations: Record<DenominationId, string>; commemoratives: string; series: string }> = {
+const WORDS: Record<PageLang, { denominations: Record<DenominationId, string>; commemoratives: string; series: string; collection: string }> = {
   fr: {
     denominations: {
       '1c': '1-centime',
@@ -32,6 +35,7 @@ const WORDS: Record<PageLang, { denominations: Record<DenominationId, string>; c
     },
     commemoratives: '2-euros-commemoratives',
     series: 'serie',
+    collection: 'collection',
   },
 }
 
@@ -105,6 +109,8 @@ export function createRoutes(data: RouteData, lang: PageLang, root = '/') {
     switch (route.kind) {
       case 'home':
         return base
+      case 'collection':
+        return `${base}${words.collection}/${route.shared ? `#${route.shared}` : ''}`
       case 'country':
         return countryPath(route.iso)
       case 'commList':
@@ -134,6 +140,7 @@ export function createRoutes(data: RouteData, lang: PageLang, root = '/') {
     const [countrySlug, second, third, ...extra] = rest.split('/').filter(Boolean)
     if (extra.length) return null
     if (!countrySlug) return { kind: 'home' }
+    if (countrySlug === words.collection && !second) return { kind: 'collection', shared: hash.slice(1) || undefined }
     const country = countryBySlug.get(countrySlug)
     if (!country) return null
     const iso = country.iso

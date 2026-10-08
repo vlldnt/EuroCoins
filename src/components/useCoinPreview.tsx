@@ -4,7 +4,8 @@ import { PreviewCard, type PreviewState } from './CoinPreviewCard'
 
 export interface PreviewContent {
   image: string
-  title: string
+  /** Sans titre ni texte : l'image seule (page « Ma collection »). */
+  title?: string
   text?: string
   /** Pays de la pièce : son drapeau accompagne le titre. */
   iso?: string

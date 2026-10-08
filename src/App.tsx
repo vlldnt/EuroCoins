@@ -11,6 +11,8 @@ import { APP_VERSION } from './version'
 import { UpdateToast } from './components/UpdateToast'
 import { CountryList } from './components/CountryPicker'
 import { QuickSearch } from './components/QuickSearch'
+import { Collection } from './components/Collection'
+import { CollectionButton } from './components/CollectionButton'
 import type { PanelTarget } from './search'
 import { countriesByIso, data } from './data'
 import { useI18n } from './i18n'
@@ -22,7 +24,7 @@ import type { Route } from './routes'
 
 // Le pays, l'onglet et la pièce ouverte sont gardés dans l'URL (/fr/belgique/2-euros/, ou #be dans
 // les langues sans pages) pour pouvoir partager un lien : voir src/navigation.ts.
-const isoOf = (route: Route) => (route.kind === 'home' ? null : route.iso)
+const isoOf = (route: Route) => (route.kind === 'home' || route.kind === 'collection' ? null : route.iso)
 
 // Liens d'évitement : on déplace le focus sans changer l'URL (le hash sert au pays ouvert).
 function skipTo(e: React.MouseEvent, ...ids: string[]) {
@@ -46,12 +48,18 @@ export default function App() {
   const [target, setTarget] = useState<PanelTarget | null>(() => targetFor(initial))
   // Onglet affiché par la fenêtre pays (elle le signale), avec le pays auquel il se rapporte.
   const [tab, setTab] = useState<{ iso: string; tab: PanelTab } | null>(null)
+  // Page « Ma collection », affichée par-dessus la carte.
+  const [collection, setCollection] = useState(initial.kind === 'collection')
+  // Collection reçue par un lien de partage : affichée en lecture seule.
+  const [shared, setShared] = useState(initial.kind === 'collection' ? (initial.shared ?? null) : null)
 
   // Adresse modifiée à la main, ou retour arrière : on affiche la vue demandée.
   useEffect(() => {
     const onLocation = () => {
       const route = readLocation()
       setSelected(isoOf(route))
+      setCollection(route.kind === 'collection')
+      setShared(route.kind === 'collection' ? (route.shared ?? null) : null)
       setTarget(targetFor(route))
       if (route.kind !== 'coin' && route.kind !== 'comm') setZoom(null)
     }
@@ -67,10 +75,11 @@ export default function App() {
   const zoomRoute = zoom?.items[zoom.index]?.route
   const showsCommemoratives = !!selected && tab?.iso === selected && tab.tab === 'commemorative'
   const route = useMemo<Route>(() => {
+    if (collection) return { kind: 'collection', shared: shared ?? undefined }
     if (zoomRoute) return zoomRoute
     if (!selected) return { kind: 'home' }
     return { kind: showsCommemoratives ? 'commList' : 'country', iso: selected }
-  }, [zoomRoute, selected, showsCommemoratives])
+  }, [collection, shared, zoomRoute, selected, showsCommemoratives])
 
   // L'adresse suit la vue (replaceState : fermer une fenêtre ne remplit pas l'historique).
   useEffect(() => writeLocation(route, lang), [route, lang])
@@ -133,6 +142,11 @@ export default function App() {
 
   const setZoomIndex = useCallback((index: number) => setZoom((z) => z && { ...z, index }), [])
   const closeZoom = useCallback(() => setZoom(null), [])
+  const closeCollection = useCallback(() => {
+    setCollection(false)
+    setShared(null)
+  }, [])
+  const showMine = useCallback(() => setShared(null), [])
 
   const country = selected ? countriesByIso.get(selected) : undefined
   // Fenêtre pays et carrousel restent affichés le temps de leur animation de fermeture.
@@ -163,6 +177,7 @@ export default function App() {
         <p>{t('subtitle', { count: data.countries.length })}</p>
         <div className="header-tools" data-keep-panel>
           <QuickSearch onPick={goTo} />
+          <CollectionButton onOpen={() => setCollection(true)} />
           <InstallButton />
           <DisplaySettings />
           <LanguageSelect />
@@ -198,6 +213,8 @@ export default function App() {
           </span>
         </footer>
       </div>
+
+      {collection && <Collection shared={shared} onMine={showMine} onClose={closeCollection} />}
 
       <RotateNotice />
       <UpdateToast />

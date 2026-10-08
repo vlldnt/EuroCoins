@@ -60,6 +60,7 @@ export function truncate(text: string, max = 160): string {
 export function pageMeta(route: Route, ctx: MetaContext): PageMeta {
   const { t } = ctx
   if (route.kind === 'home') return { title: t('seoHomeTitle'), description: t('seoHomeDescription') }
+  if (route.kind === 'collection') return { title: t('seoCollectionTitle'), description: t('seoCollectionDescription') }
 
   const country = ctx.countries.find((c) => c.iso === route.iso)
   if (!country) return { title: t('seoHomeTitle'), description: t('seoHomeDescription') }

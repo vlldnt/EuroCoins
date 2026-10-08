@@ -14,6 +14,9 @@ const routes = Object.fromEntries(PAGE_LANGS.map((lang) => [lang, createRoutes(d
   ReturnType<typeof createRoutes>
 >
 
+// Langues sans pages : la collection s'ouvre avec « /#collection ».
+const COLLECTION_HASH = 'collection'
+
 const isPageLang = (lang: string): lang is PageLang => (PAGE_LANGS as readonly string[]).includes(lang)
 
 /** Langue imposée par l'adresse (« /fr/… »), null ailleurs. */
@@ -26,14 +29,21 @@ export function readLocation(): Route {
   if (lang) return routes[lang].parse(pathname, hash) ?? { kind: 'home' }
   // Ancien lien : le pays est dans le hash (#fr, #de…).
   const iso = hash.slice(1).toLowerCase()
+  if (iso === COLLECTION_HASH) return { kind: 'collection' }
+  if (iso.startsWith(`${COLLECTION_HASH}=`)) return { kind: 'collection', shared: iso.slice(COLLECTION_HASH.length + 1) }
   return countriesByIso.has(iso) ? { kind: 'country', iso } : { kind: 'home' }
 }
 
 /** Adresse d'une vue dans la langue de l'interface. */
 export function urlFor(route: Route, lang: Lang): string {
   if (isPageLang(lang)) return routes[lang].pathOf(route)
-  return route.kind === 'home' ? ROOT + window.location.search : `${ROOT}${window.location.search}#${route.iso}`
+  if (route.kind === 'home') return ROOT + window.location.search
+  if (route.kind === 'collection') return `${ROOT}${window.location.search}#${COLLECTION_HASH}${route.shared ? `=${route.shared}` : ''}`
+  return `${ROOT}${window.location.search}#${route.iso}`
 }
+
+/** Lien de partage d'une collection : sans préfixe de langue, il s'ouvre dans la langue du destinataire. */
+export const shareUrl = (code: string) => `${window.location.origin}${ROOT}#${COLLECTION_HASH}=${code}`
 
 /** Adresse de référence de la page (sans hash), null si la langue n'a pas de pages. */
 export function canonicalFor(route: Route, lang: Lang): string | null {
