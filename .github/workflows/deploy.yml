@@ -82,6 +82,15 @@ jobs:
           ssh -i ~/.ssh/deploy "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
             "sudo -n /usr/bin/systemctl restart eurocoins-visits"
 
+      # Reconnaissance par photo : le service est facultatif (clé OpenRouter posée à la main sur le
+      # VPS, voir deploy/systemd/eurocoins-identify.service). Sans lui, cette étape ne bloque rien.
+      - name: Service reconnaissance par photo
+        run: |
+          rsync -az -e "ssh -i ~/.ssh/deploy" server/identify.py \
+            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/eurocoins/server/identify.py"
+          ssh -i ~/.ssh/deploy "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
+            "sudo -n /usr/bin/systemctl restart eurocoins-identify" || echo "service eurocoins-identify non installé"
+
       - name: Vérification
         run: |
           sleep 2

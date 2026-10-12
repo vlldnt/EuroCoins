@@ -1,0 +1,87 @@
+/* Cadenas « accès administrateur » du scanner (src/components/ScannerAdmin.tsx), en haut à gauche,
+   sous l'étiquette « Version d'essai ». Couleurs fixes comme le reste du scanner (fond caméra). */
+.scanner-admin {
+  position: absolute;
+  top: calc(64px + env(safe-area-inset-top));
+  left: calc(14px + env(safe-area-inset-left));
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.scanner-admin-toggle {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.45);
+  color: rgb(255 255 255 / 0.8);
+}
+
+.scanner-admin-toggle[aria-pressed='true'] {
+  background: var(--gold);
+  color: #000;
+}
+
+.scanner-admin-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.scanner-admin-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 220px;
+  padding: 8px;
+  border-radius: 12px;
+  background: rgb(0 0 0 / 0.7);
+}
+
+.scanner-admin-form input {
+  flex: 1;
+  min-width: 0;
+  width: 120px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid rgb(255 255 255 / 0.4);
+  border-radius: 8px;
+  background: rgb(0 0 0 / 0.5);
+  color: #fff;
+  font: inherit;
+}
+
+.scanner-admin-form input[aria-invalid='true'] {
+  border-color: #ff8a80;
+}
+
+.scanner-admin-form button {
+  height: 36px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--gold);
+  color: #000;
+  font-weight: 700;
+}
+
+.scanner-admin-form button:disabled {
+  opacity: 0.5;
+}
+
+.scanner-admin-form p {
+  flex: 1 1 100%;
+  margin: 0;
+  color: #ff8a80;
+  font-size: 0.85rem;
+  font-weight: 700;
+}

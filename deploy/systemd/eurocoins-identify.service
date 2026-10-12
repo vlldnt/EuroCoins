@@ -1,0 +1,42 @@
+# Reconnaissance d'une pièce par photo (server/identify.py), en local derrière nginx.
+#
+# Installation sur le VPS :
+#   sudo mkdir -p /etc/eurocoins
+#   printf 'OPEN_ROUTER_API_KEY=sk-or-…\nADMIN_ACCESS=…\n' | sudo tee /etc/eurocoins/identify.env >/dev/null
+#   sudo chmod 600 /etc/eurocoins/identify.env
+#   sudo cp deploy/systemd/eurocoins-identify.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now eurocoins-identify
+# puis ajouter « location /api/identify » au nginx du site (deploy/nginx/) et le recharger.
+# Pour que le déploiement redémarre le service, autoriser la commande à l'utilisateur de
+# déploiement, comme pour le compteur de visites (/etc/sudoers.d/eurocoins-visits) :
+#   deploy-eurocoins ALL=(root) NOPASSWD: /usr/bin/systemctl restart eurocoins-identify
+# Désinstallation :
+#   sudo systemctl disable --now eurocoins-identify && sudo rm /etc/systemd/system/eurocoins-identify.service
+
+[Unit]
+Description=EuroCoins - reconnaissance des pièces par photo
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=deploy-eurocoins
+Group=deploy-eurocoins
+ExecStart=/usr/bin/python3 /var/www/eurocoins/server/identify.py
+# Clé OpenRouter et code PIN de l'administrateur (et, au besoin, IDENTIFY_MODEL, IDENTIFY_PER_HOUR, IDENTIFY_PER_DAY) : fichier lisible par root seul.
+EnvironmentFile=/etc/eurocoins/identify.env
+Environment=IDENTIFY_HOST=127.0.0.1 IDENTIFY_PORT=8097 IDENTIFY_SITE_DIR=/var/www/eurocoins/current
+Restart=on-failure
+RestartSec=3
+
+# Durcissement : lecture seule partout, rien à écrire (les photos ne sont jamais gardées).
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+MemoryMax=128M
+
+[Install]
+WantedBy=multi-user.target

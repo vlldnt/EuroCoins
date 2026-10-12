@@ -4,6 +4,8 @@ import { detectCircle, toGray, type Circle } from '../coinDetect'
 import { coinOfImage, type CoinRef } from '../coinLookup'
 import { guessMetal } from '../coinMetal'
 import type { MatchRequest, MatchResponse } from '../coinMatch.worker'
+import { identifyByAi } from '../coinIdentify'
+import { ScannerAdmin } from './ScannerAdmin'
 import { asset, countriesByIso, data } from '../data'
 import { useI18n } from '../i18n'
 import { useCoinTexts } from '../i18n/useCoinTexts'
@@ -32,6 +34,8 @@ const MIN_COIN_RADIUS = 110
 // Taille maximale de la photo gardée (px) et marge autour de la pièce.
 const PHOTO_MAX = 720
 const PHOTO_MARGIN = 1.12
+// Côté de la photo envoyée au modèle de vision (px) : assez pour lire le millésime, léger à envoyer.
+const AI_PHOTO = 640
 // Score en dessous duquel un résultat est signalé « peu sûr ».
 const SURE_SCORE = 0.45
 // Concordance affichée (%) : score ramené sur l'échelle observée (≤ 0,25 : pièces différentes ;
@@ -128,6 +132,8 @@ export function CoinScanner({
   const closeRef = useRef<HTMLButtonElement>(null)
   const trackRef = useRef<MediaStreamTrack | null>(null)
   const workerRef = useRef<Worker | null>(null)
+  // Photo en cours d'analyse (pour le modèle de vision) ; `id` écarte la réponse d'une photo abandonnée.
+  const shotRef = useRef<{ id: number; photo: string | null }>({ id: 0, photo: null })
   const modeRef = useRef(mode)
   // Suivi : cercle lissé affiché, position de départ de l'immobilité, meilleure image de la série.
   const track = useRef({
@@ -229,6 +235,11 @@ export function CoinScanner({
     setPhoto(round.toDataURL('image/webp', 0.9))
     setResults([])
     setPhase('matching')
+    // Même cadrage, en JPEG réduit, pour le modèle de vision (voir src/coinIdentify.ts).
+    const forAi = document.createElement('canvas')
+    forAi.width = forAi.height = Math.min(AI_PHOTO, size)
+    forAi.getContext('2d')!.drawImage(canvas, c.x - c.r, c.y - c.r, size, size, 0, 0, forAi.width, forAi.height)
+    shotRef.current = { id: shotRef.current.id + 1, photo: forAi.toDataURL('image/jpeg', 0.85) }
 
     // Type de pièce d'après les couleurs (2 €, 1 €, centimes) : écarte d'emblée les autres types.
     const rgba = canvas.getContext('2d', { willReadFrequently: true })!.getImageData(0, 0, canvas.width, canvas.height).data
@@ -265,8 +276,20 @@ export function CoinScanner({
           groupOfRank.set(rank, result)
         }
       })
-      setResults(grouped)
-      setPhase('results')
+      const show = (list: Result[]) => {
+        setResults(list)
+        setPhase('results')
+      }
+      // Le modèle de vision départage : sa pièce passe en tête, le classement local suit.
+      const { id, photo } = shotRef.current
+      if (!photo) return show(grouped)
+      identifyByAi(photo, e.data.results.map((r) => r.image))
+        .catch(() => null)
+        .then((image) => {
+          if (shotRef.current.id !== id) return
+          const ref = image ? coinOfImage(image) : undefined
+          show(ref ? [{ ref, score: 1 }, ...grouped.filter((g) => g.ref.image !== ref.image)].slice(0, 3) : grouped)
+        })
     }
     worker.addEventListener('message', onMessage)
     return () => worker.removeEventListener('message', onMessage)
@@ -390,6 +413,7 @@ export function CoinScanner({
   }
 
   const retake = () => {
+    shotRef.current = { id: shotRef.current.id + 1, photo: null }
     setPhoto(null)
     setResults([])
     setCircle(null)
@@ -496,6 +520,8 @@ export function CoinScanner({
       <button ref={closeRef} className="icon-button scanner-close" onClick={onClose} aria-label={t('close')}>
         <CloseIcon />
       </button>
+
+      <ScannerAdmin />
 
       <div className="scanner-bottom">
         <p className="scanner-hint" role="status">
