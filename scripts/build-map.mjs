@@ -26,6 +26,9 @@ const FOCUS_POINTS = [
 // Marge dessinée autour de la zone cadrée, pour que l'écran puisse s'élargir sans laisser de vide
 // (on y voit le nord de l'Afrique, la Russie…).
 const MARGIN = 0.6
+// En hauteur, la marge est plus grande : un téléphone tenu droit est bien plus haut que la zone
+// cadrée, et la carte doit le remplir sans bande vide (jusqu'au Sahara et à l'Arctique).
+const MARGIN_Y = 0.9
 const PADDING = 16
 
 // Pays trop petits pour être cliqués à cette échelle : on ajoute une pastille.
@@ -50,9 +53,9 @@ const focus = {
 }
 const bounds = {
   x: focus.x - focus.width * MARGIN,
-  y: focus.y - focus.height * MARGIN,
+  y: focus.y - focus.height * MARGIN_Y,
   width: focus.width * (1 + 2 * MARGIN),
-  height: focus.height * (1 + 2 * MARGIN),
+  height: focus.height * (1 + 2 * MARGIN_Y),
 }
 projection.clipExtent([
   [bounds.x, bounds.y],

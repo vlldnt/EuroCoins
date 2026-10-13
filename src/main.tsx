@@ -11,8 +11,10 @@ import './static-pages.css'
 import App from './App.tsx'
 import { startAutoUpdate } from './autoUpdate'
 import { I18nProvider } from './i18n'
+import { startScreenHeight } from './screenHeight'
 
 startAutoUpdate()
+startScreenHeight()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
