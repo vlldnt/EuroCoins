@@ -3668,6 +3668,15 @@ body,
     z-index: 5;
   }
 
+  /* Fiche pays : elle s'arrête au-dessus de la barre, qui ne cache donc aucune pièce. */
+  .panel {
+    /* Placée depuis le haut, comme la barre, d'après la hauteur réelle de l'écran (--app-h). */
+    top: calc(var(--app-h, 100dvh) - 64dvh);
+    bottom: auto;
+    height: calc(64dvh - var(--tabbar-h) - env(safe-area-inset-bottom));
+    padding-bottom: 16px;
+  }
+
   .country-list {
     bottom: calc(22px + var(--tabbar-h) + env(safe-area-inset-bottom));
   }
