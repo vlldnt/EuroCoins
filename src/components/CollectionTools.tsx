@@ -14,6 +14,7 @@ import { loadFileTexts } from '../i18n/fileTexts'
 import { LANGUAGES } from '../i18n/languages'
 import { useCoinTexts } from '../i18n/useCoinTexts'
 import { shareUrl } from '../navigation'
+import { MissingList } from './MissingList'
 import { Segmented } from './Segmented'
 
 // Noms de formats : identiques dans toutes les langues.
@@ -42,6 +43,8 @@ export function CollectionTools({ mode }: { mode: CollectionMode }) {
   const [confirmReset, setConfirmReset] = useState(false)
   // Partage en cours : la vue sur laquelle le lien s'ouvrira (onglet et filtre).
   const [share, setShare] = useState<{ tab: CollectionTab; filter: CollectionFilter } | null>(null)
+  // Liste des manquantes à copier, affichée ou non.
+  const [missing, setMissing] = useState(false)
   // Le lien porte la collection telle qu'elle est à cet instant.
   const link = share && shareUrl(encodeShare(owned, mode, share.tab, share.filter))
   const fileInput = useRef<HTMLInputElement>(null)
@@ -54,6 +57,7 @@ export function CollectionTools({ mode }: { mode: CollectionMode }) {
     setPending(null)
     setConfirmReset(false)
     setShare(null)
+    setMissing(false)
     setBusy(true)
     try {
       await task()
@@ -137,12 +141,28 @@ export function CollectionTools({ mode }: { mode: CollectionMode }) {
               setNotice(null)
               setPending(null)
               setConfirmReset(false)
+              setMissing(false)
               shareView('summary', 'all')
             }}
           >
             {t('collShare')}
           </button>
         )}
+        <button
+          className="coll-button"
+          disabled={busy}
+          aria-expanded={missing}
+          onClick={() => {
+            setMenu(null)
+            setNotice(null)
+            setPending(null)
+            setConfirmReset(false)
+            setShare(null)
+            setMissing(!missing)
+          }}
+        >
+          {t('collMissingList')}
+        </button>
         {owned.size > 0 && (
           <button className="coll-button is-quiet" disabled={busy} onClick={() => setConfirmReset(true)}>
             {t('collReset')}
@@ -223,6 +243,7 @@ export function CollectionTools({ mode }: { mode: CollectionMode }) {
             <input className="coll-link" readOnly value={link} aria-label={t('collShare')} onFocus={(e) => e.target.select()} />
           </>
         )}
+        {missing && <MissingList owned={owned} mode={mode} texts={texts} />}
         {notice && <span>{t(notice)}</span>}
       </div>
     </div>
