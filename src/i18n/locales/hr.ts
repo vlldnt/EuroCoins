@@ -16,6 +16,7 @@ const hr: Messages = {
   themeLight: 'Svijetla',
   themeDark: 'Tamna',
   display: 'Prikaz',
+  settings: 'Postavke',
   mapColors: 'Boje karte',
   paletteStandard: 'Standardno',
   paletteProtan: 'Protanopija (slabije opažanje crvene)',

@@ -16,6 +16,7 @@ const lt: Messages = {
   themeLight: 'Šviesi',
   themeDark: 'Tamsi',
   display: 'Rodinys',
+  settings: 'Nustatymai',
   mapColors: 'Žemėlapio spalvos',
   paletteStandard: 'Standartinė',
   paletteProtan: 'Protanopija (silpnas raudonos matymas)',

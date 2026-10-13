@@ -16,6 +16,7 @@ const bg: Messages = {
   themeLight: 'Светла',
   themeDark: 'Тъмна',
   display: 'Изглед',
+  settings: 'Настройки',
   mapColors: 'Цветове на картата',
   paletteStandard: 'Стандартни',
   paletteProtan: 'Протанопия (слабо възприемане на червено)',

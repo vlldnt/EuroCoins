@@ -16,6 +16,7 @@ const pt: Messages = {
   themeLight: 'Claro',
   themeDark: 'Escuro',
   display: 'Visualização',
+  settings: 'Definições',
   mapColors: 'Cores do mapa',
   paletteStandard: 'Padrão',
   paletteProtan: 'Protanopia (vermelho pouco percebido)',

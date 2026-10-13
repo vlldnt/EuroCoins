@@ -16,6 +16,7 @@ const fr = {
   themeLight: 'Clair',
   themeDark: 'Sombre',
   display: 'Affichage',
+  settings: 'Réglages',
   mapColors: 'Couleurs de la carte',
   paletteStandard: 'Standard',
   paletteProtan: 'Protanopie (rouge peu perçu)',

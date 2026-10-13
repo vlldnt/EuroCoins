@@ -16,6 +16,7 @@ const lv: Messages = {
   themeLight: 'Gaišs',
   themeDark: 'Tumšs',
   display: 'Attēlojums',
+  settings: 'Iestatījumi',
   mapColors: 'Kartes krāsas',
   paletteStandard: 'Standarta',
   paletteProtan: 'Protanopija (vāja sarkanās krāsas uztvere)',

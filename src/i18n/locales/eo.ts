@@ -16,6 +16,7 @@ const eo: Messages = {
   themeLight: 'Hela',
   themeDark: 'Malhela',
   display: 'Vidigo',
+  settings: 'Agordoj',
   mapColors: 'Koloroj de la mapo',
   paletteStandard: 'Norma',
   paletteProtan: 'Protanopio (malforta percepto de ruĝo)',

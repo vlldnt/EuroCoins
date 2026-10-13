@@ -16,6 +16,7 @@ const hi: Messages = {
   themeLight: 'हल्का',
   themeDark: 'गहरा',
   display: 'डिस्प्ले',
+  settings: 'सेटिंग्स',
   mapColors: 'नक्शे के रंग',
   paletteStandard: 'मानक',
   paletteProtan: 'प्रोटानोपिया (लाल रंग की कमज़ोर पहचान)',

@@ -16,6 +16,7 @@ const mt: Messages = {
   themeLight: 'Ċar',
   themeDark: 'Skur',
   display: 'Wiri',
+  settings: 'Settings',
   mapColors: 'Kuluri tal-mappa',
   paletteStandard: 'Standard',
   paletteProtan: 'Protanopja (dgħufija fl-aħmar)',

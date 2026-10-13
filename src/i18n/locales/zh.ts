@@ -16,6 +16,7 @@ const zh: Messages = {
   themeLight: '浅色',
   themeDark: '深色',
   display: '显示',
+  settings: '设置',
   mapColors: '地图颜色',
   paletteStandard: '标准',
   paletteProtan: '红色盲（红色辨识弱）',

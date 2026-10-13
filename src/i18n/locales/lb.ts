@@ -16,6 +16,7 @@ const lb: Messages = {
   themeLight: 'Hell',
   themeDark: 'Donkel',
   display: 'Usiicht',
+  settings: 'Astellungen',
   mapColors: 'Kaartefaarwen',
   paletteStandard: 'Standard',
   paletteProtan: 'Protanopie (rout schwaach)',

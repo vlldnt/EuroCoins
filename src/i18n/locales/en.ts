@@ -16,6 +16,7 @@ const en: Messages = {
   themeLight: 'Light',
   themeDark: 'Dark',
   display: 'Display',
+  settings: 'Settings',
   mapColors: 'Map colors',
   paletteStandard: 'Standard',
   paletteProtan: 'Protanopia (red-weak)',

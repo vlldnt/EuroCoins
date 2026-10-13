@@ -16,6 +16,7 @@ const ca: Messages = {
   themeLight: 'Clar',
   themeDark: 'Fosc',
   display: 'Visualització',
+  settings: 'Configuració',
   mapColors: 'Colors del mapa',
   paletteStandard: 'Estàndard',
   paletteProtan: 'Protanopia (vermell poc percebut)',

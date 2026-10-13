@@ -16,6 +16,7 @@ const fi: Messages = {
   themeLight: 'Vaalea',
   themeDark: 'Tumma',
   display: 'Näyttö',
+  settings: 'Asetukset',
   mapColors: 'Kartan värit',
   paletteStandard: 'Vakio',
   paletteProtan: 'Protanopia (heikko punaisen erotus)',

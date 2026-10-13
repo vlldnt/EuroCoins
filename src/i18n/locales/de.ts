@@ -16,6 +16,7 @@ const de: Messages = {
   themeLight: 'Hell',
   themeDark: 'Dunkel',
   display: 'Anzeige',
+  settings: 'Einstellungen',
   mapColors: 'Kartenfarben',
   paletteStandard: 'Standard',
   paletteProtan: 'Protanopie (Rotschwäche)',

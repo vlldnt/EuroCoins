@@ -16,6 +16,7 @@ const ja: Messages = {
   themeLight: 'ライト',
   themeDark: 'ダーク',
   display: '表示',
+  settings: '設定',
   mapColors: '地図の色',
   paletteStandard: '標準',
   paletteProtan: '1型色覚（赤が見えにくい）',

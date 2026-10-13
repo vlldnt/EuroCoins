@@ -894,6 +894,12 @@ body,
   text-align: left;
 }
 
+/* Réservés à l'onglet « Réglages » de la barre du bas (téléphone). */
+.settings-trigger-label,
+.display-menu-extra {
+  display: none;
+}
+
 .display-trigger svg,
 .segmented svg {
   width: 16px;
@@ -3486,10 +3492,11 @@ body,
   }
 }
 
-/* Téléphone tenu droit : recherche, collection, affichage et langue forment une barre d'onglets en
-   bas de l'écran, comme dans une application ; l'en-tête ne garde que le logo. Drapeaux, crédit et
-   zoom remontent au-dessus de la barre (--tabbar-h). Pas de filtre ni de transformation sur la
-   barre : les menus qu'elle contient sont en position fixe par rapport à l'écran. */
+/* Téléphone tenu droit : recherche, collection et réglages forment une barre d'onglets en bas de
+   l'écran, comme dans une application ; l'en-tête ne garde que le logo. L'onglet « Réglages » est le
+   menu Affichage, complété par la langue et l'installation. Drapeaux, crédit et zoom remontent
+   au-dessus de la barre (--tabbar-h). Pas de filtre ni de transformation sur la barre : les menus
+   qu'elle contient sont en position fixe par rapport à l'écran. */
 @media (max-width: 699px) and (min-height: 501px) {
   :root {
     --tabbar-h: 54px;
@@ -3519,16 +3526,19 @@ body,
     min-width: 0;
   }
 
-  .display-settings,
-  .language-select {
+  /* Langue et installation : rangées dans l'onglet « Réglages ». */
+  .header-tools > .install-button,
+  .header-tools > .language-select {
+    display: none;
+  }
+
+  .display-settings {
     display: flex;
   }
 
-  .search-trigger,
-  .install-button,
-  .collection-trigger,
-  .display-trigger,
-  .language-trigger {
+  .header-tools > .search-trigger,
+  .header-tools > .collection-trigger,
+  .display-settings > .display-trigger {
     flex-direction: column;
     justify-content: center;
     gap: 3px;
@@ -3543,44 +3553,20 @@ body,
     font-size: 0.68rem;
   }
 
-  .search-trigger:hover,
-  .install-button:hover,
-  .collection-trigger:hover,
-  .display-trigger:hover,
-  .display-trigger[aria-expanded='true'],
-  .language-trigger:hover,
-  .language-trigger[aria-expanded='true'] {
-    background: none;
-  }
-
-  .display-trigger[aria-expanded='true'],
-  .language-trigger[aria-expanded='true'] {
+  .display-settings > .display-trigger[aria-expanded='true'] {
     color: var(--link);
   }
 
-  .search-trigger svg,
-  .install-button svg,
-  .collection-trigger svg,
-  .display-trigger svg {
+  .header-tools > .search-trigger svg,
+  .header-tools > .collection-trigger svg,
+  .display-settings > .display-trigger svg {
     width: 22px;
     height: 22px;
   }
 
-  .language-trigger .flag {
-    width: 26px;
-    height: 18px;
-    margin: 2px 0;
-  }
-
-  .language-trigger .chevron {
-    display: none;
-  }
-
   .search-trigger-label,
-  .install-label,
   .collection-trigger-label,
-  .display-trigger-label,
-  .language-trigger-label {
+  .settings-trigger-label {
     display: block;
     max-width: 100%;
     overflow: hidden;
@@ -3588,13 +3574,47 @@ body,
     white-space: nowrap;
   }
 
-  /* Menus Affichage et Langues : ils montent depuis la barre. */
+  /* Menu des réglages : il monte depuis la barre. */
   .display-menu,
   .language-menu {
     top: auto;
     bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 8px);
     max-height: calc(100dvh - var(--tabbar-h) - env(safe-area-inset-bottom) - env(safe-area-inset-top) - 24px);
     transform-origin: bottom center;
+  }
+
+  .display-menu-extra {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .display-menu-extra .language-trigger,
+  .display-menu-extra .install-button {
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+
+  .display-menu-extra .language-trigger-label,
+  .display-menu-extra .install-label {
+    display: inline;
+  }
+
+  .display-menu-extra .chevron {
+    margin-left: auto;
+  }
+
+  /* La liste des langues s'ouvre par-dessus le menu des réglages. */
+  .display-menu-extra .language-menu {
+    z-index: 5;
   }
 
   .country-list {

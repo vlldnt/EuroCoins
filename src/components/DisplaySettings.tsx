@@ -52,7 +52,9 @@ const THEME_ICONS: Record<Theme, React.ReactNode> = {
 
 // Menu « Affichage » : thème, palette de la carte (dont palettes pour daltoniens), taille du texte.
 // Groupes de vrais boutons radio : navigation aux flèches et annonce correcte par les lecteurs d'écran.
-export function DisplaySettings() {
+// `extra` : réglages ajoutés en tête du menu sur téléphone (langue, installation), où ce bouton est
+// l'onglet « Réglages » de la barre du bas.
+export function DisplaySettings({ extra }: { extra?: React.ReactNode }) {
   const { t } = useI18n()
   const [open, setOpen] = useState(false)
   const [theme, setTheme] = useState<Theme>(readTheme)
@@ -106,10 +108,12 @@ export function DisplaySettings() {
           <circle cx="10" cy="17" r="2" />
         </svg>
         <span className="display-trigger-label">{t('display')}</span>
+        <span className="settings-trigger-label">{t('settings')}</span>
       </button>
 
       {open && (
         <div id={id} ref={panelRef} className="display-menu" role="group" aria-label={t('display')}>
+          {extra && <div className="display-menu-extra">{extra}</div>}
           <fieldset>
             <legend>{t('theme')}</legend>
             <div className="segmented">

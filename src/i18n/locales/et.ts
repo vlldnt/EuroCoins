@@ -16,6 +16,7 @@ const et: Messages = {
   themeLight: 'Hele',
   themeDark: 'Tume',
   display: 'Kuva',
+  settings: 'Seaded',
   mapColors: 'Kaardi värvid',
   paletteStandard: 'Tavaline',
   paletteProtan: 'Protanoopia (punanõrkus)',

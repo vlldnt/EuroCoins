@@ -16,6 +16,7 @@ const sk: Messages = {
   themeLight: 'Svetlý',
   themeDark: 'Tmavý',
   display: 'Zobrazenie',
+  settings: 'Nastavenia',
   mapColors: 'Farby mapy',
   paletteStandard: 'Štandardné',
   paletteProtan: 'Protanopia (oslabené vnímanie červenej)',

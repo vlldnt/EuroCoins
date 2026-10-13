@@ -16,6 +16,7 @@ const el: Messages = {
   themeLight: 'Φωτεινό',
   themeDark: 'Σκοτεινό',
   display: 'Εμφάνιση',
+  settings: 'Ρυθμίσεις',
   mapColors: 'Χρώματα χάρτη',
   paletteStandard: 'Τυπικό',
   paletteProtan: 'Πρωτανωπία (αδυναμία στο κόκκινο)',

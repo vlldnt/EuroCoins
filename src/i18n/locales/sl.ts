@@ -16,6 +16,7 @@ const sl: Messages = {
   themeLight: 'Svetla',
   themeDark: 'Temna',
   display: 'Prikaz',
+  settings: 'Nastavitve',
   mapColors: 'Barve zemljevida',
   paletteStandard: 'Standardno',
   paletteProtan: 'Protanopija (šibko zaznavanje rdeče)',

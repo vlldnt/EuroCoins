@@ -179,7 +179,14 @@ export default function App() {
           <QuickSearch onPick={goTo} />
           <CollectionButton onOpen={() => setCollection(true)} />
           <InstallButton />
-          <DisplaySettings />
+          <DisplaySettings
+            extra={
+              <>
+                <LanguageSelect />
+                <InstallButton />
+              </>
+            }
+          />
           <LanguageSelect />
         </div>
       </header>

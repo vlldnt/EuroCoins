@@ -16,6 +16,7 @@ const nl: Messages = {
   themeLight: 'Licht',
   themeDark: 'Donker',
   display: 'Weergave',
+  settings: 'Instellingen',
   mapColors: 'Kaartkleuren',
   paletteStandard: 'Standaard',
   paletteProtan: 'Protanopie (roodzwak)',
