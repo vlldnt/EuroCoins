@@ -145,6 +145,7 @@ const es: Messages = {
   collCheckAll: 'Marcar todo',
   collHave: 'La tengo',
   collLack: 'Me falta',
+  collTools: 'Herramientas',
   collExport: 'Exportar',
   collImport: 'Importar',
   collTemplate: 'Plantilla vacía para rellenar',

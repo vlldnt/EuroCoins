@@ -145,6 +145,7 @@ const de: Messages = {
   collCheckAll: 'Alle ankreuzen',
   collHave: 'Habe ich',
   collLack: 'Fehlt mir',
+  collTools: 'Werkzeuge',
   collExport: 'Exportieren',
   collImport: 'Importieren',
   collTemplate: 'Leere Vorlage zum Ausfüllen',

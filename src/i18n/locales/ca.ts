@@ -145,6 +145,7 @@ const ca: Messages = {
   collCheckAll: 'Marca-ho tot',
   collHave: 'La tinc',
   collLack: 'Em falta',
+  collTools: 'Eines',
   collExport: 'Exporta',
   collImport: 'Importa',
   collTemplate: 'Plantilla buida per omplir',

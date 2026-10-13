@@ -145,6 +145,7 @@ const nl: Messages = {
   collCheckAll: 'Alles aanvinken',
   collHave: 'Heb ik',
   collLack: 'Ontbreekt',
+  collTools: 'Hulpmiddelen',
   collExport: 'Exporteren',
   collImport: 'Importeren',
   collTemplate: 'Leeg sjabloon om in te vullen',

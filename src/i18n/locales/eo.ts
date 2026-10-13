@@ -145,6 +145,7 @@ const eo: Messages = {
   collCheckAll: 'Marki ĉion',
   collHave: 'Mi havas ĝin',
   collLack: 'Mankas al mi',
+  collTools: 'Iloj',
   collExport: 'Eksporti',
   collImport: 'Importi',
   collTemplate: 'Malplena ŝablono por plenigi',

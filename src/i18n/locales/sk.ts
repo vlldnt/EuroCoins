@@ -145,6 +145,7 @@ const sk: Messages = {
   collCheckAll: 'Označiť všetko',
   collHave: 'Mám',
   collLack: 'Chýba mi',
+  collTools: 'Nástroje',
   collExport: 'Exportovať',
   collImport: 'Importovať',
   collTemplate: 'Prázdna šablóna na vyplnenie',

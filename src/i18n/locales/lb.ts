@@ -145,6 +145,7 @@ const lb: Messages = {
   collCheckAll: 'Alles ukräizen',
   collHave: 'Hunn ech',
   collLack: 'Feelt mir',
+  collTools: 'Tools',
   collExport: 'Exportéieren',
   collImport: 'Importéieren',
   collTemplate: 'Eidel Virlag fir auszefëllen',

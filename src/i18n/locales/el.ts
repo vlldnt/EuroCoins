@@ -145,6 +145,7 @@ const el: Messages = {
   collCheckAll: 'Επιλογή όλων',
   collHave: 'Το έχω',
   collLack: 'Μου λείπει',
+  collTools: 'Εργαλεία',
   collExport: 'Εξαγωγή',
   collImport: 'Εισαγωγή',
   collTemplate: 'Κενό πρότυπο για συμπλήρωση',

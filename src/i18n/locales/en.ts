@@ -145,6 +145,7 @@ const en: Messages = {
   collCheckAll: 'Check all',
   collHave: 'I have it',
   collLack: 'Missing',
+  collTools: 'Tools',
   collExport: 'Export',
   collImport: 'Import',
   collTemplate: 'Blank template to fill in',

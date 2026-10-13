@@ -93,6 +93,8 @@ export function Collection({ shared, onMine, onClose }: { shared: string | null;
   // Grande image seule au survol (ordinateur) : on voit bien la pièce avant de la cocher.
   const preview = useCoinPreview()
   const mine = useCollection()
+  // Outils (export, import, partage, liste des manquantes) dépliés ou non.
+  const [tools, setTools] = useState(false)
   const received = useMemo(() => (shared ? decodeShare(shared) : null), [shared])
   const owned = received?.ids ?? mine
   const readOnly = !!received
@@ -342,6 +344,21 @@ export function Collection({ shared, onMine, onClose }: { shared: string | null;
                 ]}
               />
             )}
+            {/* Export, import, partage… : à portée de main depuis chaque onglet, repliés par défaut. */}
+            {!readOnly && (
+              <button
+                className="coll-button coll-tools-toggle"
+                aria-expanded={tools}
+                onClick={() => {
+                  setTools(!tools)
+                  // Les outils s'ouvrent en haut de la page : on y remonte.
+                  if (!tools) root.current?.scrollTo({ top: 0 })
+                }}
+              >
+                {t('collTools')}
+                <span className="chevron" aria-hidden="true" />
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -355,9 +372,9 @@ export function Collection({ shared, onMine, onClose }: { shared: string | null;
             </button>
           </p>
         )}
+        {!readOnly && tools && <CollectionTools mode={mode} />}
         {tab === 'summary' ? (
           <>
-            {!readOnly && <CollectionTools mode={mode} />}
             {!readOnly && <p className="coll-saved">{t('collSaved')}</p>}
             <table className="coll-summary">
               <thead>

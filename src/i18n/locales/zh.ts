@@ -145,6 +145,7 @@ const zh: Messages = {
   collCheckAll: '全选',
   collHave: '已拥有',
   collLack: '缺少',
+  collTools: '工具',
   collExport: '导出',
   collImport: '导入',
   collTemplate: '待填写的空白模板',

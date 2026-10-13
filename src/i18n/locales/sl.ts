@@ -145,6 +145,7 @@ const sl: Messages = {
   collCheckAll: 'Označi vse',
   collHave: 'Imam',
   collLack: 'Manjka',
+  collTools: 'Orodja',
   collExport: 'Izvozi',
   collImport: 'Uvozi',
   collTemplate: 'Prazna predloga za izpolnjevanje',

@@ -145,6 +145,7 @@ const fi: Messages = {
   collCheckAll: 'Valitse kaikki',
   collHave: 'Minulla on',
   collLack: 'Puuttuu',
+  collTools: 'Työkalut',
   collExport: 'Vie',
   collImport: 'Tuo',
   collTemplate: 'Tyhjä täytettävä pohja',

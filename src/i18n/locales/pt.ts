@@ -145,6 +145,7 @@ const pt: Messages = {
   collCheckAll: 'Marcar tudo',
   collHave: 'Tenho',
   collLack: 'Falta-me',
+  collTools: 'Ferramentas',
   collExport: 'Exportar',
   collImport: 'Importar',
   collTemplate: 'Modelo vazio para preencher',

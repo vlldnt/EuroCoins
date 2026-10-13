@@ -145,6 +145,7 @@ const lt: Messages = {
   collCheckAll: 'Pažymėti viską',
   collHave: 'Turiu',
   collLack: 'Trūksta',
+  collTools: 'Įrankiai',
   collExport: 'Eksportuoti',
   collImport: 'Importuoti',
   collTemplate: 'Tuščias šablonas pildymui',

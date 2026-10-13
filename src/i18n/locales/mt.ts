@@ -145,6 +145,7 @@ const mt: Messages = {
   collCheckAll: 'Immarka kollox',
   collHave: 'Għandi',
   collLack: 'Nieqsa',
+  collTools: 'Għodod',
   collExport: 'Esporta',
   collImport: 'Importa',
   collTemplate: 'Mudell vojt biex timlih',

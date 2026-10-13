@@ -145,6 +145,7 @@ const fr = {
   collCheckAll: 'Tout cocher',
   collHave: 'Je l’ai',
   collLack: 'Il me manque',
+  collTools: 'Outils',
   collExport: 'Exporter',
   collImport: 'Importer',
   collTemplate: 'Modèle vide à remplir',

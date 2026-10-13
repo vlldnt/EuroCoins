@@ -700,3 +700,20 @@
   margin: 2px 0 0;
   padding-left: 20px;
 }
+
+/* Bouton « Outils » de la barre du haut : discret, il déplie export, import, partage… */
+.coll-tools-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.coll-tools-toggle[aria-expanded='true'] {
+  color: var(--text);
+}
+
+.coll-tools-toggle[aria-expanded='true'] .chevron {
+  transform: rotate(225deg);
+}

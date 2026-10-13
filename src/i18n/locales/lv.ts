@@ -145,6 +145,7 @@ const lv: Messages = {
   collCheckAll: 'Atzīmēt visu',
   collHave: 'Man ir',
   collLack: 'Trūkst',
+  collTools: 'Rīki',
   collExport: 'Eksportēt',
   collImport: 'Importēt',
   collTemplate: 'Tukša veidne aizpildīšanai',

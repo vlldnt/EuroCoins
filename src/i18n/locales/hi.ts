@@ -145,6 +145,7 @@ const hi: Messages = {
   collCheckAll: 'सभी चुनें',
   collHave: 'मेरे पास है',
   collLack: 'नहीं है',
+  collTools: 'टूल',
   collExport: 'निर्यात',
   collImport: 'आयात',
   collTemplate: 'भरने के लिए खाली टेम्पलेट',

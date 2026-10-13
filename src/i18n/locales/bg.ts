@@ -145,6 +145,7 @@ const bg: Messages = {
   collCheckAll: 'Отметни всички',
   collHave: 'Имам я',
   collLack: 'Липсва ми',
+  collTools: 'Инструменти',
   collExport: 'Експортиране',
   collImport: 'Импортиране',
   collTemplate: 'Празен шаблон за попълване',

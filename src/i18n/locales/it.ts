@@ -145,6 +145,7 @@ const it: Messages = {
   collCheckAll: 'Seleziona tutto',
   collHave: 'Ce l’ho',
   collLack: 'Mi manca',
+  collTools: 'Strumenti',
   collExport: 'Esporta',
   collImport: 'Importa',
   collTemplate: 'Modello vuoto da compilare',

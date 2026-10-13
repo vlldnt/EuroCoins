@@ -145,6 +145,7 @@ const ja: Messages = {
   collCheckAll: 'すべて選択',
   collHave: '所有',
   collLack: '未所有',
+  collTools: 'ツール',
   collExport: 'エクスポート',
   collImport: 'インポート',
   collTemplate: '記入用の空のテンプレート',

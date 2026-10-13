@@ -145,6 +145,7 @@ const et: Messages = {
   collCheckAll: 'Märgi kõik',
   collHave: 'Olemas',
   collLack: 'Puudub',
+  collTools: 'Tööriistad',
   collExport: 'Ekspordi',
   collImport: 'Impordi',
   collTemplate: 'Tühi mall täitmiseks',
