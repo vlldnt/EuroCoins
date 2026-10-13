@@ -64,6 +64,7 @@ const hi: Messages = {
   jointIssue: 'संयुक्त निर्गम',
   mintage: 'टकसाल संख्या: {count} सिक्के',
   mintageVariable: 'टकसाल संख्या: देश के अनुसार अलग',
+  coinDescription: 'विवरण',
   mintagesByYear: 'वर्षवार ढलाई संख्या',
   mintageYear: 'वर्ष',
   mintageSets: 'सेट (BU, प्रूफ़): {count} सिक्के',

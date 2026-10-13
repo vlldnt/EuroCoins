@@ -54,7 +54,7 @@ export interface CountryCatalog {
 }
 
 /** Série en circulation une année donnée : la dernière dont l'année de début est connue et atteinte. */
-function seriesOfYear(country: Country, year: number): Series {
+export function seriesOfYear(country: Country, year: number): Series {
   let found = country.series[0]
   for (const s of country.series) if (s.since !== null && s.since <= year) found = s
   return found

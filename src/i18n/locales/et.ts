@@ -64,6 +64,7 @@ const et: Messages = {
   jointIssue: 'Ühisemissioon',
   mintage: 'Tiraaž: {count} münti',
   mintageVariable: 'Tiraaž: riigiti erinev',
+  coinDescription: 'Kirjeldus',
   mintagesByYear: 'Vermimismahud aastate kaupa',
   mintageYear: 'Aasta',
   mintageSets: 'Komplektid (BU, proof): {count} münti',

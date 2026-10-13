@@ -64,6 +64,7 @@ const eo: Messages = {
   jointIssue: 'Komuna eldono',
   mintage: 'Eldonkvanto: {count} moneroj',
   mintageVariable: 'Eldonkvanto: malsama laŭ la lando',
+  coinDescription: 'Priskribo',
   mintagesByYear: 'Eldonkvantoj laŭ jaro',
   mintageYear: 'Jaro',
   mintageSets: 'Kompletoj (BU, proof): {count} moneroj',

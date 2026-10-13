@@ -64,6 +64,7 @@ const de: Messages = {
   jointIssue: 'Gemeinschaftsausgabe',
   mintage: 'Auflage: {count} Münzen',
   mintageVariable: 'Auflage: je nach Land unterschiedlich',
+  coinDescription: 'Beschreibung',
   mintagesByYear: 'Auflagen nach Jahr',
   mintageYear: 'Jahr',
   mintageSets: 'Sätze (st, PP): {count} Münzen',

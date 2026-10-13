@@ -2493,6 +2493,57 @@ body,
   white-space: pre-line;
 }
 
+/* Onglets sous la pièce : description du dessin ou tirages par année. */
+.lightbox-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.lightbox-tabs button {
+  padding: 5px 14px;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: 999px;
+  background: none;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.lightbox-tabs button[aria-selected='true'] {
+  background: rgb(255 255 255 / 0.16);
+  border-color: rgb(255 255 255 / 0.5);
+  opacity: 1;
+}
+
+/* Tirages : une ligne par année, la liste défile sous la pièce. */
+.lightbox-mintages {
+  white-space: normal;
+  opacity: 1;
+}
+
+.lightbox-mintage {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 5px 2px;
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  font-variant-numeric: tabular-nums;
+}
+
+.lightbox-mintage > span {
+  text-align: right;
+  opacity: 0.9;
+}
+
+.lightbox-mintage small {
+  display: block;
+  font-size: 0.78rem;
+  opacity: 0.7;
+}
+
 .lightbox-caption {
   display: inline-flex;
   align-items: center;

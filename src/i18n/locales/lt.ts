@@ -64,6 +64,7 @@ const lt: Messages = {
   jointIssue: 'Bendra emisija',
   mintage: 'Tiražas: {count} monetų',
   mintageVariable: 'Tiražas: priklauso nuo šalies',
+  coinDescription: 'Aprašymas',
   mintagesByYear: 'Tiražai pagal metus',
   mintageYear: 'Metai',
   mintageSets: 'Rinkiniai (BU, proof): {count} monetų',

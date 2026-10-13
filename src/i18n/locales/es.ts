@@ -64,6 +64,7 @@ const es: Messages = {
   jointIssue: 'Emisión conjunta',
   mintage: 'Tirada: {count} monedas',
   mintageVariable: 'Tirada: variable según el país',
+  coinDescription: 'Descripción',
   mintagesByYear: 'Tiradas por año',
   mintageYear: 'Año',
   mintageSets: 'Cartera (SC, proof): {count} monedas',

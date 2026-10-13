@@ -64,6 +64,7 @@ const sl: Messages = {
   jointIssue: 'Skupna izdaja',
   mintage: 'Naklada: {count} kovancev',
   mintageVariable: 'Naklada: odvisna od države',
+  coinDescription: 'Opis',
   mintagesByYear: 'Naklade po letih',
   mintageYear: 'Leto',
   mintageSets: 'Kompleti (BU, proof): {count} kovancev',

@@ -64,6 +64,7 @@ const bg: Messages = {
   jointIssue: 'Съвместна емисия',
   mintage: 'Тираж: {count} монети',
   mintageVariable: 'Тираж: различен за всяка държава',
+  coinDescription: 'Описание',
   mintagesByYear: 'Тираж по години',
   mintageYear: 'Година',
   mintageSets: 'Комплекти (BU, proof): {count} монети',

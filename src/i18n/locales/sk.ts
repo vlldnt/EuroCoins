@@ -64,6 +64,7 @@ const sk: Messages = {
   jointIssue: 'Spoločná emisia',
   mintage: 'Náklad: {count} mincí',
   mintageVariable: 'Náklad: líši sa podľa krajiny',
+  coinDescription: 'Opis',
   mintagesByYear: 'Náklad podľa rokov',
   mintageYear: 'Rok',
   mintageSets: 'Sady (BK, PL): {count} mincí',

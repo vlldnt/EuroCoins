@@ -64,6 +64,7 @@ const lv: Messages = {
   jointIssue: 'Kopīga emisija',
   mintage: 'Tirāža: {count} monētas',
   mintageVariable: 'Tirāža: atšķiras atkarībā no valsts',
+  coinDescription: 'Apraksts',
   mintagesByYear: 'Kalšanas apjoms pa gadiem',
   mintageYear: 'Gads',
   mintageSets: 'Komplekti (BU, proof): {count} monētas',

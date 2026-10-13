@@ -64,6 +64,7 @@ const nl: Messages = {
   jointIssue: 'Gezamenlijke uitgifte',
   mintage: 'Oplage: {count} munten',
   mintageVariable: 'Oplage: verschilt per land',
+  coinDescription: 'Beschrijving',
   mintagesByYear: 'Oplagen per jaar',
   mintageYear: 'Jaar',
   mintageSets: 'Sets (FDC, proof): {count} munten',

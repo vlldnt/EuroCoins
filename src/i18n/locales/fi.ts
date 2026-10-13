@@ -64,6 +64,7 @@ const fi: Messages = {
   jointIssue: 'Yhteinen liikkeeseenlasku',
   mintage: 'Lyöntimäärä: {count} kolikkoa',
   mintageVariable: 'Lyöntimäärä: vaihtelee maittain',
+  coinDescription: 'Kuvaus',
   mintagesByYear: 'Lyöntimäärät vuosittain',
   mintageYear: 'Vuosi',
   mintageSets: 'Rahasarjat (BU, proof): {count} kolikkoa',

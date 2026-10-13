@@ -64,6 +64,7 @@ const en: Messages = {
   jointIssue: 'Joint issue',
   mintage: 'Mintage: {count} coins',
   mintageVariable: 'Mintage: varies by country',
+  coinDescription: 'Description',
   mintagesByYear: 'Mintage by year',
   mintageYear: 'Year',
   mintageSets: 'Sets (BU, proof): {count} coins',

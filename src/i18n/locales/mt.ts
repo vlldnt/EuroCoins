@@ -64,6 +64,7 @@ const mt: Messages = {
   jointIssue: 'Ħruġ konġunt',
   mintage: 'Ħruġ: {count} munita',
   mintageVariable: 'Ħruġ: ivarja minn pajjiż għal ieħor',
+  coinDescription: 'Deskrizzjoni',
   mintagesByYear: 'Ħruġ skont is-sena',
   mintageYear: 'Sena',
   mintageSets: 'Settijiet (BU, proof): {count} munita',

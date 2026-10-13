@@ -21,6 +21,9 @@ export interface ImportResult {
   unknown: number
 }
 
+/** Drapeau d'un pays en émoji (deux lettres régionales) : « fr » → 🇫🇷. */
+export const flagEmoji = (iso: string) => String.fromCodePoint(...[...iso.toUpperCase()].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65))
+
 /** « Série 2 (depuis 2022) ». */
 export function seriesLabel(texts: FileTexts, series: Series): string {
   const name = texts.t('seriesN', { n: series.index })

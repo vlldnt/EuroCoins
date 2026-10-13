@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { asset } from '../data'
 import { useI18n } from '../i18n'
 import { Flag } from './Flag'
 import { CloseIcon } from './CloseIcon'
+import type { YearMintage } from '../mintages'
 import type { Route } from '../routes'
 
 export interface ZoomItem {
@@ -10,6 +11,8 @@ export interface ZoomItem {
   caption: string
   /** Ce que représente la pièce (texte BCE). */
   text?: string
+  /** Tirages de la pièce par année, la plus récente en premier. */
+  mintages?: [number, YearMintage][]
   /** Pays de la pièce : drapeau dans la légende. */
   iso?: string
   /** Adresse de la pièce : affichée dans la barre du navigateur tant que la pièce est ouverte. */
@@ -27,8 +30,22 @@ interface Props {
 
 // Carrousel plein écran : flèches ←/→, Échap, boutons, miniatures et glissement au doigt.
 export function Lightbox({ items, index, leaving = false, onIndex, onClose }: Props) {
-  const { t } = useI18n()
+  const { t, lang } = useI18n()
   const item = items[index]
+  // Onglet affiché sous la pièce quand elle a une description et des tirages ; il reste le même
+  // d'une pièce à l'autre.
+  const [info, setInfo] = useState<'text' | 'mintages'>('text')
+  const number = useMemo(() => new Intl.NumberFormat(lang), [lang])
+  const mintages = item.mintages?.length ? item.mintages : null
+  const shown = mintages && (info === 'mintages' || !item.text) ? 'mintages' : 'text'
+
+  // Tirage d'une année : pièces de circulation, et coffrets à part quand il y en a.
+  const mintageOf = ([circulation, sets]: YearMintage) => {
+    const setsText = sets ? t('mintageSets', { count: number.format(sets) }) : ''
+    if (circulation === null) return [t('mintageUnknown'), setsText]
+    if (circulation > 0) return [number.format(circulation), setsText]
+    return [setsText || t('mintageNone'), '']
+  }
   const canNavigate = items.length > 1
   const thumbsRef = useRef<HTMLDivElement>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
@@ -115,7 +132,32 @@ export function Lightbox({ items, index, leaving = false, onIndex, onClose }: Pr
               {item.iso && <Flag id={item.iso} />}
               {item.caption}
             </span>
-            {item.text && <span className="lightbox-text">{item.text}</span>}
+            {item.text && mintages && (
+              <span className="lightbox-tabs" role="tablist">
+                {(['text', 'mintages'] as const).map((id) => (
+                  <button key={id} role="tab" aria-selected={shown === id} onClick={() => setInfo(id)}>
+                    {t(id === 'text' ? 'coinDescription' : 'mintagesByYear')}
+                  </button>
+                ))}
+              </span>
+            )}
+            {shown === 'text' && item.text && <span className="lightbox-text">{item.text}</span>}
+            {shown === 'mintages' && mintages && (
+              <span className="lightbox-text lightbox-mintages" tabIndex={0} role="region" aria-label={t('mintagesByYear')}>
+                {mintages.map(([year, m]) => {
+                  const [main, sets] = mintageOf(m)
+                  return (
+                    <span className="lightbox-mintage" key={year}>
+                      <strong>{year}</strong>
+                      <span>
+                        {main}
+                        {sets && <small>{sets}</small>}
+                      </span>
+                    </span>
+                  )
+                })}
+              </span>
+            )}
             {canNavigate && (
               <span className="lightbox-position" aria-hidden="true">
                 {index + 1} / {items.length}

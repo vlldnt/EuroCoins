@@ -64,6 +64,7 @@ const ca: Messages = {
   jointIssue: 'Emissió conjunta',
   mintage: 'Tiratge: {count} monedes',
   mintageVariable: 'Tiratge: variable segons el país',
+  coinDescription: 'Descripció',
   mintagesByYear: 'Tiratges per any',
   mintageYear: 'Any',
   mintageSets: 'Cartera (SC, proof): {count} monedes',

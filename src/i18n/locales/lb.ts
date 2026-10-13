@@ -64,6 +64,7 @@ const lb: Messages = {
   jointIssue: 'Gemeinsam Emissioun',
   mintage: 'Oplo: {count} Mënzen',
   mintageVariable: 'Oplo: ënnerschiddlech je no Land',
+  coinDescription: 'Beschreiwung',
   mintagesByYear: 'Oplagen no Joer',
   mintageYear: 'Joer',
   mintageSets: 'Sätz (st, PP): {count} Mënzen',

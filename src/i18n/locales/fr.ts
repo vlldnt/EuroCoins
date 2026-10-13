@@ -64,6 +64,7 @@ const fr = {
   jointIssue: 'Émission commune',
   mintage: 'Tirage : {count} pièces',
   mintageVariable: 'Tirage : variable selon le pays',
+  coinDescription: 'Description',
   mintagesByYear: 'Tirages par année',
   mintageYear: 'Année',
   mintageSets: 'Coffrets (BU, BE) : {count} pièces',

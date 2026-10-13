@@ -3,7 +3,7 @@ import {
   AD, AT, BE, BG, CY, DE, EE, ES, FI, FR, GR, HR, IE, IT, LT, LU, LV, MC, MT, NL, PT, SI, SK, SM, VA,
 } from 'country-flag-icons/string/3x2'
 import { DENOMINATION_IDS, catalog, type CollectionMode, type CountryCatalog } from './collection'
-import { isMarked, keepKnown, seriesLabel, type FileTexts, type ImportResult } from './collectionFiles'
+import { isMarked, keepKnown, seriesLabel, type FileTexts, type ImportResult, flagEmoji } from './collectionFiles'
 
 // Classeur Excel de la collection (chargé à la demande : voir collectionFiles.ts).
 //   1. « Résumé » : totaux par pays, calculés par des formules (ils suivent ce qu'on coche à la main).
@@ -46,7 +46,6 @@ const border: Partial<ExcelJS.Borders> = {
 const solid = (argb: string): ExcelJS.Fill => ({ type: 'pattern', pattern: 'solid', fgColor: { argb } })
 
 /** « fr » → 🇫🇷 (affiché en lettres « FR » par Excel sous Windows). */
-const flagEmoji = (iso: string) => String.fromCodePoint(...[...iso.toUpperCase()].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65))
 
 /** Drapeau SVG → PNG (Excel n'affiche pas le SVG partout). */
 function flagPng(svg: string): Promise<string | null> {

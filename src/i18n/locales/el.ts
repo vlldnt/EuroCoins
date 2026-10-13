@@ -64,6 +64,7 @@ const el: Messages = {
   jointIssue: 'Κοινή έκδοση',
   mintage: 'Κοπή: {count} κέρματα',
   mintageVariable: 'Κοπή: διαφέρει ανά χώρα',
+  coinDescription: 'Περιγραφή',
   mintagesByYear: 'Κοπές ανά έτος',
   mintageYear: 'Έτος',
   mintageSets: 'Σετ (BU, proof): {count} κέρματα',

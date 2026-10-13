@@ -64,6 +64,7 @@ const ja: Messages = {
   jointIssue: '共同発行',
   mintage: '発行枚数：{count} 枚',
   mintageVariable: '発行枚数：国により異なる',
+  coinDescription: '説明',
   mintagesByYear: '年別発行枚数',
   mintageYear: '年',
   mintageSets: 'セット（BU・プルーフ）：{count} 枚',

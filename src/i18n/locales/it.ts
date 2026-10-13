@@ -64,6 +64,7 @@ const it: Messages = {
   jointIssue: 'Emissione congiunta',
   mintage: 'Tiratura: {count} monete',
   mintageVariable: 'Tiratura: variabile da paese a paese',
+  coinDescription: 'Descrizione',
   mintagesByYear: 'Tirature per anno',
   mintageYear: 'Anno',
   mintageSets: 'Divisionali (FDC, proof): {count} monete',

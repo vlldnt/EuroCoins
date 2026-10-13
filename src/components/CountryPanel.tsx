@@ -18,6 +18,8 @@ import {
   type CoinLayout,
   type CommLayout,
 } from '../settings'
+import { seriesOfYear } from '../collection'
+import { mintagesFor, type YearMintage } from '../mintages'
 import { useI18n } from '../i18n'
 import { useCoinTexts } from '../i18n/useCoinTexts'
 import type { ZoomItem } from './Lightbox'
@@ -254,6 +256,14 @@ function RegularSeries({
   // Série la plus récente en premier (affichage et carrousel).
   const seriesNewestFirst = [...country.series].reverse()
 
+  // Tirages d'une pièce : les années où sa série était en circulation, la plus récente en premier.
+  const byDenomination = mintagesFor(country.iso)
+  const yearsOf = (series: number, denomination: DenominationId): [number, YearMintage][] =>
+    Object.entries(byDenomination[denomination] ?? {})
+      .map(([year, m]): [number, YearMintage] => [Number(year), m])
+      .filter(([year]) => seriesOfYear(country, year).index === series)
+      .sort((a, b) => b[0] - a[0])
+
   const items = seriesNewestFirst.flatMap((s) =>
     data.denominations.flatMap((d) => {
       const image = s.coins[d.id]
@@ -263,6 +273,7 @@ function RegularSeries({
               image,
               caption: caption(denominationLabel(d.id), s.index),
               text: regularDescription(image),
+              mintages: yearsOf(s.index, d.id),
               iso: country.iso,
               route: { kind: 'coin' as const, iso: country.iso, denomination: d.id, series: s.index },
             },

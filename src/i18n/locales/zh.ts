@@ -64,6 +64,7 @@ const zh: Messages = {
   jointIssue: '联合发行',
   mintage: '发行量：{count} 枚',
   mintageVariable: '发行量：各国不同',
+  coinDescription: '说明',
   mintagesByYear: '年度铸造量',
   mintageYear: '年份',
   mintageSets: '套装（BU、精制）：{count} 枚',

@@ -64,6 +64,7 @@ const hr: Messages = {
   jointIssue: 'Zajedničko izdanje',
   mintage: 'Naklada: {count} kovanica',
   mintageVariable: 'Naklada: razlikuje se po državama',
+  coinDescription: 'Opis',
   mintagesByYear: 'Naklade po godinama',
   mintageYear: 'Godina',
   mintageSets: 'Setovi (BU, proof): {count} kovanica',
