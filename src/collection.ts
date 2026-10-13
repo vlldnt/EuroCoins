@@ -245,6 +245,11 @@ export function setOwned(ids: Iterable<string>, value: boolean) {
   commit(next)
 }
 
+/** Inverse une pièce d'après l'état du moment : deux appuis très rapprochés ne se marchent pas dessus. */
+export function toggleOwned(id: string) {
+  setOwned([id], !owned.has(id))
+}
+
 /** Remplace toute la collection (import d'un fichier, remise à zéro). */
 export function replaceCollection(ids: Iterable<string>) {
   const next = new Set<string>()

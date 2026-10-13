@@ -8,6 +8,7 @@ import {
   readCollectionMode,
   regularIds,
   setOwned,
+  toggleOwned,
   useCollection,
   writeCollectionMode,
   type CollectionFilter,
@@ -83,6 +84,9 @@ function Check({
     </label>
   )
 }
+
+// Appareil avec une souris (ou un pavé tactile) : l'aperçu au survol y a un sens.
+const CAN_HOVER = window.matchMedia('(hover: hover)').matches
 
 // Page « Ma collection » : résumé par pays, pièces courantes (par série ou par année) et 2 €
 // commémoratives. Un clic sur une pièce la coche ; tout est gardé dans le navigateur.
@@ -167,15 +171,16 @@ export function Collection({ shared, onMine, onClose }: { shared: string | null;
 
   /** Survol : aperçu ; clic : coche ou décoche (l'aperçu se referme). */
   const coinProps = (id: string, has: boolean, content: PreviewContent) => {
-    const bound = preview.bind(content)
+    // Écran tactile : pas d'aperçu au survol, il ne ferait que ralentir les appuis.
+    const bound = CAN_HOVER ? preview.bind(content) : null
     return {
       ...bound,
       'aria-pressed': has,
       // Lecture seule : « aria-disabled » et non « disabled », qui couperait aussi le survol.
       'aria-disabled': readOnly,
       onClick: () => {
-        bound.onClick()
-        if (!readOnly) setOwned([id], !has)
+        bound?.onClick()
+        if (!readOnly) toggleOwned(id)
       },
     }
   }

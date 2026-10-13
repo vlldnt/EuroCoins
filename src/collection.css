@@ -11,6 +11,9 @@
   color: var(--text);
   text-align: left;
   text-shadow: none;
+  /* Appuis rapprochés : sans cela, le téléphone prend deux appuis voisins pour un « double appui
+     pour zoomer » et n'en transmet qu'un. Le pincement et le défilement restent possibles. */
+  touch-action: manipulation;
   animation: fade-in 0.2s var(--ease);
 }
 
@@ -419,12 +422,15 @@
   border: 2px dashed var(--border);
 }
 
-.coll-coin:hover {
-  border-color: var(--border);
-}
+/* Survol à la souris seulement : au doigt, l'état « survolé » resterait collé à la dernière pièce. */
+@media (hover: hover) {
+  .coll-coin:hover {
+    border-color: var(--border);
+  }
 
-.coll-coin:hover img {
-  transform: scale(1.06);
+  .coll-coin:hover img {
+    transform: scale(1.06);
+  }
 }
 
 .coll-coin[aria-pressed='true'] {
