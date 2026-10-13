@@ -1,5 +1,5 @@
 // Génère le logo et les icônes (onglet, écran d'accueil iPhone/Android, PWA) à partir de
-// scripts/assets/logo.jpeg (dessin sur fond blanc). Le fond blanc est retiré : le logo du site et
+// scripts/assets/logo.png (dessin sur fond blanc). Le fond blanc est retiré : le logo du site et
 // de l'onglet est transparent, il se pose donc sur le fond clair ou sombre du thème. Les icônes
 // d'écran d'accueil, que le téléphone n'affiche pas en transparence, gardent un fond blanc.
 // Usage : npm run build-icons
@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const SOURCE = path.join(ROOT, 'scripts', 'assets', 'logo.jpeg')
+const SOURCE = path.join(ROOT, 'scripts', 'assets', 'logo.png')
 const PUBLIC = path.join(ROOT, 'public')
 const WHITE = { r: 255, g: 255, b: 255, alpha: 1 }
 const CLEAR = { r: 0, g: 0, b: 0, alpha: 0 }

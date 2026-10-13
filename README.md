@@ -15,7 +15,7 @@ Source des images et des textes : [Banque centrale européenne](https://www.ecb.
 
 ## Application (PWA)
 
-Le site est une application installable : bouton **« Installer l'application »** dans l'en-tête (Chrome, Edge, Android), ou sur iPhone **Partager → « Sur l'écran d'accueil »**. Installée, elle s'ouvre en plein écran, **sans barre d'adresse**, et fonctionne hors ligne (service worker généré par `vite-plugin-pwa` : l'application est gardée d'avance, les photos et textes au fil de la consultation). Icônes : `npm run build-icons` (source : `scripts/assets/logo.jpeg`, fond blanc retiré par le script).
+Le site est une application installable : bouton **« Installer l'application »** dans l'en-tête (Chrome, Edge, Android), ou sur iPhone **Partager → « Sur l'écran d'accueil »**. Installée, elle s'ouvre en plein écran, **sans barre d'adresse**, et fonctionne hors ligne (service worker généré par `vite-plugin-pwa` : l'application est gardée d'avance, les photos et textes au fil de la consultation). Icônes : `npm run build-icons` (source : `scripts/assets/logo.png`, fond blanc retiré par le script).
 
 ## Démarrer
 
